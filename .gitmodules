@@ -1,0 +1,6 @@
+[submodule "libft"]
+	path = libft
+	url = https://github.com/Sithi5/libft.git
+[submodule "miniprintf"]
+	path = miniprintf
+	url = https://github.com/Sithi5/miniprintf.git
