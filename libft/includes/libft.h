@@ -24,7 +24,7 @@ typedef struct		s_list
 	int				i;
 	int				weight;
 	int				*tab;
-	int				*ttab;
+	int				**ttab;
 	size_t			content_size;
 	struct s_list	*next;
 	struct s_list	*biggest;

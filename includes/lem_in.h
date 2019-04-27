@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/24 13:59:50 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/26 18:41:32 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ typedef struct						s_struct
 	int								flag_n;
 	int								start_pos;
 	int								end_pos;
-	int								max_w;
 	long long						totalroom;
-
-	int								*pastway;
 
 	int								**matrice;
 	int								**weight;
@@ -110,12 +107,10 @@ void								ft_apply_flag(t_s *s);
 
 int									ft_set_paths_start(t_s *s);
 void								ft_set_maxway(t_s *s);
-void								ft_set_paths(t_s *s, int line, int weight);
+void								ft_set_paths(t_s *s);
 
+int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
+t_list 								*ft_create_elem_tab_way(t_s *s, int i);
 void								ft_list_print_int_remake(t_s *s);
-int									ft_add_to_ways(t_s *s
-									, t_list **begin_list, int weight);
-int									ft_replace_to_ways(t_s *s
-									, t_list **begin_list, int weight);
 
 #endif
