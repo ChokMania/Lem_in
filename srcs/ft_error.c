@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/24 14:57:33 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/26 18:39:37 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	ft_error(t_s *s, int error)
 			ft_inttabdel(&s->weight, s->totalroom);
 		if (error <= -6)
 			ft_strtabdel(&s->namematrice);
-		if (error <= -7)
-			free(s->pastway);
 		ft_clear_struct(s);
 	}
 	exit(0);

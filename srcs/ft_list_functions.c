@@ -6,63 +6,62 @@
 /*   By: mabouce <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/24 15:14:47 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/26 18:59:45 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_list		*ft_create_elem_tab_int(t_s *s, int weight)
+
+t_list		*ft_create_elem_tab_way(t_s *s, int i)
 {
 	t_list	*new;
-	int		*tab;
+	int		**tab;
+	int		j;
+	int		k;
 
-	s->k = -1;
-	if (!(tab = (int *)malloc(sizeof(int) * s->totalroom)))
+	if (!(tab = (int **)malloc(sizeof(int *) * (3))))
 		return (0);
-	while (++s->k < s->totalroom)
-		tab[s->k] = s->pastway[s->k];
+	j = 0;
+	while (j < 3)
+	{
+		k = 0;
+		if (!(tab[j] = (int *)malloc(sizeof(int) * s->totalroom)))
+		{
+			ft_inttabdel(&tab, s->totalroom);
+			return (0);
+		}
+		while (k < s->totalroom)
+		{
+			tab[j][k] = 0;
+			k++;
+		}
+		j++;
+	}
+	tab[0][0] = s->start_pos;
 	if (!(new = malloc(sizeof(t_list))))
 		return (NULL);
 	new->next = NULL;
-	new->biggest = NULL;
-	new->tab = tab;
-	new->weight = weight;
+	new->i = i;
+	new->ttab = tab;
 	return (new);
 }
 
-void		ft_set_biggest(t_list **begin_list, t_list *biggest)
-{
-	t_list *beg;
-
-	beg = *begin_list;
-	while (beg)
-	{
-		beg->biggest = biggest;
-		beg = beg->next;
-	}
-}
-
-int			ft_add_to_ways(t_s *s, t_list **begin_list, int weight)
+int			ft_ways_push_front(t_s *s, t_list **begin_list, int i)
 {
 	t_list	*tmp;
 
 	if (*begin_list && begin_list)
 	{
-		if (!(tmp = ft_create_elem_tab_int(s, weight)))
+		if (!(tmp = ft_create_elem_tab_way(s, i)))
 			return (0);
 		tmp->next = (*begin_list);
 		(*begin_list) = tmp;
-		if (tmp->weight <= tmp->next->biggest->weight)
-			tmp->biggest = tmp->next->biggest;
-		else
-			ft_set_biggest(begin_list, tmp);
 	}
 	else
 	{
-		if (!((*begin_list) = ft_create_elem_tab_int(s, weight)))
+		if (!((*begin_list) = ft_create_elem_tab_way(s, i)))
 			return (0);
-		(*begin_list)->biggest = (*begin_list);
 	}
 	return (1);
 }
@@ -88,24 +87,4 @@ void		ft_list_print_int_remake(t_s *s)
 		}
 		beg = beg->next;
 	}
-}
-
-int			ft_replace_to_ways(t_s *s, t_list **begin_list, int weight)
-{
-	t_list	*new_biggest;
-	t_list	*tmp;
-
-	if (!begin_list)
-		return (0);
-	tmp = *begin_list;
-	if (tmp->biggest && tmp == tmp->biggest)
-		ft_list_remove_first_int(begin_list);
-	else if (tmp->biggest && tmp->biggest->next)
-		ft_list_remove_middle_int(begin_list, tmp->biggest);
-	else if (tmp->biggest && !tmp->biggest->next)
-		ft_list_remove_last_int(begin_list);
-	else
-		return (0);
-	ft_add_to_ways(s, begin_list, weight);
-	return (1);
 }

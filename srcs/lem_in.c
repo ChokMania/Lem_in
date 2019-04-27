@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/24 15:24:38 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/26 18:59:41 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,13 +98,11 @@ int		main(int ac, char **av)
 		ft_error(s, ret);
 	if ((ret = ft_set_matrice_laplacienne(s)) < 1)
 		ft_error(s, ret);
-	ft_set_paths_start(s);
-//	ft_select_paths(s);
 	ft_apply_flag(s);
+	ft_set_paths_start(s);
 	ft_inttabdel(&s->matrice, s->totalroom);
 	ft_inttabdel(&s->weight, s->totalroom);
 	ft_strtabdel(&s->namematrice);
-	free(s->pastway);
 	ft_clear_struct(s);
 	return (0);
 }

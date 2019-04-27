@@ -6,7 +6,7 @@
 /*   By: mabouce <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/24 15:24:00 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/26 18:59:43 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,20 @@ int			ft_total_weight(t_s *s, int weight)
 	return ((s->nbant + totalweight + weight - 1) / (totalway + 1));
 }
 
-void		ft_set_paths(t_s *s, int line, int weight)
+void		ft_set_paths(t_s *s)
 {
-	int	j;
+	int i;
 
-	j = -1;
-	if (line == s->end_pos)
+	i = 0;
+	while (i < s->start_pos)
 	{
-		if (s->maxway-- > 0)
-			!ft_add_to_ways(s, &s->ways, weight) ? ft_error(s, -7) : 0;
-		else if (weight < s->ways->biggest->weight)
-			!(ft_replace_to_ways(s, &s->ways, weight)) ? ft_error(s, -7) : 0;
-		else if (s->totalplays > (s->k = ft_total_weight(s, weight)))
-			if ((s->totalplays = s->k) && !ft_add_to_ways(s, &s->ways, weight))
-				ft_error(s, -7);
+		if (s->matrice[s->start_pos][i] == 1)
+			ft_ways_push_front(s, &s->ways, i);
+		i++;
 	}
-	else
-		while (++j < s->totalroom)
-			if (j != line && s->matrice[line][j] == 1)
-				if ((s->weight[j][0] && weight + 1 <= s->weight[j][0])
-						|| !s->weight[j][0])
-				{
-					s->pastway[weight] = j;
-					s->weight[line][0] = weight;
-					ft_set_paths(s, j, weight + 1);
-				}
-	s->pastway[weight - 1] = -1;
+	miniprintf("%%start paths = %i\n%%", "RED", ft_list_size(s->ways), "END");
+	s->ways = s->ways->next;
+	ft_print_tab_tab_int(s->ways->ttab, 3, s->totalroom);
 }
 
 void		ft_set_maxway(t_s *s)
@@ -71,14 +59,7 @@ int			ft_set_paths_start(t_s *s)
 	s->i = -1;
 	s->totalplays = s->totalroom * s->nbant;
 	ft_set_maxway(s);
-	s->max_w = s->totalroom;
-	if (!(s->pastway = (int *)malloc(sizeof(int) * s->totalroom)))
-		ft_error(s, -6);
-	while (++s->i < s->totalroom)
-		s->pastway[s->i] = -1;
-	s->pastway[0] = s->start_pos;
-	ft_set_paths(s, s->start_pos, 1);
-	ft_list_print_int_remake(s);
+	ft_set_paths(s);
 	if (!s->ways)
 		ft_error(s, -7);
 	return (1);
