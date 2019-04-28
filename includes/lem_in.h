@@ -53,8 +53,11 @@ typedef struct						s_struct
 
 	int								**matrice;
 	int								**weight;
+	int								**ants_in_way;
+	int								**finalway;
 
 	char							**namematrice;
+	char							**color;
 	char							**av;
 
 	char							*str;
@@ -112,5 +115,7 @@ void								ft_set_paths(t_s *s);
 int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 t_list 								*ft_create_elem_tab_way(t_s *s, int i);
 void								ft_list_print_int_remake(t_s *s);
+int									ft_lenint(int *tab);
+int									ft_print_path(t_s *s);
 
 #endif

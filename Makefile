@@ -6,7 +6,7 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/04/23 13:43:33 by judumay          ###   ########.fr        #
+#    Updated: 2019/04/26 11:55:46 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS_NAME			=	lem_in.c		\
 					ft_flags.c			\
 					ft_set_paths.c		\
 					ft_list_functions.c	\
+					ft_print_path.c		\
 
 INCLUDES_NAME			=	lem_in.h
 

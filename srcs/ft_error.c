@@ -12,6 +12,16 @@
 
 #include "lem_in.h"
 
+int		ft_lenint(int *tab)
+{
+	int		i;
+
+	i = 0;
+	while (tab[i] != -1)
+		i++;
+	return (i);
+}
+
 void	ft_error(t_s *s, int error)
 {
 	ft_putstr("error num = ");
