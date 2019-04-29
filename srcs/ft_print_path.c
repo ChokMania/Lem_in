@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/04/26 18:29:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/04/29 19:36:08 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			*ft_intdup(int *i1, int len)
 	return (i2);
 }
 
-void		ft_move_ants(t_s *s, int ants)
+void		ft_move_ants(t_s *s, int ants, t_list *beg)
 {
 	int		i;
 
@@ -60,6 +60,7 @@ void		ft_move_ants(t_s *s, int ants)
 					miniprintf("%s", s->color[s->j]);
 				miniprintf("L%d-%s", s->ants_in_way[s->j][i + 1],
 					s->namematrice[s->finalway[s->j][i + 1]]);
+					//s->namematrice[beg->ttab[0][i + 1]]);
 				if (s->j != s->maxway - 1)
 					miniprintf(" ");
 				miniprintf("\x1b[0m");
@@ -71,6 +72,8 @@ void		ft_move_ants(t_s *s, int ants)
 
 void		ft_print_path_suite(t_s *s, int number_ants)
 {
+	//t_list	*beg;
+
 	s->i = 0;
 	s->p = 1;
 	while (s->p)
@@ -78,13 +81,16 @@ void		ft_print_path_suite(t_s *s, int number_ants)
 		s->p = 0;
 		s->i == 0 ? s->p = 1 : 0;
 		s->j = -1;
+		//beg = s->final_ways;
 		while (++s->j < s->maxway)
 		{
 			s->k = ft_lenint(s->finalway[s->j]);
+			//s->k = ft_lenint(s->finalway->ttab[0]);
 			number_ants = number_ants < s->nbant
 				&& number_ants > -1 ? number_ants + 1 : -1;
 			if (s->i != 0)
 				ft_move_ants(s, number_ants);
+				//ft_move_ants(s, number_ants, beg);
 			s->ants_in_way[s->j][0] = number_ants;
 		}
 		s->i++;
