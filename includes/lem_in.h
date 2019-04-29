@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/26 18:41:32 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/29 19:27:54 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct						s_struct
 	t_list							*comment;
 	t_list							*command;
 	t_list							*ways;
+	t_list							*finalways;
 	t_room							*room;
 }									t_s;
 
@@ -107,10 +108,12 @@ void								ft_apply_flag(t_s *s);
 
 int									ft_set_paths_start(t_s *s);
 void								ft_set_maxway(t_s *s);
-void								ft_set_paths(t_s *s);
+int									ft_set_paths(t_s *s);
 
 int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 t_list 								*ft_create_elem_tab_way(t_s *s, int i);
 void								ft_list_print_int_remake(t_s *s);
+t_list 								*ft_create_elem_tab_final_way(t_s *s, t_list *copy);
+int									ft_list_copy(t_s *s, t_list **begin_list, t_list *copy);
 
 #endif

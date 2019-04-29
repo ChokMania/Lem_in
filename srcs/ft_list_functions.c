@@ -6,7 +6,7 @@
 /*   By: mabouce <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/26 18:59:45 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/29 19:25:33 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,73 @@ t_list		*ft_create_elem_tab_way(t_s *s, int i)
 		}
 		while (k < s->totalroom)
 		{
-			tab[j][k] = 0;
+			tab[j][k] = -5;
 			k++;
 		}
 		j++;
 	}
-	tab[0][0] = s->start_pos;
+	tab[0][0] = i;
+	tab[1][0] = 1;
 	if (!(new = malloc(sizeof(t_list))))
 		return (NULL);
+	new->finished = 0;
 	new->next = NULL;
-	new->i = i;
+	new->i = s->i;
 	new->ttab = tab;
 	return (new);
+}
+
+t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy)
+{
+	t_list	*new;
+	int		**tab;
+	int		j;
+	int		k;
+
+	if (!(tab = (int **)malloc(sizeof(int *) * (3))))
+		return (0);
+	j = 0;
+	while (j < 3)
+	{
+		k = 0;
+		if (!(tab[j] = (int *)malloc(sizeof(int) * s->totalroom)))
+		{
+			ft_inttabdel(&tab, s->totalroom);
+			return (0);
+		}
+		while (k < s->totalroom)
+		{
+			tab[j][k] = copy->ttab[j][k];
+			k++;
+		}
+		j++;
+	}
+	if (!(new = malloc(sizeof(t_list))))
+		return (NULL);
+	new->finished = 1;
+	new->next = NULL;
+	new->i = s->i;
+	new->ttab = tab;
+	return (new);
+}
+
+int			ft_list_copy(t_s *s, t_list **begin_list, t_list *copy)
+{
+	t_list	*tmp;
+
+	if (*begin_list && begin_list)
+	{
+		if (!(tmp = ft_create_elem_tab_final_way(s, copy)))
+			return (0);
+		tmp->next = (*begin_list);
+		(*begin_list) = tmp;
+	}
+	else
+	{
+		if (!((*begin_list) = ft_create_elem_tab_final_way(s, copy)))
+			return (0);
+	}
+	return (1);
 }
 
 int			ft_ways_push_front(t_s *s, t_list **begin_list, int i)
