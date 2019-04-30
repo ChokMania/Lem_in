@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/29 19:27:54 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/30 16:47:19 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void								ft_set_flags(t_s *s);
 void								ft_apply_flag(t_s *s);
 
 int									ft_set_paths_start(t_s *s);
-void								ft_set_maxway(t_s *s);
+long long							ft_set_maxway(t_s *s);
 int									ft_set_paths(t_s *s);
 
 int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);

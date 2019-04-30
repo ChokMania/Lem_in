@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:15:58 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/26 14:03:45 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/30 18:16:54 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void		ft_print_matrice_suite(t_s *s, int i, int j)
 void		ft_print_matrice(t_s *s)
 {
 	long long	i;
-	long long	j;
 
 	if (s->flag_c && s->flag_m)
 	{

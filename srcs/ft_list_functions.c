@@ -6,7 +6,7 @@
 /*   By: mabouce <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/29 19:25:33 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/04/30 18:18:25 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_list		*ft_create_elem_tab_way(t_s *s, int i)
 		return (NULL);
 	new->finished = 0;
 	new->next = NULL;
-	new->i = s->i;
+	new->i = s->i++;
 	new->ttab = tab;
 	return (new);
 }
@@ -78,7 +78,7 @@ t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy)
 		return (NULL);
 	new->finished = 1;
 	new->next = NULL;
-	new->i = s->i;
+	new->i = s->i++;
 	new->ttab = tab;
 	return (new);
 }
@@ -89,10 +89,11 @@ int			ft_list_copy(t_s *s, t_list **begin_list, t_list *copy)
 
 	if (*begin_list && begin_list)
 	{
-		if (!(tmp = ft_create_elem_tab_final_way(s, copy)))
+		tmp = *begin_list;
+		while (tmp->next)
+			tmp = tmp->next;
+		if (!(tmp->next = ft_create_elem_tab_final_way(s, copy)))
 			return (0);
-		tmp->next = (*begin_list);
-		(*begin_list) = tmp;
 	}
 	else
 	{
