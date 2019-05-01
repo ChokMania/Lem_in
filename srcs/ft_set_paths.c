@@ -6,7 +6,7 @@
 /*   By: mabouce <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/30 18:40:14 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/05/01 17:10:12 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,25 @@ int		ft_way_is_in_conflict(t_s *s, t_list *first, t_list *second)
 	int	j;
 
 	i = 0;
-	while (i < s->totalroom)
+	miniprintf("print compared tabs\n");
+	ft_print_tab_int(first->ttab[0], s->totalroom);
+	miniprintf("\n\n");
+	ft_print_tab_int(second->ttab[0], s->totalroom);
+	miniprintf("\n\n");
+	while (i < s->totalroom && first->ttab[0][i] != -5)
 	{
-		if (first->ttab[0][i] < 0)
-			return (0);
-		j = 0;
-		while (j < s->totalroom)
+		if (first->ttab[2][i] == 1)
 		{
-			if (second->ttab[0][j] < 0)
-				return (0);
-			else if (second->ttab[0][j] == first->ttab[0][i])
-				return (1);
-			j++;
+			j = 0;
+			while (j < s->totalroom && second->ttab[0][j] != -5)
+			{
+				if (second->ttab[2][j] == 1 && second->ttab[0][j] == first->ttab[0][i])
+				{
+					miniprintf("\n1\n");
+					return (1);
+				}
+				j++;
+			}
 		}
 		i++;
 	}
@@ -125,7 +132,7 @@ int		ft_lenint(int *tab, t_s *s)
 }
 
 
-long long	ft_calc_nb_room_by_ways(t_s *s, int *tab, int maxway)
+long long	ft_calc_nb_room_by_ways(t_s *s, t_list *current, int maxway)
 {
 	int			i;
 	int			j;
@@ -134,11 +141,11 @@ long long	ft_calc_nb_room_by_ways(t_s *s, int *tab, int maxway)
 
 	i = 0;
 	count = 0;
+	j = 0;
 	beg = s->finalways;
 	while (i < maxway)
 	{
-		j = 0;
-		while (j < tab[i])
+		while (beg && j < current->tab[i] && current->tab[i] != -5)
 		{
 			j++;
 			beg = beg->next;
@@ -149,57 +156,14 @@ long long	ft_calc_nb_room_by_ways(t_s *s, int *tab, int maxway)
 	return (count);
 }
 
-long long	ft_best_ways_found_recursiv(t_s *s, int maxway, t_list *current)
-{
-	t_list *first;
-	int i;
-	int j;
-
-	if (!(current->tab = (int *)malloc(sizeof(int) * s->totalroom)))
-		return (0);
-	ft_memset((void *)(current->tab), -5, s->totalroom);
-	maxway = ft_set_maxway(s);
-	i = 0;
-	j = 0;
-	first = s->finalways;
-	while (first && maxway > 0)
-	{
-		if (!ft_way_is_in_conflict(s, first, current))
-		{
-			current->tab[i] = j;
-			maxway--;	
-			i++;
-		}
-		j++;
-		first = first->next;
-	}
-	if (maxway > 0)
-	{
-		//need to free current->tab
-		return (0);
-	}
-	return (ft_calc_nb_room_by_ways(s, current->tab, maxway));
-}
-
 int		ft_best_ways_found(t_s *s)
 {
-	t_list *current;
-	long long	maxway;
-	long long   bestresult;
-	long long   currentresult;
-
-	maxway = ft_set_maxway(s);
-	current = s->finalways;
-	bestresult = 0;
-	currentresult = 0;
-	while (current)
-	{
-		if ((currentresult = ft_best_ways_found_recursiv(s, maxway, current)))
-			if (bestresult == 0 || bestresult > currentresult)
-				bestresult = currentresult;
-		current = current->next;
-	}
-	return (1);
+	s->maxwaytwo = ft_set_maxway(s);
+	s->p = 0;
+	if (ft_recursively_find_best_way(s, s->finalways, s->finalways, 0))
+		return (1);
+	else
+		return (0);
 }
 
 void	ft_print_ways(t_s *s)
@@ -259,7 +223,7 @@ int		ft_set_paths(t_s *s)
 					s->maxway--;
 					beg->finished = 1;
 					ft_list_copy(s, &s->finalways, beg);
-					if (s->maxway <= 0)
+					if (s->maxway <= -2)
 					{
 						if (ft_best_ways_found(s))
 							return (1);
@@ -305,10 +269,16 @@ long long	ft_set_maxway(t_s *s)
 
 int			ft_set_paths_start(t_s *s)
 {
+	s->i = -1;
+	if (!(s->tab = (int *)malloc(sizeof(int) * s->totalroom)))
+		return (0);
+	while (++s->i < s->totalroom)
+		s->tab[s->i] = -5;
 	s->i = 0;
 	s->totalplays = s->totalroom * s->nbant;
 	s->maxway = ft_set_maxway(s);
 	ft_set_paths(s);
 	ft_print_ways(s);
+	ft_print_tab_int(s->tab, s->totalroom);
 	return (1);
 }

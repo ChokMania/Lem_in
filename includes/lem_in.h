@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/30 16:47:19 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/05/01 17:03:20 by mabouce          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct						s_struct
 	int								ac;
 	long long						nbant;
 	long long						maxway;
+	long long						maxwaytwo;
 	int								nbantset;
 	int								commandstart;
 	int								commandend;
@@ -49,6 +50,7 @@ typedef struct						s_struct
 	int								flag_n;
 	int								start_pos;
 	int								end_pos;
+	int								*tab;
 	long long						totalroom;
 
 	int								**matrice;
@@ -111,9 +113,13 @@ long long							ft_set_maxway(t_s *s);
 int									ft_set_paths(t_s *s);
 
 int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
+int									ft_way_is_in_conflict(t_s *s, t_list *first, t_list *second);
 t_list 								*ft_create_elem_tab_way(t_s *s, int i);
 void								ft_list_print_int_remake(t_s *s);
 t_list 								*ft_create_elem_tab_final_way(t_s *s, t_list *copy);
 int									ft_list_copy(t_s *s, t_list **begin_list, t_list *copy);
+
+int									ft_check_previous_conflict(t_s *s, int *tab, int j);
+int									ft_recursively_find_best_way(t_s *s, t_list *beg, t_list *first, int j);
 
 #endif
