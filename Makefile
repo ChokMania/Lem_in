@@ -6,13 +6,13 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/01 17:09:12 by mabouce          ###   ########.fr        #
+#    Updated: 2019/05/02 10:51:09 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME1				=	lem_in
 
-SANITIZE			=	no
+SANITIZE			=	yes
 WEVERYTHING			=	no
 
 ifeq ($(SANITIZE),yes)

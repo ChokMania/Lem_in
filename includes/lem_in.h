@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/01 17:03:20 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/05/02 12:18:14 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,12 @@ typedef struct						s_struct
 	long long						totalroom;
 
 	int								**matrice;
+	int								**ants_in_way;
 	int								**weight;
 
 	char							**namematrice;
 	char							**av;
+	char							**color;
 
 	char							*str;
 
@@ -66,6 +68,7 @@ typedef struct						s_struct
 	t_list							*command;
 	t_list							*ways;
 	t_list							*finalways;
+	t_list							*first;
 	t_room							*room;
 }									t_s;
 
@@ -120,6 +123,9 @@ t_list 								*ft_create_elem_tab_final_way(t_s *s, t_list *copy);
 int									ft_list_copy(t_s *s, t_list **begin_list, t_list *copy);
 
 int									ft_check_previous_conflict(t_s *s, int *tab, int j);
-int									ft_recursively_find_best_way(t_s *s, t_list *beg, t_list *first, int j);
+int									ft_recursively_find_best_way(t_s *s, t_list *beg, int j, int p);
+void								ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size);
+int									ft_best_ways_found(t_s *s);
+void								ft_print_ways(t_s *s);
 
 #endif
