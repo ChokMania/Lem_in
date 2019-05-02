@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/02 14:09:22 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/02 15:56:28 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	ft_list_remove_first_data_finalways(t_s *s, t_list **begin_list)
 		if ((*begin_list)->next)
 		{
 			*begin_list = tmp->next;
-	//		free(tmp->tab);
-	//		ft_inttabdel(&tmp->ttab, s->totalroom);
+			ft_inttabdel(&tmp->ttab, 3);
 			free(tmp);
 			tmp = NULL;
 		}
@@ -61,8 +60,7 @@ void	ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *e
 			tmp = tmp->next;
 		tmpnext = tmp->next;
 		tmp->next = tmp->next->next;
-//		free(tmpnext->tab);
-//		ft_inttabdel(&tmpnext->ttab, s->totalroom);
+		ft_inttabdel(&tmpnext->ttab, 3);
 		free(tmpnext);
 		tmpnext = NULL;
 	}
@@ -98,6 +96,11 @@ void	ft_del_useless_list_elem(t_s *s)
 		}
 		i++;
 	}
+	while (beg)
+	{
+		ft_list_remove_middle_data_finalways(s, &s->finalways, beg);
+		beg = beg->next;
+	}
 }
 
 void	ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size)
@@ -112,7 +115,7 @@ void	ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size)
 		while (j < size)
 		{
 			if (tab[i][j] == -5)
-				ft_putstr(".");
+				ft_putstr("");
 			else if (i == 0)
 				miniprintf("%.2s", s->namematrice[tab[i][j]]);
 			else

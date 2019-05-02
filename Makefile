@@ -6,22 +6,22 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/02 14:13:34 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/02 17:12:32 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME1				=	lem_in
 
-SANITIZE			=	no
+SANITIZE			=	yes
 WEVERYTHING			=	no
 
 ifeq ($(SANITIZE),yes)
 	CC				=	gcc -Wall -Wextra -Werror -fsanitize=address \
-						-Wall -Wextra -Werror
+						-Wall -Wextra -Werror -O2
 else ifeq ($(WEVERYTHING),yes)
-	CC				=	gcc -Wall -Wextra -Weverything \
+	CC				=	gcc -Wall -Wextra -Weverything -O2
 else
-	CC				=	gcc -Wall -Wextra -Werror
+	CC				=	gcc -Wall -Wextra -Werror -O2
 endif
 
 SRCS_NAME			=	lem_in.c					\

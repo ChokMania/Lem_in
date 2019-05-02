@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/02 14:55:08 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/02 17:37:20 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		ft_move_ants(t_s *s, t_list *beg)
 				s->ants_in_way[s->j][i] = -5;
 			else
 			{
-				s->flag_c ? miniprintf("%s", s->color[s->j]) : 0;
+				s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
 				miniprintf("L%d-%s", s->ants_in_way[s->j][i],
 					s->namematrice[beg->ttab[0][i]]);
 				miniprintf(" ");
@@ -75,9 +75,9 @@ void		ft_dispatch_ants(int **tab, t_s *s)
 
 	max = 0;
 	ants = s->nbant;
-	while (++max < s->maxway && (i = -1))
-		while (++i < max)
-			while (tab[i][0] + tab[i][1] != tab[max][0] + tab[max][1])
+	while (ants && ++max < s->maxway && (i = -1))
+		while (ants && ++i < max)
+			while (ants && tab[i][0] + tab[i][1] != tab[max][0] + tab[max][1])
 			{
 				tab[i][1]++;
 				ants--;

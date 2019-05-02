@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/02 14:08:09 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/02 17:38:18 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int		ft_way_have_no_conflict(t_s *s, t_list *current)
 
 int			ft_set_paths(t_s *s)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 	t_list *beg;
 
 	i = 0;
@@ -65,6 +65,7 @@ int			ft_set_paths(t_s *s)
 	i = 1;
 	while (i < s->totalroom)
 	{
+		//miniprintf("s->totalroom = %i \t %i\n", s->totalroom, i);
 		beg = s->ways;
 		while (beg)
 		{
@@ -77,10 +78,15 @@ int			ft_set_paths(t_s *s)
 					beg->finished = 1;
 					ft_list_copy(s, &s->finalways, beg);
 					if (s->maxway <= 0)
+					{
 						if (ft_best_ways_found(s))
 							return (1);
+					}
 				}
-				else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0 && j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j] == 1 && beg->ttab[0][i -1] != j && beg->ttab[1][i] < 0)
+				else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0
+					&& j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j]
+						== 1 && beg->ttab[0][i - 1] != j && beg->ttab[1][i] < 0
+							&& s->matrice[j][j] > 1)
 				{
 					if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
 					{
@@ -88,7 +94,10 @@ int			ft_set_paths(t_s *s)
 						beg->ttab[1][i] = 1;
 					}
 				}
-				else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0 && j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j] == 1 && beg->ttab[0][i -1] != j && beg->ttab[1][i] > 0)
+				else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0 &&
+					j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j] == 1
+						&& beg->ttab[0][i - 1] != j && beg->ttab[1][i] > 0
+							&& s->matrice[j][j] > 1)
 				{
 					if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
 					{
@@ -129,5 +138,6 @@ int			ft_set_paths_start(t_s *s)
 	s->totalplays = s->totalroom * s->nbant;
 	s->maxway = ft_set_maxway(s);
 	ft_set_paths(s);
+	ft_del_useless_list_elem(s);
 	return (1);
 }

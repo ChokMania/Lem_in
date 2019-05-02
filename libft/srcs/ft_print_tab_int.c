@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_tab_int.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/11 16:18:45 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/18 16:15:31 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/05/02 17:09:43 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	ft_print_tab_int(int *tab, int size)
 	while (i < size)
 	{
 		ft_putnbr(tab[i]);
-		ft_putchar('\n');
+		ft_putchar(' ');
 		i++;
 	}
+	ft_putchar('\n');
 }

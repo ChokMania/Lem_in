@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/02 14:09:50 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/02 16:53:27 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct						s_struct
 	int								start_pos;
 	int								end_pos;
 	int								*tab;
+	int								*tmptab;
 	long long						totalroom;
 
 	int								**matrice;

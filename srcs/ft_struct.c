@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:25:03 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/01 16:48:05 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/05/02 16:56:30 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		ft_set_struct(t_s *s)
 	s->command = NULL;
 	s->room = NULL;
 	s->ways = NULL;
+	s->tmptab = NULL;
 	s->finalways = NULL;
 	s->commandstart = 0;
 	s->commandend = 0;
