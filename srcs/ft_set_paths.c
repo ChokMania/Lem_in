@@ -6,34 +6,16 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/02 12:23:08 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/02 14:08:09 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			ft_total_weight(t_s *s, int weight)
+int			ft_duplicate_ways_push(t_s *s, t_list *beg, int currentmove, int j)
 {
-	int		totalway;
-	int		totalweight;
-	t_list	*beg;
-
-	totalway = 0;
-	totalweight = 0;
-	beg = s->ways;
-	while (beg)
-	{
-		totalway++;
-		totalweight += beg->weight - 1;
-		beg = beg->next;
-	}
-	return ((s->nbant + totalweight + weight - 1) / (totalway + 1));
-}
-
-int		ft_duplicate_ways_push(t_s *s, t_list *beg, int currentmove, int j)
-{
-	int i;
-	t_list *new;
+	int		i;
+	t_list	*new;
 
 	if (!(ft_ways_push_front(s, &s->ways, j)))
 		return (0);
@@ -50,32 +32,6 @@ int		ft_duplicate_ways_push(t_s *s, t_list *beg, int currentmove, int j)
 	return (1);
 }
 
-void	ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size)
-{
-	long long i;
-	long long j;
-
-	i = 0;
-	while (i < len)
-	{
-		j = 0;
-		while (j < size)
-		{
-			if (tab[i][j] == -5)
-				ft_putstr(".");
-			else if (i == 0)
-				miniprintf("%.2s", s->namematrice[tab[i][j]]);
-			else
-				ft_putnbr(tab[i][j]);
-			if (j + 1 != size)
-				ft_putchar(' ');
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
-}
-
 int		ft_way_have_no_conflict(t_s *s, t_list *current)
 {
 	int i;
@@ -90,58 +46,7 @@ int		ft_way_have_no_conflict(t_s *s, t_list *current)
 	return (1);
 }
 
-int		ft_lenint(int *tab, t_s *s)
-{
-	int		i;
-
-	i = 0;
-	while (tab[i] != -5 && i != s->totalroom)
-		i++;
-	return (i);
-}
-
-
-long long	ft_calc_nb_room_by_ways(t_s *s, t_list *current, int maxway)
-{
-	int			i;
-	int			j;
-	long long 	count;
-	t_list		*beg;
-
-	i = 0;
-	count = 0;
-	j = 0;
-	beg = s->finalways;
-	while (i < maxway)
-	{
-		while (beg && j < current->tab[i] && current->tab[i] != -5)
-		{
-			j++;
-			beg = beg->next;
-		}
-		count += ft_lenint(beg->ttab[0], s);
-		i++;
-	}
-	return (count);
-}
-
-void	ft_print_ways(t_s *s)
-{
-	t_list *beg;
-
-	miniprintf("%%%%Print after algo :\n\n%%%%", "BOLD", "UNDER", "END", "YELLOW");
-	beg = s->finalways;
-	while (beg)
-	{
-		miniprintf("ant name : %i\n\n", beg->i);
-		ft_print_tab_tab_int_tmp(s, beg->ttab, 3, s->totalroom);
-		miniprintf("\n");
-		beg = beg->next;
-	}
-	miniprintf("%%", "END");
-}
-
-int		ft_set_paths(t_s *s)
+int			ft_set_paths(t_s *s)
 {
 	int i;
 	int j;
@@ -156,17 +61,7 @@ int		ft_set_paths(t_s *s)
 		}
 		i++;
 	}
-	//miniprintf("%%start paths = %i\n\n%%", "RED", ft_list_size(s->ways), "END");
-	//miniprintf("%%%%Print first ways :\n\n%%%%", "BOLD", "UNDER", "END", "GREEN");
 	beg = s->ways;
-	/*	while (beg)
-		{
-		miniprintf("ant name : %i\n", beg->i);
-		ft_print_tab_tab_int_tmp(s, beg->ttab, 3, s->totalroom);
-		miniprintf("\n");
-		beg = beg->next;
-		}
-		miniprintf("%%", "END");*/
 	i = 1;
 	while (i < s->totalroom)
 	{
@@ -178,16 +73,12 @@ int		ft_set_paths(t_s *s)
 			{
 				if (beg->ttab[0][i - 1] == s->end_pos)
 				{
-					miniprintf("chemins gagnants : %d\t", beg->i);
 					s->maxway--;
 					beg->finished = 1;
 					ft_list_copy(s, &s->finalways, beg);
 					if (s->maxway <= 0)
-					{
-						ft_print_ways(s);
 						if (ft_best_ways_found(s))
 							return (1);
-					}
 				}
 				else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0 && j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j] == 1 && beg->ttab[0][i -1] != j && beg->ttab[1][i] < 0)
 				{
@@ -238,7 +129,5 @@ int			ft_set_paths_start(t_s *s)
 	s->totalplays = s->totalroom * s->nbant;
 	s->maxway = ft_set_maxway(s);
 	ft_set_paths(s);
-	//ft_print_ways(s);
-	ft_print_tab_int(s->tab, s->totalroom);
 	return (1);
 }

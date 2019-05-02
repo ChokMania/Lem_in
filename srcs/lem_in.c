@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/26 18:59:41 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/05/02 13:39:52 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int		main(int ac, char **av)
 		ft_error(s, ret);
 	ft_apply_flag(s);
 	ft_set_paths_start(s);
+	ft_print_path(s);
 	ft_inttabdel(&s->matrice, s->totalroom);
 	ft_inttabdel(&s->weight, s->totalroom);
 	ft_strtabdel(&s->namematrice);

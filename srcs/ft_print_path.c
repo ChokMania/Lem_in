@@ -6,32 +6,17 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/02 12:17:50 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/02 14:55:08 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			ft_color(t_s *s)
-{
-	if (!(s->color = (char**)malloc(sizeof(char*) * 8)))
-		return (0);
-	s->color[0] = ft_strdup("\x1b[31m");
-	s->color[1] = ft_strdup("\x1b[32m");
-	s->color[2] = ft_strdup("\x1b[33m");
-	s->color[3] = ft_strdup("\x1b[34m");
-	s->color[4] = ft_strdup("\x1b[35m");
-	s->color[5] = ft_strdup("\x1b[36m");
-	s->color[6] = ft_strdup("\x1b[37m");
-	s->color[7] = NULL;
-	return (1);
-}
-
-void		ft_move_ants(t_s *s, int ants, t_list *beg)
+void		ft_move_ants(t_s *s, t_list *beg)
 {
 	int		i;
 
-	i = s->k;
+	i = s->k + 1;
 	while (--i >= 0)
 	{
 		if (s->ants_in_way[s->j][i] >= 0)
@@ -69,14 +54,15 @@ void		ft_print_path_suite(t_s *s, int number_ants, int **tab)
 		{
 			s->j++;
 			s->k = ft_lenint(beg->ttab[0], s);
-			number_ants = number_ants < s->nbant
-				&& number_ants > -1 ? number_ants + 1 : -1;
 			if (tab[s->j][1]-- > 0)
+			{
+				s->nbant--;
+				number_ants = ++s->i;
 				s->ants_in_way[s->j][0] = number_ants;
-			ft_move_ants(s, number_ants, beg);
+			}
+			ft_move_ants(s, beg);
 			beg = beg->next;
 		}
-		s->i++;
 		s->p ? ft_putchar('\n') : 0;
 	}
 }
@@ -106,6 +92,25 @@ void		ft_dispatch_ants(int **tab, t_s *s)
 		}
 }
 
+int			ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
+{
+	while (++s->i < s->maxway)
+	{
+		s->j = -1;
+		if (!(s->ants_in_way[s->i] = (int*)malloc(sizeof(int) *
+			s->totalroom)))
+			return (-10);
+		if (!(tab[s->i] = (int*)malloc(sizeof(int) * 3)))
+			return (-11);
+		while (++s->j < s->totalroom)
+			s->ants_in_way[s->i][s->j] = -5;
+		tab[s->i][0] = ft_lenint(beg->ttab[0], s);
+		tab[s->i][1] = 0;
+		beg = beg->next;
+	}
+	return (1);
+}
+
 int			ft_print_path(t_s *s)
 {
 	int		number_ants;
@@ -121,25 +126,14 @@ int			ft_print_path(t_s *s)
 	s->i = -1;
 	s->k = s->maxway;
 	if (!(s->ants_in_way = (int**)malloc(sizeof(int*) * (s->maxway + 1))))
-		;//ft_error(s, -9);
+		ft_error(s, -8);
 	if (!(tab = (int**)malloc(sizeof(int*) * (s->maxway + 1))))
-		;//ft_error(s, -9);
-	while (++s->i < s->maxway)
-	{
-		s->j = -1;
-		if (!(s->ants_in_way[s->i] = (int*)malloc(sizeof(int) *
-			s->totalroom)))
-			;//ft_error(s, -9);
-		/**/if (!(tab[--s->k] = (int*)malloc(sizeof(int) * 3)))
-			;//ft_error(s, -9);
-		while (++s->j < s->totalroom)
-			s->ants_in_way[s->i][s->j] = -5;
-		/**/tab[s->k][0] = ft_lenint(beg->ttab[0], s);
-		/**/tab[s->k][1] = 0;
-		beg = beg->next;
-	}
+		ft_error(s, -9);
+	if ((i = ft_print_path_while_malloc(s, beg, tab)) < 0)
+		ft_error(s, i);
 	i = s->i;
 	ft_dispatch_ants(tab, s);
+	!s->flag_n ? miniprintf("\n") : 0;
 	ft_print_path_suite(s, number_ants, tab);
 	return (1);
 }

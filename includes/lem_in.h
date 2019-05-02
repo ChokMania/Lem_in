@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/02 12:18:14 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/02 14:09:50 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int									ft_set_paths(t_s *s);
 
 int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 int									ft_way_is_in_conflict(t_s *s, t_list *first, t_list *second);
-t_list 								*ft_create_elem_tab_way(t_s *s, int i);
+int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 void								ft_list_print_int_remake(t_s *s);
 t_list 								*ft_create_elem_tab_final_way(t_s *s, t_list *copy);
 int									ft_list_copy(t_s *s, t_list **begin_list, t_list *copy);
@@ -127,5 +127,11 @@ int									ft_recursively_find_best_way(t_s *s, t_list *beg, int j, int p);
 void								ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size);
 int									ft_best_ways_found(t_s *s);
 void								ft_print_ways(t_s *s);
+int									ft_print_path(t_s *s);
+int									ft_lenint(int *tab, t_s *s);
+int									ft_color(t_s *s);
+void	ft_list_remove_first_data_finalways(t_s *s, t_list **begin_list);
+void	ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *elem);
+void	ft_del_useless_list_elem(t_s *s);
 
 #endif

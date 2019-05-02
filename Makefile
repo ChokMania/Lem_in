@@ -6,13 +6,13 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/02 10:51:09 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/02 14:13:34 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME1				=	lem_in
 
-SANITIZE			=	yes
+SANITIZE			=	no
 WEVERYTHING			=	no
 
 ifeq ($(SANITIZE),yes)
@@ -24,18 +24,20 @@ else
 	CC				=	gcc -Wall -Wextra -Werror
 endif
 
-SRCS_NAME			=	lem_in.c		\
-					ft_struct.c			\
-					ft_error.c			\
-					ft_is.c				\
-					ft_room.c			\
-					ft_pipe.c			\
-					ft_matrice.c		\
-					ft_print_matrice.c	\
-					ft_flags.c			\
-					ft_set_paths.c		\
-					ft_list_functions.c	\
-					ft_recursively_find_best_way.c \
+SRCS_NAME			=	lem_in.c					\
+					ft_struct.c						\
+					ft_error.c						\
+					ft_is.c							\
+					ft_room.c						\
+					ft_pipe.c						\
+					ft_matrice.c					\
+					ft_print_matrice.c				\
+					ft_flags.c						\
+					ft_set_paths.c					\
+					ft_list_functions.c				\
+					ft_recursively_find_best_way.c	\
+					ft_print_path.c					\
+					ft_utils.c						\
 
 INCLUDES_NAME			=	lem_in.h
 
