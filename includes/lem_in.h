@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/02 16:53:27 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/03 17:45:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ void								ft_print_ways(t_s *s);
 int									ft_print_path(t_s *s);
 int									ft_lenint(int *tab, t_s *s);
 int									ft_color(t_s *s);
-void	ft_list_remove_first_data_finalways(t_s *s, t_list **begin_list);
+void	ft_list_remove_last_data_finalways(t_list **begin_list);
+void	ft_list_remove_first_data_finalways(t_list **begin_list);
 void	ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *elem);
 void	ft_del_useless_list_elem(t_s *s);
 

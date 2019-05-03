@@ -6,13 +6,13 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/03 14:42:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/03 17:46:55 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_list_remove_first_data_finalways(t_s *s, t_list **begin_list)
+void	ft_list_remove_first_data_finalways(t_list **begin_list)
 {
 	t_list	*tmp;
 
@@ -27,7 +27,6 @@ void	ft_list_remove_first_data_finalways(t_s *s, t_list **begin_list)
 			tmp = NULL;
 		}
 	}
-	(void)s;
 }
 
 void	ft_print_ways(t_s *s)
@@ -55,15 +54,23 @@ void	ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *e
 	tmp = *begin_list;
 	if (*begin_list && begin_list)
 	{
-		while (tmp && tmp->next && tmp->next != elem)
-			tmp = tmp->next;
-		tmpnext = tmp->next;
-		tmp->next = tmp->next->next;
-		ft_inttabdel(&tmpnext->ttab, 3);
-		free(tmpnext);
-		tmpnext = NULL;
+		if (tmp == elem)
+			ft_list_remove_first_data_finalways(&s->ways);
+		else if (tmp->next)
+		{
+			while (tmp && tmp->next && tmp->next != elem)
+				tmp = tmp->next;
+			tmpnext = tmp->next;
+			tmp->next = tmp->next->next;
+			ft_inttabdel(&tmpnext->ttab, 3);
+			free(tmpnext);
+			tmpnext = NULL;
+		}
+		else
+		{
+			ft_list_remove_last_data_finalways(&s->ways);
+		}
 	}
-	(void)s;
 }
 
 void	ft_list_remove_last_data_finalways(t_list **begin_list)
@@ -102,7 +109,7 @@ void	ft_del_useless_list_elem(t_s *s)
 		{
 			next = beg->next;
 			if (beg == s->finalways)
-				ft_list_remove_first_data_finalways(s, &s->finalways);
+				ft_list_remove_first_data_finalways(&s->finalways);
 			else
 				ft_list_remove_middle_data_finalways(s, &s->finalways, beg);
 			beg = next;

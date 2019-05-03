@@ -6,11 +6,14 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/03 17:04:54 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/03 18:44:04 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+//supprimer si pas conflit avant , les autres chemins qui arrivent a un meme conflit
+//chaint 2
 
 int			ft_check_prev(t_list *beg, int i, int j)
 {
@@ -63,7 +66,9 @@ int			ft_set_paths(t_s *s)
 	int	i;
 	int	j;
 	int	k;
+	int	ok;
 	t_list *beg;
+	t_list *prev;
 
 	i = 0;
 	while (i < s->totalroom)
@@ -71,17 +76,22 @@ int			ft_set_paths(t_s *s)
 		if (s->matrice[s->start_pos][i] == 1 && i != s->start_pos)
 		{
 			ft_ways_push_front(s, &s->ways, i);
+			s->weight[i][0] = s->i;
 		}
 		i++;
 	}
 	beg = s->ways;
+	prev = s->ways;
 	i = 1;
 	k = 0;
-	while (i < 50 && (i < s->totalroom || i < s->nbant))
+	while (k < 50 && (i < s->totalroom || i < s->nbant))
 	{
+		//miniprintf("size : %d, i :%d , total : %d\n", ft_list_size(s->ways), i, s->totalroom);
 		beg = s->ways;
+		prev = s->ways;
 		while (beg)
 		{
+			ok = 0;
 			j = 0;
 			while (j < s->totalroom && beg->finished == 0)
 			{
@@ -105,6 +115,8 @@ int			ft_set_paths(t_s *s)
 						{
 							beg->ttab[0][i] = j;
 							beg->ttab[1][i] = 1;
+							//if (ft_way_have_no_conflict(s, beg))
+							//	s->weight[j][0] = beg->i;
 						}
 					}
 				}
@@ -112,6 +124,7 @@ int			ft_set_paths(t_s *s)
 					j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j] == 1
 						&& beg->ttab[0][i - 1] != j && beg->ttab[1][i] > 0
 							&& (s->matrice[j][j] > 1 || j == s->end_pos))
+								//&& s->weight[j][0] == -5)
 				{
 					if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
 					{
@@ -125,7 +138,16 @@ int			ft_set_paths(t_s *s)
 				}
 				j++;
 			}
-			beg = beg->next;
+			/*if (beg->ttab[0][i] == -5)
+			{
+				if (beg == s->ways && (ok = 1))
+					prev = prev->next;
+				ft_list_remove_middle_data_finalways(s, &s->ways, beg);
+				beg = prev;
+			}
+			prev = beg;
+			if (ok == 0)*/
+				beg = beg->next;
 		}
 		i++;
 	}
@@ -155,8 +177,10 @@ int			ft_set_paths_start(t_s *s)
 	s->totalplays = s->totalroom * s->nbant;
 	s->maxway = ft_set_maxway(s);
 	ft_set_paths(s);
-	ft_print_ways(s);
-	ft_print_tab_int(s->tab, s->totalroom);
-	ft_del_useless_list_elem(s);
+	//ft_print_tab_tab_int(s->weight, s->totalroom, 2);
+	//ft_print_ways(s);
+	//ft_print_tab_int(s->tab, s->totalroom);
+	//ft_del_useless_list_elem(s);
+	//ft_print_ways(s);
 	return (1);
 }
