@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/01 16:04:42 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/02 18:12:15 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/03 17:04:07 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,16 +86,19 @@ int		ft_recursively_find_best_way(t_s *s, t_list *beg, int j, int p)
 			s->first = beg;
 		if (beg == s->first || !ft_way_is_in_conflict(s, s->first, beg))
 		{
-			if (j == 0 || s->tmptab[j - 1] != p)
+			if (beg == s->first || j == 0 || s->tmptab[j - 1] != p)
 			{
 				s->tmptab[j] = p;
 				if (beg == s->first || ft_check_previous_conflicts(s, s->tmptab, j))
 				{
 					s->maxwaytwo--;
+					if (ft_lenint(s->tmptab, s) > ft_lenint(s->tab, s))
+						ft_duptabint(s->tab, s->tmptab, s);
 					if (ft_recursively_find_best_way(s, beg->next, j + 1, p + 1))
 						return (1);
 					s->maxwaytwo++;
 				}
+				s->tmptab[j] = -5;
 			}
 		}
 		p++;
@@ -119,14 +122,6 @@ int		ft_best_ways_found(t_s *s)
 	s->maxwaytwo = ft_set_maxway(s);
 	s->p = 0;
 	if (ft_recursively_find_best_way(s, s->finalways, 0, 0))
-	{
-		if (ft_lenint(s->tmptab, s) > ft_lenint(s->tab, s))
-			ft_duptabint(s->tab, s->tmptab, s);
 		return (1);
-	}
-	if (ft_lenint(s->tmptab, s) > ft_lenint(s->tab, s))
-		ft_duptabint(s->tab, s->tmptab, s);
-	ft_print_tab_int(s->tmptab, s->totalroom);
-	ft_print_tab_int(s->tab, s->totalroom);
 	return (0);
 }

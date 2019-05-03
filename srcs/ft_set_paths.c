@@ -6,11 +6,23 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/02 17:38:18 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/03 17:04:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+int			ft_check_prev(t_list *beg, int i, int j)
+{
+	i++;
+	while (i > 0)
+	{
+		if (beg->ttab[0][i - 1] == j)
+			return (0);
+		i--;
+	}
+	return (1);
+}
 
 int			ft_duplicate_ways_push(t_s *s, t_list *beg, int currentmove, int j)
 {
@@ -50,6 +62,7 @@ int			ft_set_paths(t_s *s)
 {
 	int	i;
 	int	j;
+	int	k;
 	t_list *beg;
 
 	i = 0;
@@ -63,9 +76,9 @@ int			ft_set_paths(t_s *s)
 	}
 	beg = s->ways;
 	i = 1;
-	while (i < s->totalroom)
+	k = 0;
+	while (i < 50 && (i < s->totalroom || i < s->nbant))
 	{
-		//miniprintf("s->totalroom = %i \t %i\n", s->totalroom, i);
 		beg = s->ways;
 		while (beg)
 		{
@@ -74,36 +87,40 @@ int			ft_set_paths(t_s *s)
 			{
 				if (beg->ttab[0][i - 1] == s->end_pos)
 				{
+					k++;
 					s->maxway--;
 					beg->finished = 1;
 					ft_list_copy(s, &s->finalways, beg);
-					if (s->maxway <= 0)
-					{
-						if (ft_best_ways_found(s))
-							return (1);
-					}
+					if (ft_best_ways_found(s))
+						return (1);
 				}
 				else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0
 					&& j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j]
 						== 1 && beg->ttab[0][i - 1] != j && beg->ttab[1][i] < 0
-							&& s->matrice[j][j] > 1)
+							&& (s->matrice[j][j] > 1 || j == s->end_pos))
 				{
 					if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
 					{
-						beg->ttab[0][i] = j;
-						beg->ttab[1][i] = 1;
+						if (ft_check_prev(beg, i, j) == 1)
+						{
+							beg->ttab[0][i] = j;
+							beg->ttab[1][i] = 1;
+						}
 					}
 				}
 				else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0 &&
 					j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j] == 1
 						&& beg->ttab[0][i - 1] != j && beg->ttab[1][i] > 0
-							&& s->matrice[j][j] > 1)
+							&& (s->matrice[j][j] > 1 || j == s->end_pos))
 				{
 					if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
 					{
-						beg->ttab[2][i - 1] = 1;
-						if (!(ft_duplicate_ways_push(s, beg, i, j)))
-							return (0);
+						if (ft_check_prev(beg, i, j) == 1)
+						{
+							beg->ttab[2][i - 1] = 1;
+							if (!(ft_duplicate_ways_push(s, beg, i, j)))
+								return (0);
+						}
 					}
 				}
 				j++;
@@ -138,6 +155,8 @@ int			ft_set_paths_start(t_s *s)
 	s->totalplays = s->totalroom * s->nbant;
 	s->maxway = ft_set_maxway(s);
 	ft_set_paths(s);
+	ft_print_ways(s);
+	ft_print_tab_int(s->tab, s->totalroom);
 	ft_del_useless_list_elem(s);
 	return (1);
 }

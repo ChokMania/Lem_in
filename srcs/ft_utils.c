@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/02 15:56:28 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/03 14:42:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_list_remove_first_data_finalways(t_s *s, t_list **begin_list)
 	}
 	(void)s;
 }
-
 
 void	ft_print_ways(t_s *s)
 {
@@ -67,6 +66,26 @@ void	ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *e
 	(void)s;
 }
 
+void	ft_list_remove_last_data_finalways(t_list **begin_list)
+{
+	t_list	*tmp;
+	t_list	*beg;
+
+	beg = *begin_list;
+	tmp = beg;
+	if (*begin_list && begin_list)
+	{
+		while (tmp->next)
+		{
+			beg = tmp;
+			tmp = tmp->next;
+		}
+		ft_inttabdel(&beg->next->ttab, 3);
+		free(beg->next);
+		beg->next = NULL;
+	}
+}
+
 void	ft_del_useless_list_elem(t_s *s)
 {
 	t_list	*beg;
@@ -96,11 +115,10 @@ void	ft_del_useless_list_elem(t_s *s)
 		}
 		i++;
 	}
-	while (beg)
-	{
-		ft_list_remove_middle_data_finalways(s, &s->finalways, beg);
-		beg = beg->next;
-	}
+	while (beg && beg->next)
+		ft_list_remove_last_data_finalways(&s->finalways);
+	if (beg)
+		ft_list_remove_last_data_finalways(&s->finalways);
 }
 
 void	ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size)
