@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 10:16:52 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 15:06:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 //noter dernier conflit, si meme delete
 //numeroter conflit, marquer sur weight
+//calculer nb coups, si rentable de prendre le chemin
+// beg->next, prev , on compare le prev et le beg pour comparer les commons
+//->s->weight // beg->common et prev->common
 
 int			ft_check_prev(t_list *beg, int i, int j)
 {
@@ -88,7 +91,7 @@ int			ft_set_paths(t_s *s)
 	k = 0;
 	while (k < 50 && (i < s->totalroom && i < s->nbant))
 	{
-		//miniprintf("size : %d, i :%d , total : %d\n", ft_list_size(s->ways), i, s->totalroom);
+		miniprintf("size : %d, i :%d , total : %d\n", ft_list_size(s->ways), i, s->totalroom);
 		beg = s->ways;
 		prev = s->ways;
 		while (beg)
