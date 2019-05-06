@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/06 10:10:22 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 16:25:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	ft_print_ways(t_s *s)
 	{
 		miniprintf("ant name : %i\n\n", beg->i);
 		ft_print_tab_tab_int_tmp(s, beg->ttab, 3, s->totalroom);
-		miniprintf("conflit : %d\n\n", beg->common);
 		beg = beg->next;
 	}
 	miniprintf("%%", "END");

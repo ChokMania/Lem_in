@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 16:03:58 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 16:20:06 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,9 @@ int		main(int ac, char **av)
 		ft_error(s, ret);
 	ft_apply_flag(s);
 	ft_calcul_nb_pipes(s);
-	if (s->liaisons / 2 - s->totalroom < 75)
-		ft_set_paths_start(s);
-	//else
-	//	ft_others_set_paths(s);
+	if (s->liaisons / 2 - s->totalroom > 75)
+		s->algo = 2;
+	ft_set_paths_start(s);
 	if (!s->flag_n && s->liaisons / 2 - s->totalroom < 70)
 		ft_print_path(s);
 	ft_inttabdel(&s->matrice, s->totalroom);

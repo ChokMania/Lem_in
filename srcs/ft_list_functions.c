@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 10:13:07 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 16:41:12 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_list		*ft_create_elem_tab_way(t_s *s, int i, int **tab)
 	new->finished = 0;
 	new->next = NULL;
 	new->i = s->i++;
-	new->common = s->tmpconflit;
+	new->weight = 0;
 	new->ttab = tab;
 	return (new);
 }
@@ -76,7 +76,7 @@ t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy)
 	new->finished = 1;
 	new->next = NULL;
 	new->i = s->i++;
-	new->common = s->tmpconflit;
+	new->weight = copy->weight;
 	new->ttab = tab;
 	return (new);
 }

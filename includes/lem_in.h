@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 15:49:26 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 16:10:07 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct						s_struct
 	int								j;
 	int								k;
 	int								p;
-	int								totalplays;
+	int								algo;
 	int								ret;
 	int								ac;
 	long long						nbant;
