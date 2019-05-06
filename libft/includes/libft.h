@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/22 16:00:14 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/29 15:21:21 by mabouce          ###   ########.fr       */
+/*   Updated: 2019/05/06 08:37:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct		s_list
 	void			*content;
 	void			*data;
 	int				i;
-	int				weight;
+	int				common;
 	int				*tab;
 	int				**ttab;
 	int				finished;

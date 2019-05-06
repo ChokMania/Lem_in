@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/03 17:45:59 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 10:10:19 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct						s_struct
 	int								flag_n;
 	int								start_pos;
 	int								end_pos;
+	int								conflit;
+	int								tmpconflit;
 	int								*tab;
 	int								*tmptab;
 	long long						totalroom;

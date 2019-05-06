@@ -6,14 +6,14 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/03 18:44:04 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 10:16:52 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-//supprimer si pas conflit avant , les autres chemins qui arrivent a un meme conflit
-//chaint 2
+//noter dernier conflit, si meme delete
+//numeroter conflit, marquer sur weight
 
 int			ft_check_prev(t_list *beg, int i, int j)
 {
@@ -71,12 +71,14 @@ int			ft_set_paths(t_s *s)
 	t_list *prev;
 
 	i = 0;
+	s->conflit = 0;
+	s->tmpconflit = 0;
 	while (i < s->totalroom)
 	{
 		if (s->matrice[s->start_pos][i] == 1 && i != s->start_pos)
 		{
 			ft_ways_push_front(s, &s->ways, i);
-			s->weight[i][0] = s->i;
+			s->weight[i][0] = 0;
 		}
 		i++;
 	}
@@ -84,7 +86,7 @@ int			ft_set_paths(t_s *s)
 	prev = s->ways;
 	i = 1;
 	k = 0;
-	while (k < 50 && (i < s->totalroom || i < s->nbant))
+	while (k < 50 && (i < s->totalroom && i < s->nbant))
 	{
 		//miniprintf("size : %d, i :%d , total : %d\n", ft_list_size(s->ways), i, s->totalroom);
 		beg = s->ways;
@@ -115,8 +117,8 @@ int			ft_set_paths(t_s *s)
 						{
 							beg->ttab[0][i] = j;
 							beg->ttab[1][i] = 1;
-							//if (ft_way_have_no_conflict(s, beg))
-							//	s->weight[j][0] = beg->i;
+							//s->weight[j][0] == -5 && s->matrice[j][j] > 2 && j != s->end_pos ? s->weight[j][0] = ++s->conflit : 0;
+							//s->conflit > 0 && s->matrice[j][j] > 2 && j != s->end_pos ? beg->common = s->conflit : 0;
 						}
 					}
 				}
@@ -124,21 +126,23 @@ int			ft_set_paths(t_s *s)
 					j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j] == 1
 						&& beg->ttab[0][i - 1] != j && beg->ttab[1][i] > 0
 							&& (s->matrice[j][j] > 1 || j == s->end_pos))
-								//&& s->weight[j][0] == -5)
 				{
 					if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
 					{
 						if (ft_check_prev(beg, i, j) == 1)
 						{
-							beg->ttab[2][i - 1] = 1;
-							if (!(ft_duplicate_ways_push(s, beg, i, j)))
-								return (0);
+							if (1)
+							{
+								beg->ttab[2][i - 1] = 1;
+								if (!(ft_duplicate_ways_push(s, beg, i, j)))
+									return (0);
+							}
 						}
 					}
 				}
 				j++;
 			}
-			/*if (beg->ttab[0][i] == -5)
+			if (beg->ttab[0][i] == -5)
 			{
 				if (beg == s->ways && (ok = 1))
 					prev = prev->next;
@@ -146,7 +150,7 @@ int			ft_set_paths(t_s *s)
 				beg = prev;
 			}
 			prev = beg;
-			if (ok == 0)*/
+			if (ok == 0)
 				beg = beg->next;
 		}
 		i++;
@@ -178,9 +182,11 @@ int			ft_set_paths_start(t_s *s)
 	s->maxway = ft_set_maxway(s);
 	ft_set_paths(s);
 	//ft_print_tab_tab_int(s->weight, s->totalroom, 2);
+	//miniprintf("AVANT : \n\n");
 	//ft_print_ways(s);
 	//ft_print_tab_int(s->tab, s->totalroom);
-	//ft_del_useless_list_elem(s);
+	ft_del_useless_list_elem(s);
+	//miniprintf("APRES : \n\n");
 	//ft_print_ways(s);
 	return (1);
 }
