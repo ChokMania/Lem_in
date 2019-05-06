@@ -6,15 +6,23 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 14:58:17 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 16:03:58 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/*
-** map : nopath / empty / bigants
-*/
+void	ft_calcul_nb_pipes(t_s *s)
+{
+	int		i;
+
+	i = -1;
+	s->liaisons = 0;
+	while (++i < s->totalroom)
+		s->liaisons += s->matrice[i][i];
+	miniprintf("Liaisons : %d\nTotal rooms : %d\nTotal : %d\n",
+		s->liaisons / 2, s->totalroom, s->liaisons / 2 - s->totalroom);
+}
 
 int		ft_detect_room_or_pipe(t_s *s)
 {
@@ -99,8 +107,12 @@ int		main(int ac, char **av)
 	if ((ret = ft_set_matrice_laplacienne(s)) < 1)
 		ft_error(s, ret);
 	ft_apply_flag(s);
-	ft_set_paths_start(s);
-	if (!s->flag_n)
+	ft_calcul_nb_pipes(s);
+	if (s->liaisons / 2 - s->totalroom < 75)
+		ft_set_paths_start(s);
+	//else
+	//	ft_others_set_paths(s);
+	if (!s->flag_n && s->liaisons / 2 - s->totalroom < 70)
 		ft_print_path(s);
 	ft_inttabdel(&s->matrice, s->totalroom);
 	ft_inttabdel(&s->weight, s->totalroom);

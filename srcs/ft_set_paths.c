@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 15:06:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/06 15:07:37 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int			ft_set_paths(t_s *s)
 	k = 0;
 	while (k < 50 && (i < s->totalroom && i < s->nbant))
 	{
-		miniprintf("size : %d, i :%d , total : %d\n", ft_list_size(s->ways), i, s->totalroom);
+		//miniprintf("size : %d, i :%d , total : %d\n", ft_list_size(s->ways), i, s->totalroom);
 		beg = s->ways;
 		prev = s->ways;
 		while (beg)
