@@ -6,13 +6,11 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 17:14:38 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 11:15:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-// systeme de poid a revoir
 
 int			ft_check_prev(t_list *beg, int i, int j)
 {
@@ -78,7 +76,7 @@ int			ft_set_paths(t_s *s)
 		if (s->matrice[s->start_pos][i] == 1 && i != s->start_pos)
 		{
 			ft_ways_push_front(s, &s->ways, i);
-			s->weight[i][0] = 0;
+			s->weight[i][i] = 0;
 		}
 		i++;
 	}
@@ -86,14 +84,10 @@ int			ft_set_paths(t_s *s)
 	prev = s->ways;
 	i = 1;
 	k = 0;
-	while (k < 50 && (i < s->totalroom && i < s->nbant))
+	while (k < 60 && i < s->totalroom)
 	{
-		miniprintf("\nnb fourmi to send %i\t algo : %d\nsize : %d, i :%d , total : %d\nk : %d\n", s->nbant, s->algo, ft_list_size(s->ways), i, s->totalroom, k);
-	//	ft_print_tab_tab_int(s->weight, s->totalroom, 1);
-	//	miniprintf("\n\n");
 		beg = s->ways;
 		prev = s->ways;
-		//ft_print_tab_tab_int(s->weight, s->totalroom, 1);
 		while (beg)
 		{
 			beg->weight++;
@@ -119,12 +113,8 @@ int			ft_set_paths(t_s *s)
 					{
 						if (ft_check_prev(beg, i, j) == 1)
 						{
-							if (s->algo == 1 || (s->algo == 2 && (beg->weight < s->weight[j][0] || s->weight[j][0] == -5)))
-							{
 								beg->ttab[0][i] = j;
 								beg->ttab[1][i] = 1;
-								s->weight[j][0] = beg->weight;
-							}
 						}
 					}
 				}
@@ -137,13 +127,9 @@ int			ft_set_paths(t_s *s)
 					{
 						if (ft_check_prev(beg, i, j) == 1)
 						{
-							if (s->algo == 1 || (s->algo == 2 && (beg->weight < s->weight[j][0] || s->weight[j][0] == -5)))
-							{
 								beg->ttab[2][i - 1] = 1;
-								s->weight[j][0] = beg->weight;
 								if (!(ft_duplicate_ways_push(s, beg, i, j)))
 									return (0);
-							}
 						}
 					}
 				}
@@ -186,14 +172,7 @@ int			ft_set_paths_start(t_s *s)
 		s->tab[s->i] = -5;
 	s->i = 0;
 	s->maxway = ft_set_maxway(s);
-	ft_print_tab_tab_int(s->weight, s->totalroom, 1);
 	ft_set_paths(s);
-	ft_print_tab_tab_int(s->weight, s->totalroom, 1);
-	//miniprintf("AVANT : \n\n");
-	//ft_print_ways(s);
-	//ft_print_tab_int(s->tab, s->totalroom);
-	//ft_del_useless_list_elem(s);
-	//miniprintf("APRES : \n\n");
-	ft_print_ways(s);
+	ft_del_useless_list_elem(s);
 	return (1);
 }

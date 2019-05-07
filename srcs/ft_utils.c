@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/06 16:25:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 10:09:15 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void	ft_print_ways(t_s *s)
 {
 	t_list *beg;
 
-	miniprintf("%%%%Print after algo :\n\n%%%%", "BOLD", "UNDER",
-		"END", "YELLOW");
+	miniprintf("%%", "YELLOW");
 	beg = s->finalways;
 	while (beg)
 	{
