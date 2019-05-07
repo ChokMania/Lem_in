@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 13:16:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 14:39:14 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ t_list		*ft_create_elem_tab_way(t_s *s, int i, int **tab)
 		return (NULL);
 	new->ttab = NULL;
 	if (!(tab = (int **)malloc(sizeof(int *) * (3))))
-		return (0);
+	{
+		free(new);
+		return (NULL);
+	}
 	while (++j < 3 && (k = -1))
 	{
 		if (!(tab[j] = (int *)malloc(sizeof(int) * s->totalroom)))
@@ -49,6 +52,39 @@ t_list		*ft_create_elem_tab_way(t_s *s, int i, int **tab)
 	tab[0][0] = i;
 	tab[1][0] = 1;
 	new->finished = 0;
+	new->next = NULL;
+	new->i = s->i++;
+	new->ttab = tab;
+	return (new);
+}
+
+t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy, int **tab)
+{
+	t_list	*new;
+	int		j;
+	int		k;
+
+	j = -1;
+	if (!(new = (t_list*)malloc(sizeof(t_list))))
+		return (NULL);
+	new->ttab = NULL;
+	if (!(tab = (int **)malloc(sizeof(int *) * (3))))
+	{
+		free(new);
+		return (NULL);
+	}
+	while (++j < 3 && (k = -1))
+	{
+		if (!(tab[j] = (int *)malloc(sizeof(int) * s->totalroom)))
+		{
+			ft_inttabdel(&tab, s->totalroom);
+			new->ttab = NULL;
+			return (NULL);
+		}
+		while (++k < s->totalroom)
+			tab[j][k] = copy->ttab[j][k];
+	}
+	new->finished = 1;
 	new->next = NULL;
 	new->i = s->i++;
 	new->ttab = tab;
@@ -76,50 +112,23 @@ int			ft_ways_push_front(t_s *s, t_list **begin_list, int i)
 	return (1);
 }
 
-t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy)
-{
-	t_list	*new;
-	int		**tab;
-	int		j;
-	int		k;
-
-	if (!(tab = (int **)malloc(sizeof(int *) * (3))))
-		return (0);
-	j = -1;
-	while (++j < 3 && (k = -1))
-	{
-		if (!(tab[j] = (int *)malloc(sizeof(int) * s->totalroom)))
-		{
-			ft_inttabdel(&tab, s->totalroom);
-			return (0);
-		}
-		while (++k < s->totalroom)
-			tab[j][k] = copy->ttab[j][k];
-	}
-	if (!(new = malloc(sizeof(t_list))))
-		return (NULL);
-	new->finished = 1;
-	new->next = NULL;
-	new->i = s->i++;
-	new->ttab = tab;
-	return (new);
-}
-
 int			ft_list_copy(t_s *s, t_list **begin_list, t_list *copy)
 {
 	t_list	*tmp;
+	int		**tab;
 
+	tab = NULL;
 	if (*begin_list && begin_list)
 	{
 		tmp = *begin_list;
 		while (tmp->next)
 			tmp = tmp->next;
-		if (!(tmp->next = ft_create_elem_tab_final_way(s, copy)))
+		if (!(tmp->next = ft_create_elem_tab_final_way(s, copy, tab)))
 			return (0);
 	}
 	else
 	{
-		if (!((*begin_list) = ft_create_elem_tab_final_way(s, copy)))
+		if (!((*begin_list) = ft_create_elem_tab_final_way(s, copy, tab)))
 			return (0);
 	}
 	return (1);

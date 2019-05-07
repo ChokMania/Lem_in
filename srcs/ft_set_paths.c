@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 13:13:27 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 14:46:19 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,8 @@ int			ft_set_paths(t_s *s)
 					{
 						if (ft_check_prev(beg, i, j) == 1)
 						{
-								beg->ttab[0][i] = j;
-								beg->ttab[1][i] = 1;
+							beg->ttab[0][i] = j;
+							beg->ttab[1][i] = 1;
 						}
 					}
 				}
@@ -129,9 +129,9 @@ int			ft_set_paths(t_s *s)
 					{
 						if (ft_check_prev(beg, i, j) == 1)
 						{
-								beg->ttab[2][i - 1] = 1;
-								if (!(ft_duplicate_ways_push(s, beg, i, j)))
-									return (0);
+							beg->ttab[2][i - 1] = 1;
+							if (!(ft_duplicate_ways_push(s, beg, i, j)))
+								return (0);
 						}
 					}
 				}

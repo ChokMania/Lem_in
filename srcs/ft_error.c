@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 13:16:43 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 15:01:31 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,41 @@ void	ft_error(t_s *s, int error)
 			ft_inttabdel(&s->weight, s->totalroom);
 		if (error <= -6)
 			ft_strtabdel(&s->namematrice);
-		if (error <= -7)
-			free(s->tab);
-		if (error <= -8)
-			free(s->tb);
-		if (error <= -9)
-			ft_list_clear_tab(&s->ways);
-		//if (error <= 10)
-
-		if (error <= -11)
-			ft_inttabdel(&s->ants_in_way, s->maxway);
-		if (error <= -12)
-			ft_strtabdel(&s->color);
-		ft_clear_struct(s);
+		s->algo == 1 ? ft_error_one(s, error) : ft_error_two(s, error);
 	}
 	exit(0);
+}
+
+void	ft_error_one(t_s *s, int error)
+{
+	if (error <= -7)
+		free(s->tab);
+	if (error <= -8)
+		free(s->tb);
+	if (error <= -9)
+		ft_list_clear_tab(&s->ways);
+	if (error <= -10)
+		ft_list_clear_tab(&s->finalways);
+	if (error <= -11)
+		ft_inttabdel(&s->ants_in_way, s->maxway);
+	if (error <= -12)
+		ft_strtabdel(&s->color);
+	ft_clear_struct(s);
+}
+
+void	ft_error_two(t_s *s, int error)
+{
+	if (error <= -7)
+		;
+	if (error <= -8)
+		;
+	if (error <= -9)
+		;
+	if (error <= -10)
+		ft_list_clear_tab(&s->finalways);
+	if (error <= -11)
+		ft_inttabdel(&s->ants_in_way, s->maxway);
+	if (error <= -12)
+		ft_strtabdel(&s->color);
+	ft_clear_struct(s);
 }

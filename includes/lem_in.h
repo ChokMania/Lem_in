@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 11:32:02 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 15:03:11 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 int									ft_way_is_in_conflict(t_s *s, t_list *first, t_list *second);
 int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 void								ft_list_print_int_remake(t_s *s);
-t_list 								*ft_create_elem_tab_final_way(t_s *s, t_list *copy);
 int									ft_list_copy(t_s *s, t_list **begin_list, t_list *copy);
 
 int									ft_check_previous_conflict(t_s *s, int *tab, int j);
@@ -138,5 +137,9 @@ void	ft_list_remove_last_data_finalways(t_list **begin_list);
 void	ft_list_remove_first_data_finalways(t_list **begin_list);
 void	ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *elem);
 void	ft_del_useless_list_elem(t_s *s);
+void	ft_list_clear_tab(t_list **begin_list);
+t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy, int **tab);
+void	ft_error_two(t_s *s, int error);
+void	ft_error_one(t_s *s, int error);
 
 #endif
