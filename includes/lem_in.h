@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 15:03:11 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 17:28:09 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,30 +116,43 @@ void								ft_set_flags(t_s *s);
 void								ft_apply_flag(t_s *s);
 
 int									ft_set_paths_start(t_s *s);
+int									ft_check_prev(t_list *beg, int i, int j);
 long long							ft_set_maxway(t_s *s);
 int									ft_set_paths(t_s *s);
+int									ft_duplicate_ways_push(t_s *s, t_list *beg, int currentmove, int j);
+
 
 int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 int									ft_way_is_in_conflict(t_s *s, t_list *first, t_list *second);
 int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 void								ft_list_print_int_remake(t_s *s);
 int									ft_list_copy(t_s *s, t_list **begin_list, t_list *copy);
+t_list								*ft_create_elem_tab_final_way(t_s *s, t_list *copy, int **tab);
 
 int									ft_check_previous_conflict(t_s *s, int *tab, int j);
 int									ft_recursively_best_way(t_s *s, t_list *beg, int j, int p);
 void								ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size);
+
 int									ft_best_ways_found(t_s *s);
-void								ft_print_ways(t_s *s);
+void								ft_print_ways(t_s *s, t_list *way);
 int									ft_print_path(t_s *s);
 int									ft_lenint(int *tab, t_s *s);
+
+void								ft_list_remove_last_data_finalways(t_list **begin_list);
+void								ft_list_remove_first_data_finalways(t_list **begin_list);
+void								ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *elem);
+void								ft_del_useless_list_elem(t_s *s);
+
 int									ft_color(t_s *s);
-void	ft_list_remove_last_data_finalways(t_list **begin_list);
-void	ft_list_remove_first_data_finalways(t_list **begin_list);
-void	ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *elem);
-void	ft_del_useless_list_elem(t_s *s);
-void	ft_list_clear_tab(t_list **begin_list);
-t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy, int **tab);
-void	ft_error_two(t_s *s, int error);
-void	ft_error_one(t_s *s, int error);
+void								ft_list_clear_tab(t_list **begin_list);
+void								ft_list_clear_tab_int(t_list **begin_list);
+void								ft_error_two(t_s *s, int error);
+void								ft_error_one(t_s *s, int error);
+
+void								ft_calcul_nb_pipes(t_s *s);
+int									ft_detect_room_or_pipe(t_s *s);
+int									ft_detect_line_type(t_s *s);
+
+int									ft_set_paths_start_two(t_s *s);
 
 #endif

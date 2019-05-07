@@ -6,18 +6,18 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 15:01:31 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 17:23:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_print_ways(t_s *s)
+void	ft_print_ways(t_s *s, t_list *way)
 {
 	t_list *beg;
 
 	miniprintf("%%", "YELLOW");
-	beg = s->finalways;
+	beg = way;
 	while (beg)
 	{
 		miniprintf("ant name : %i\n\n", beg->i);

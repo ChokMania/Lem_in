@@ -6,7 +6,7 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/07 11:47:59 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/07 15:55:22 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,11 @@ SRCS_NAME			=	lem_in.c					\
 					ft_flags.c						\
 					ft_set_paths.c					\
 					ft_list_functions.c				\
-					ft_recursively_best_way.c	\
+					ft_recursively_best_way.c		\
 					ft_print_path.c					\
 					ft_utils.c						\
+					ft_help_main.c					\
+					ft_set_paths_two.c				\
 
 INCLUDES_NAME			=	lem_in.h
 

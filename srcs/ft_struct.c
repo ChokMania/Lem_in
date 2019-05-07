@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:25:03 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 12:59:47 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 15:51:05 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,6 @@ void	ft_clear_struct(t_s *s)
 	ft_list_clear_data(&s->comment);
 	ft_list_clear_data(&s->command);
 	ft_list_clear_data(&s->input);
-	//t_list							*ways;
-	//t_list							*finalways;
-	//t_list							*first;
 	free(s);
 }
 
