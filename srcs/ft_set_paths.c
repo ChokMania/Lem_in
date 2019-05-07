@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 11:15:47 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 13:13:27 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ int			ft_set_paths(t_s *s)
 	{
 		if (s->matrice[s->start_pos][i] == 1 && i != s->start_pos)
 		{
-			ft_ways_push_front(s, &s->ways, i);
+			if (!(ft_ways_push_front(s, &s->ways, i)))
+				return (-9);
 			s->weight[i][i] = 0;
 		}
 		i++;
@@ -100,7 +101,8 @@ int			ft_set_paths(t_s *s)
 					k++;
 					s->maxway--;
 					beg->finished = 1;
-					ft_list_copy(s, &s->finalways, beg);
+					if (!(ft_list_copy(s, &s->finalways, beg)))
+						return (-10);
 					if (ft_best_ways_found(s))
 						return (1);
 				}
@@ -165,14 +167,22 @@ long long	ft_set_maxway(t_s *s)
 
 int			ft_set_paths_start(t_s *s)
 {
+	int i;
+
 	s->i = -1;
 	if (!(s->tab = (int *)malloc(sizeof(int) * s->totalroom)))
-		return (0);
+		ft_error(s, -7);
 	while (++s->i < s->totalroom)
 		s->tab[s->i] = -5;
+	i = -1;
+	if (!(s->tb = (int *)malloc(sizeof(int) * s->totalroom)))
+		ft_error(s, -8);
+	while (++i < s->totalroom)
+		s->tb[i] = -5;
 	s->i = 0;
 	s->maxway = ft_set_maxway(s);
-	ft_set_paths(s);
+	if ((s->ret = ft_set_paths(s)) < -1)
+		ft_error(s, s->ret);
 	ft_del_useless_list_elem(s);
 	return (1);
 }

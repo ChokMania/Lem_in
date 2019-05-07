@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/07 10:09:15 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 11:44:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,8 @@ void	ft_list_remove_first_data_finalways(t_list **begin_list)
 	}
 }
 
-void	ft_print_ways(t_s *s)
-{
-	t_list *beg;
-
-	miniprintf("%%", "YELLOW");
-	beg = s->finalways;
-	while (beg)
-	{
-		miniprintf("ant name : %i\n\n", beg->i);
-		ft_print_tab_tab_int_tmp(s, beg->ttab, 3, s->totalroom);
-		beg = beg->next;
-	}
-	miniprintf("%%", "END");
-}
-
-void	ft_list_remove_middle_data_finalways(t_s *s, t_list **begin_list, t_list *elem)
+void	ft_list_remove_middle_data_finalways(t_s *s,
+	t_list **begin_list, t_list *elem)
 {
 	t_list	*tmp;
 	t_list	*tmpnext;
@@ -99,26 +85,20 @@ void	ft_del_useless_list_elem(t_s *s)
 	int		j;
 
 	beg = s->finalways;
-	i = 0;
+	i = -1;
 	j = 0;
-	while (i < s->totalroom && s->tab[i] != -5)
+	while (++i < s->totalroom && s->tab[i] != -5)
 	{
 		while (beg && j < s->tab[i])
 		{
 			next = beg->next;
-			if (beg == s->finalways)
-				ft_list_remove_first_data_finalways(&s->finalways);
-			else
-				ft_list_remove_middle_data_finalways(s, &s->finalways, beg);
+			beg == s->finalways
+				? ft_list_remove_first_data_finalways(&s->finalways)
+				: ft_list_remove_middle_data_finalways(s, &s->finalways, beg);
 			beg = next;
 			j++;
 		}
-		if (j == s->tab[i])
-		{
-			beg = beg->next;
-			j++;
-		}
-		i++;
+		j == s->tab[i] && (++j) ? beg = beg->next : 0;
 	}
 	while (beg && beg->next)
 		ft_list_remove_last_data_finalways(&s->finalways);

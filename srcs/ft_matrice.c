@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:05:18 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 10:05:22 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 11:28:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,11 +114,8 @@ int			ft_matrice(t_s *s, char *name1, char *name2)
 				return (-5);
 			if (!(s->weight[s->i] = (int *)malloc(sizeof(int) * s->totalroom)))
 				return (-5);
-			while (++(s->j) < s->totalroom)
-			{
-				s->matrice[s->i][s->j] = -5;
+			while (++(s->j) < s->totalroom && (s->matrice[s->i][s->j] = -5))
 				s->weight[s->i][s->j] = -5;
-			}
 		}
 		if ((s->ret = ft_create_name_matrice(s)) < 0)
 			return (s->ret);

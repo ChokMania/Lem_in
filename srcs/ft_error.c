@@ -6,11 +6,26 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/02 16:01:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 13:16:43 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	ft_print_ways(t_s *s)
+{
+	t_list *beg;
+
+	miniprintf("%%", "YELLOW");
+	beg = s->finalways;
+	while (beg)
+	{
+		miniprintf("ant name : %i\n\n", beg->i);
+		ft_print_tab_tab_int_tmp(s, beg->ttab, 3, s->totalroom);
+		beg = beg->next;
+	}
+	miniprintf("%%", "END");
+}
 
 int		ft_color(t_s *s)
 {
@@ -25,6 +40,21 @@ int		ft_color(t_s *s)
 	s->color[6] = ft_strdup("\x1b[37m");
 	s->color[7] = NULL;
 	return (1);
+}
+
+void	ft_list_clear_tab(t_list **begin_list)
+{
+	t_list *save;
+
+	save = *begin_list;
+	while ((*begin_list))
+	{
+		save = (*begin_list);
+		(*begin_list) = (*begin_list)->next;
+		if (save->ttab)
+			ft_inttabdel(&save->ttab, 3);
+		free(save);
+	}
 }
 
 void	ft_error(t_s *s, int error)
@@ -49,6 +79,18 @@ void	ft_error(t_s *s, int error)
 			ft_inttabdel(&s->weight, s->totalroom);
 		if (error <= -6)
 			ft_strtabdel(&s->namematrice);
+		if (error <= -7)
+			free(s->tab);
+		if (error <= -8)
+			free(s->tb);
+		if (error <= -9)
+			ft_list_clear_tab(&s->ways);
+		//if (error <= 10)
+
+		if (error <= -11)
+			ft_inttabdel(&s->ants_in_way, s->maxway);
+		if (error <= -12)
+			ft_strtabdel(&s->color);
 		ft_clear_struct(s);
 	}
 	exit(0);

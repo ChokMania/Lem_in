@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_recursively_find_best_way.c                     :+:      :+:    :+:   */
+/*   ft_recursively_best_way.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/01 16:04:42 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/03 17:04:07 by judumay          ###   ########.fr       */
+/*   Created: 2019/05/07 11:32:35 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/07 12:48:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		ft_check_previous_conflicts(t_s *s, int *tab, int j)
 	return (1);
 }
 
-int		ft_recursively_find_best_way(t_s *s, t_list *beg, int j, int p)
+int		ft_recursively_best_way(t_s *s, t_list *beg, int j, int p)
 {
 	if (s->maxwaytwo == 0)
 		return (1);
@@ -85,22 +85,20 @@ int		ft_recursively_find_best_way(t_s *s, t_list *beg, int j, int p)
 		if (p == 0)
 			s->first = beg;
 		if (beg == s->first || !ft_way_is_in_conflict(s, s->first, beg))
-		{
-			if (beg == s->first || j == 0 || s->tmptab[j - 1] != p)
+			if (beg == s->first || j == 0 || s->tb[j - 1] != p)
 			{
-				s->tmptab[j] = p;
-				if (beg == s->first || ft_check_previous_conflicts(s, s->tmptab, j))
+				s->tb[j] = p;
+				if (beg == s->first || ft_check_previous_conflicts(s, s->tb, j))
 				{
 					s->maxwaytwo--;
-					if (ft_lenint(s->tmptab, s) > ft_lenint(s->tab, s))
-						ft_duptabint(s->tab, s->tmptab, s);
-					if (ft_recursively_find_best_way(s, beg->next, j + 1, p + 1))
+					if (ft_lenint(s->tb, s) > ft_lenint(s->tab, s))
+						ft_duptabint(s->tab, s->tb, s);
+					if (ft_recursively_best_way(s, beg->next, j + 1, p + 1))
 						return (1);
 					s->maxwaytwo++;
 				}
-				s->tmptab[j] = -5;
+				s->tb[j] = -5;
 			}
-		}
 		p++;
 		beg = beg->next;
 	}
@@ -109,19 +107,9 @@ int		ft_recursively_find_best_way(t_s *s, t_list *beg, int j, int p)
 
 int		ft_best_ways_found(t_s *s)
 {
-	int i;
-
-	if (s->tmptab == NULL)
-	{
-		i = -1;
-		if (!(s->tmptab = (int *)malloc(sizeof(int) * s->totalroom + 1)))
-			return (-5);
-		while (++i < s->totalroom)
-			s->tmptab[i] = -5;
-	}
 	s->maxwaytwo = ft_set_maxway(s);
 	s->p = 0;
-	if (ft_recursively_find_best_way(s, s->finalways, 0, 0))
+	if (ft_recursively_best_way(s, s->finalways, 0, 0))
 		return (1);
 	return (0);
 }

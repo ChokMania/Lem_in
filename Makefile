@@ -6,13 +6,13 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/02 17:12:32 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/07 11:47:59 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME1				=	lem_in
 
-SANITIZE			=	yes
+SANITIZE			=	no
 WEVERYTHING			=	no
 
 ifeq ($(SANITIZE),yes)
@@ -35,7 +35,7 @@ SRCS_NAME			=	lem_in.c					\
 					ft_flags.c						\
 					ft_set_paths.c					\
 					ft_list_functions.c				\
-					ft_recursively_find_best_way.c	\
+					ft_recursively_best_way.c	\
 					ft_print_path.c					\
 					ft_utils.c						\
 

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:25:03 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 16:11:31 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 12:59:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,24 @@ void	ft_clear_struct(t_s *s)
 	ft_list_clear_data(&s->comment);
 	ft_list_clear_data(&s->command);
 	ft_list_clear_data(&s->input);
+	//t_list							*ways;
+	//t_list							*finalways;
+	//t_list							*first;
 	free(s);
 }
 
 int		ft_set_struct(t_s *s)
 {
-	s->input = NULL;
-	s->comment = NULL;
-	s->command = NULL;
 	s->room = NULL;
+	s->first = NULL;
 	s->ways = NULL;
-	s->tmptab = NULL;
 	s->finalways = NULL;
+	s->command = NULL;
+	s->comment = NULL;
+	s->input = NULL;
+	s->color = NULL;
+	s->namematrice = NULL;
+	s->tb = NULL;
 	s->commandstart = 0;
 	s->commandend = 0;
 	s->startset = 0;

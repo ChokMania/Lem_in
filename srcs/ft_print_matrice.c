@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:15:58 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/06 14:54:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 11:29:27 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ void		ft_print_matrice_suite(t_s *s, int i, int j)
 			s->matrice[i][j] ? ft_putstr("\033[34m") : ft_putstr("\033[0m");
 			s->matrice[i][j] > 1 ? ft_putstr("\033[36m") : 0;
 			i == j ? ft_putstr("\033[35m") : 0;
-			//ft_putnbrll(s->matrice[i][j]);
 			miniprintf("%2d", s->matrice[i][j]);
 			miniprintf("%%", "END");
 			j + 1 != s->totalroom ? ft_putstr("  ") : 0;

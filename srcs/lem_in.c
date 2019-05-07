@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 11:06:26 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 12:45:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ft_calcul_nb_pipes(t_s *s)
 	s->liaisons = 0;
 	while (++i < s->totalroom)
 		s->liaisons += s->matrice[i][i];
-	//miniprintf("Liaisons : %d\nTotal rooms : %d\nTotal : %d\n",
-	//	s->liaisons / 2, s->totalroom, s->liaisons / 2 - s->totalroom);
 }
 
 int		ft_detect_room_or_pipe(t_s *s)
@@ -108,15 +106,15 @@ int		main(int ac, char **av)
 		ft_error(s, ret);
 	ft_apply_flag(s);
 	ft_calcul_nb_pipes(s);
-	if (s->liaisons / 2 - s->totalroom > 70)
-		miniprintf("ICI\n");//ft_set_big_algo(s);
-	else
-		ft_set_paths_start(s);
-	if (ft_list_size(s->finalways) > 0)// && !s->flag_n)
-		ft_print_path(s);
+	s->liaisons / 2 - s->totalroom > 70 ? 1 : ft_set_paths_start(s);
+	ft_list_size(s->finalways) > 0 ? ft_print_path(s) : 0;
 	ft_inttabdel(&s->matrice, s->totalroom);
 	ft_inttabdel(&s->weight, s->totalroom);
 	ft_strtabdel(&s->namematrice);
+	free(s->tab);
+	free(s->tb);
+	ft_inttabdel(&s->ants_in_way, s->maxway);
+	ft_strtabdel(&s->color);
 	ft_clear_struct(s);
 	return (0);
 }

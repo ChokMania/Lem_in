@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/02 17:37:20 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/07 12:27:12 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		ft_move_ants(t_s *s, t_list *beg)
 				s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
 				miniprintf("L%d-%s", s->ants_in_way[s->j][i],
 					s->namematrice[beg->ttab[0][i]]);
-				miniprintf(" ");
+				miniprintf(" "); //espace en trop;
 				s->flag_c ? miniprintf("\x1b[0m") : 0;
 				s->ants_in_way[s->j][i + 1] = s->ants_in_way[s->j][i];
 				s->ants_in_way[s->j][i] = -5;
@@ -90,6 +90,9 @@ void		ft_dispatch_ants(int **tab, t_s *s)
 			ants--;
 			tab[i][1]++;
 		}
+	i = -1;
+	while (++i < s->maxway)
+		tab[i][1] > 0 ? tab[i][2] = 1 : 0;
 }
 
 int			ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
@@ -99,9 +102,9 @@ int			ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
 		s->j = -1;
 		if (!(s->ants_in_way[s->i] = (int*)malloc(sizeof(int) *
 			s->totalroom)))
-			return (-10);
+			return (-9);
 		if (!(tab[s->i] = (int*)malloc(sizeof(int) * 3)))
-			return (-11);
+			return (-9);
 		while (++s->j < s->totalroom)
 			s->ants_in_way[s->i][s->j] = -5;
 		tab[s->i][0] = ft_lenint(beg->ttab[0], s);
@@ -121,19 +124,26 @@ int			ft_print_path(t_s *s)
 	beg = s->finalways;
 	s->maxway = ft_list_size(s->finalways);
 	number_ants = 0;
-	if (!ft_color(s))
-		ft_error(s, -8);
 	s->i = -1;
 	s->k = s->maxway;
-	if (!(s->ants_in_way = (int**)malloc(sizeof(int*) * (s->maxway + 1))))
-		ft_error(s, -8);
-	if (!(tab = (int**)malloc(sizeof(int*) * (s->maxway + 1))))
+	if (!(s->ants_in_way = (int**)malloc(sizeof(int*) * (s->maxway))))
 		ft_error(s, -9);
+	if (!(tab = (int**)malloc(sizeof(int*) * (s->maxway))))
+	{
+		ft_inttabdel(&tab, s->maxway);
+		ft_error(s, -9);
+	}
 	if ((i = ft_print_path_while_malloc(s, beg, tab)) < 0)
-		ft_error(s, i);
+	{
+		ft_inttabdel(&tab, s->maxway);
+		ft_error(s, -9);
+	}
 	i = s->i;
 	ft_dispatch_ants(tab, s);
 	!s->flag_n ? miniprintf("\n") : 0;
+	if (!ft_color(s))
+		ft_error(s, -10);
 	ft_print_path_suite(s, number_ants, tab);
+	ft_inttabdel(&tab, s->maxway);
 	return (1);
 }
