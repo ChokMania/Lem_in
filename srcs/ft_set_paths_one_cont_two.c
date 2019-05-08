@@ -6,7 +6,7 @@
 /*   By: lramard <lramard@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/08 10:38:11 by lramard           #+#    #+#             */
-/*   Updated: 2019/05/08 10:38:14 by lramard          ###   ########.fr       */
+/*   Updated: 2019/05/08 14:21:19 by lramard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,8 @@ int			ft_duplicate_ways_push(t_s *s, t_list *beg, int currentmove, int j)
 	return (1);
 }
 
-void		first(t_s *s, t_list *beg)
+void		ft_sp_way_is_finished(t_s *s, t_list *beg)
 {
-	miniprintf("first\n");
 	s->kkt++;
 	s->maxway--;
 	beg->finished = 1;
@@ -57,9 +56,8 @@ void		first(t_s *s, t_list *beg)
 		s->ret = 1;
 }
 
-void		second(t_list *beg, int i, int j)
+void		ft_sp_way_is_continuing(t_list *beg, int i, int j)
 {
-	miniprintf("second\n");
 	if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
 	{
 		if (ft_check_prev(beg, i, j) == 1)
@@ -70,9 +68,8 @@ void		second(t_list *beg, int i, int j)
 	}
 }
 
-void		third(t_s *s, t_list *beg, int i, int j)
+void		ft_sp_way_is_duplicating(t_s *s, t_list *beg, int i, int j)
 {
-	miniprintf("third\n");
 	if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
 	{
 		if (ft_check_prev(beg, i, j) == 1)

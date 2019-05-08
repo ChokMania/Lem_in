@@ -6,7 +6,7 @@
 #    By: lramard <lramard@student42.fr>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/08 10:37:24 by lramard          ###   ########.fr        #
+#    Updated: 2019/05/08 14:30:26 by lramard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,13 @@ SRCS_NAME			=	lem_in.c					\
 					ft_matrice.c					\
 					ft_print_matrice.c				\
 					ft_flags.c						\
-					ft_set_paths.c					\
 					ft_list_functions.c				\
 					ft_recursively_best_way.c	\
 					ft_print_path.c					\
 					ft_utils.c						\
 					ft_set_paths_one_cont_one.c \
-					ft_set_paths_one_cont_two.c
+					ft_set_paths_one_cont_two.c \
+					ft_set_paths.c
 
 INCLUDES_NAME			=	lem_in.h
 

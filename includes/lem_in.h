@@ -6,7 +6,7 @@
 /*   By: lramard <lramard@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/08 10:29:07 by lramard          ###   ########.fr       */
+/*   Updated: 2019/05/08 14:41:13 by lramard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ typedef struct						s_struct
 	t_list							*ways;
 	t_list							*finalways;
 	t_list							*first;
+	t_list							*prev;
 	t_room							*room;
 }									t_s;
 
@@ -126,15 +127,12 @@ int									ft_ways_push_front(t_s *s, t_list **begin_list, int i);
 void								ft_list_print_int_remake(t_s *s);
 int									ft_list_copy(t_s *s, t_list **begin_list, t_list *copy);
 
-//ajout ft_set_paths_one_continuation
-int									ft_check_prev(t_list *beg, int i, int j);
-int									ft_duplicate_ways_push(t_s *s, t_list *beg, int currentmove, int j);
-void								first(t_s *s, t_list *beg);
-void								second(t_list *beg, int i, int j);
-void								third(t_s *s, t_list *beg, int i, int j);
-//ajout ft_set_paths_one_cont_two
+void								ft_sp_way_is_finished(t_s *s, t_list *beg);
+void								ft_sp_way_is_continuing(t_list *beg, int i, int j);
+void								ft_sp_way_is_duplicating(t_s *s, t_list *beg, int i, int j);
+
 int									ft_way_have_no_conflict(t_s *s, t_list *current);
-void								whilerrr(t_s *s, t_list *beg, int i, int j);
+void								ft_sp_check_connection(t_s *s, t_list *beg, int i, int j);
 
 int									ft_check_previous_conflict(t_s *s, int *tab, int j);
 int									ft_recursively_best_way(t_s *s, t_list *beg, int j, int p);

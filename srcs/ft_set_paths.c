@@ -6,15 +6,14 @@
 /*   By: lramard <lramard@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/08 10:27:40 by lramard          ###   ########.fr       */
+/*   Updated: 2019/05/08 14:40:56 by lramard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_push_front_ways_t(t_s *s, int i)
+void		ft_sp_set_starter(t_s *s, int i)
 {
-	miniprintf("ft_push_front_ways_t\n");
 	i = 0;
 	while (i < s->totalroom)
 	{
@@ -28,19 +27,20 @@ void		ft_push_front_ways_t(t_s *s, int i)
 	}
 }
 
-void		while_prev(t_s *s, t_list *beg, t_list *prev, int i, int j)
+void		ft_sp_cross_room(t_s *s, t_list *beg, int i, int j)
 {
-	int ok;
+	int		ok;
+	t_list	*prev;
 
+	prev = s->prev;
 	while (beg)
 	{
-		miniprintf("boucle -- while_prev\n");
 		beg->weight++;
 		ok = 0;
 		j = 0;
 		while (j < s->totalroom && beg->finished == 0)
 		{
-			whilerrr(s, beg, i, j);
+			ft_sp_check_connection(s, beg, i, j);
 			j++;
 		}
 		if (beg->ttab[0][i] == -5 && s->algo == 1)
@@ -61,23 +61,21 @@ int			ft_set_paths(t_s *s)
 	int		i;
 	int		j;
 	t_list	*beg;
-	t_list	*prev;
 
 	s->conflit = 0;
 	s->tmpconflit = 0;
 	i = 0;
-	ft_push_front_ways_t(s, i);
+	ft_sp_set_starter(s, i);
 	beg = s->ways;
-	prev = s->ways;
+	s->prev = s->ways;
 	i = 1;
 	j = 0;
 	s->kkt = 0;
 	while (s->kkt < 60 && i < s->totalroom)
 	{
-		miniprintf("boucle--MAJEUR\n");
 		beg = s->ways;
-		prev = s->ways;
-		while_prev(s, beg, prev, i, j);
+		s->prev = s->ways;
+		ft_sp_cross_room(s, beg, i, j);
 		i++;
 	}
 	ft_print_ways(s);
