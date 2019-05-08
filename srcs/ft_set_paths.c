@@ -6,60 +6,13 @@
 /*   By: lramard <lramard@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 18:58:24 by lramard          ###   ########.fr       */
+/*   Updated: 2019/05/08 10:27:40 by lramard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int				ft_check_prev(t_list *beg, int i, int j)
-{
-	i++;
-	while (i > 0)
-	{
-		if (beg->ttab[0][i - 1] == j)
-			return (0);
-		i--;
-	}
-	return (1);
-}
-
-int				ft_duplicate_ways_push(t_s *s, t_list *beg, int currentmove, int j)
-{
-	int		i;
-	t_list	*new;
-
-	if (!(ft_ways_push_front(s, &s->ways, j)))
-		return (0);
-	i = 0;
-	new = s->ways;
-	while (i < s->totalroom)
-	{
-		new->ttab[0][i] = beg->ttab[0][i];
-		new->ttab[1][i] = beg->ttab[1][i];
-		new->ttab[2][i] = beg->ttab[2][i];
-		i++;
-	}
-	new->ttab[0][currentmove] = j;
-	new->weight = beg->weight;
-	return (1);
-}
-
-int				ft_way_have_no_conflict(t_s *s, t_list *current)
-{
-	int i;
-
-	i = 0;
-	while (i < s->totalroom)
-	{
-		if (current->ttab[2][i] > 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-void			ft_push_front_ways_t(t_s *s, int i)
+void		ft_push_front_ways_t(t_s *s, int i)
 {
 	miniprintf("ft_push_front_ways_t\n");
 	i = 0;
@@ -75,69 +28,7 @@ void			ft_push_front_ways_t(t_s *s, int i)
 	}
 }
 
-void			first(t_s *s, t_list *beg)
-{
-	miniprintf("first\n");
-	s->kkt++;
-	s->maxway--;
-	beg->finished = 1;
-	if (!(ft_list_copy(s, &s->finalways, beg)))
-		s->ret = -10;
-	if (ft_best_ways_found(s))
-		s->ret = 1;
-}
-
-void			second(t_list *beg, int i, int j)
-{
-	miniprintf("second\n");
-	if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
-	{
-		if (ft_check_prev(beg, i, j) == 1)
-		{
-			beg->ttab[0][i] = j;
-			beg->ttab[1][i] = 1;
-		}
-	}
-}
-
-void			third(t_s *s, t_list *beg, int i, int j)
-{
-	miniprintf("third\n");
-	if ((i < 2) || (i >= 2 && j != beg->ttab[0][i - 2]))
-	{
-		if (ft_check_prev(beg, i, j) == 1)
-		{
-			beg->ttab[2][i - 1] = 1;
-			if (!(ft_duplicate_ways_push(s, beg, i, j)))
-				s->ret = 0;
-		}
-	}
-}
-
-void			whilerrr(t_s *s, t_list *beg, int i, int j)
-{
-	miniprintf("whilerrr\n");
-	if (beg->ttab[0][i - 1] == s->end_pos)
-	{
-		first(s, beg);  
-	}
-	else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0
-		&& j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j]
-		== 1 && beg->ttab[0][i - 1] != j && beg->ttab[1][i] < 0
-		&& (s->matrice[j][j] > 1 || j == s->end_pos))
-	{
-		second(beg, i, j);
-	}
-	else if (beg->ttab[0][i - 1] > -5 && beg->finished == 0 &&
-		j != s->start_pos && s->matrice[beg->ttab[0][i - 1]][j] == 1
-		&& beg->ttab[0][i - 1] != j && beg->ttab[1][i] > 0
-		&& (s->matrice[j][j] > 1 || j == s->end_pos))
-	{
-		third(s, beg, i, j);
-	}
-}
-
-void			while_prev(t_s *s, t_list *beg, t_list *prev, int i, int j)
+void		while_prev(t_s *s, t_list *beg, t_list *prev, int i, int j)
 {
 	int ok;
 
@@ -165,7 +56,7 @@ void			while_prev(t_s *s, t_list *beg, t_list *prev, int i, int j)
 	}
 }
 
-int				ft_set_paths(t_s *s)
+int			ft_set_paths(t_s *s)
 {
 	int		i;
 	int		j;
@@ -175,9 +66,7 @@ int				ft_set_paths(t_s *s)
 	s->conflit = 0;
 	s->tmpconflit = 0;
 	i = 0;
-	miniprintf("hey\n");
 	ft_push_front_ways_t(s, i);
-	miniprintf("ho\n");
 	beg = s->ways;
 	prev = s->ways;
 	i = 1;
@@ -195,7 +84,7 @@ int				ft_set_paths(t_s *s)
 	return (1);
 }
 
-long long		ft_set_maxway(t_s *s)
+long long	ft_set_maxway(t_s *s)
 {
 	long long i;
 
@@ -207,7 +96,7 @@ long long		ft_set_maxway(t_s *s)
 	return (i);
 }
 
-int				ft_set_paths_start(t_s *s)
+int			ft_set_paths_start(t_s *s)
 {
 	int i;
 
