@@ -6,7 +6,7 @@
 /*   By: lramard <lramard@student42.fr>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/08 14:40:56 by lramard          ###   ########.fr       */
+/*   Updated: 2019/05/08 17:42:53 by lramard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		ft_sp_set_starter(t_s *s, int i)
 	}
 }
 
-void		ft_sp_cross_room(t_s *s, t_list *beg, int i, int j)
+int		ft_sp_cross_room(t_s *s, t_list *beg, int i, int j)
 {
 	int		ok;
 	t_list	*prev;
@@ -40,7 +40,10 @@ void		ft_sp_cross_room(t_s *s, t_list *beg, int i, int j)
 		j = 0;
 		while (j < s->totalroom && beg->finished == 0)
 		{
-			ft_sp_check_connection(s, beg, i, j);
+			if ((s->ret = ft_sp_check_connection(s, beg, i, j)) == 1)
+				return (1);
+			else if (s->ret < 0)
+				return (s->ret);
 			j++;
 		}
 		if (beg->ttab[0][i] == -5 && s->algo == 1)
@@ -54,6 +57,7 @@ void		ft_sp_cross_room(t_s *s, t_list *beg, int i, int j)
 		if (ok == 0)
 			beg = beg->next;
 	}
+	return (0);//valeur de return non certaine
 }
 
 int			ft_set_paths(t_s *s)
