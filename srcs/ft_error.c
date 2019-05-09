@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/09 08:39:07 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 18:29:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@ void	ft_print_ways(t_s *s, t_list *way)
 	beg = way;
 	while (beg)
 	{
-		miniprintf("ant name : %i\n\n", beg->i);
-		ft_print_tab_tab_int_tmp(s, beg->ttab, 3, s->totalroom);
+		//miniprintf("ant name : %i\n\n", beg->i);
+		ft_print_tab_int(beg->tab, s->totalroom);
 		beg = beg->next;
 	}
 	miniprintf("%%", "END");
+	(void)s;
 }
 
 int		ft_color(t_s *s)

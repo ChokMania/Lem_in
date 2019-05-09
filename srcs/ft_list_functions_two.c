@@ -6,37 +6,42 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/09 16:50:37 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 18:41:23 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-t_list		*ft_create_elem_tab_way_two(int *tab)
+t_list		*ft_create_elem_tab_way_two(t_s *s, int *tab)
 {
 	t_list	*new;
+	int		i;
 
+	i = -1;
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
+	if (!(new->tab = (int*)malloc(sizeof(int) * s->totalroom)))
+		return (NULL);
+	while (++i < s->totalroom)
+		new->tab[i] = tab[i];
 	new->next = NULL;
-	new->tab = tab;
 	return (new);
 }
 
-int			ft_ways_push_front_two(t_list **begin_list, int *tab)
+int			ft_ways_push_front_two(t_s *s, t_list **begin_list, int *tab)
 {
 	t_list	*tmp;
 
 	if (*begin_list && begin_list)
 	{
-		if ((tmp = ft_create_elem_tab_way_two(tab)) == NULL)
+		if ((tmp = ft_create_elem_tab_way_two(s, tab)) == NULL)
 			return (0);
 		tmp->next = (*begin_list);
 		(*begin_list) = tmp;
 	}
 	else
 	{
-		if (!((*begin_list) = ft_create_elem_tab_way_two(tab)))
+		if (!((*begin_list) = ft_create_elem_tab_way_two(s, tab)))
 			return (0);
 	}
 	return (1);
