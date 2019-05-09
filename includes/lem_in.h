@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 17:28:09 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 16:50:46 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct						s_struct
 	int								flag_c;
 	int								flag_m;
 	int								flag_n;
-	int								start_pos;
+	int								st_pos;
 	int								end_pos;
 	int								conflit;
 	int								tmpconflit;
@@ -154,5 +154,8 @@ int									ft_detect_room_or_pipe(t_s *s);
 int									ft_detect_line_type(t_s *s);
 
 int									ft_set_paths_start_two(t_s *s);
+
+int									ft_ways_push_front_two(t_list **begin_list, int *tab);
+t_list								*ft_create_elem_tab_way_two(int *tab);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/07 12:27:12 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 08:42:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ int			ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
 		tab[s->i][1] = 0;
 		beg = beg->next;
 	}
+	ft_dispatch_ants(tab, s);
+	!s->flag_n ? miniprintf("\n") : 0;
+	if (!ft_color(s))
+		ft_error(s, -10);
 	return (1);
 }
 
@@ -138,11 +142,6 @@ int			ft_print_path(t_s *s)
 		ft_inttabdel(&tab, s->maxway);
 		ft_error(s, -9);
 	}
-	i = s->i;
-	ft_dispatch_ants(tab, s);
-	!s->flag_n ? miniprintf("\n") : 0;
-	if (!ft_color(s))
-		ft_error(s, -10);
 	ft_print_path_suite(s, number_ants, tab);
 	ft_inttabdel(&tab, s->maxway);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 17:23:45 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 08:39:07 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_print_ways(t_s *s, t_list *way)
 
 int		ft_color(t_s *s)
 {
+	s->color = NULL;
 	if (!(s->color = (char**)malloc(sizeof(char*) * 8)))
 		return (0);
 	s->color[0] = ft_strdup("\x1b[31m");

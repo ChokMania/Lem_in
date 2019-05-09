@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:25:03 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 15:51:05 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 09:30:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int		ft_set_struct(t_s *s)
 	s->command = NULL;
 	s->comment = NULL;
 	s->input = NULL;
-	s->color = NULL;
 	s->namematrice = NULL;
 	s->tb = NULL;
 	s->commandstart = 0;
@@ -60,7 +59,7 @@ int		ft_set_struct(t_s *s)
 	s->flag_c = 0;
 	s->flag_m = 0;
 	s->flag_n = 0;
-	s->start_pos = -1;
+	s->st_pos = -1;
 	s->end_pos = -1;
 	return (1);
 }

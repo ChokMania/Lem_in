@@ -6,29 +6,32 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 18:16:14 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 08:37:18 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			ft_lenint(int *tab, t_s *s)
+int			ft_help_create(t_s *s, int **tab, t_list *copy, int i)
 {
-	int		i;
+	int		k;
+	int		j;
 
-	i = 0;
-	while (tab[i] != -5 && i != s->totalroom)
-		i++;
-	return (i);
+	j = -1;
+	while (++j < 3 && (k = -1))
+	{
+		if (!(tab[j] = (int *)malloc(sizeof(int) * s->totalroom)))
+			return (0);
+		while (++k < s->totalroom)
+			tab[j][k] = (i == 1 ? copy->ttab[j][k] : -5);
+	}
+	return (1);
 }
 
 t_list		*ft_create_elem_tab_way(t_s *s, int i, int **tab)
 {
 	t_list	*new;
-	int		j;
-	int		k;
 
-	j = -1;
 	new = NULL;
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
@@ -38,16 +41,11 @@ t_list		*ft_create_elem_tab_way(t_s *s, int i, int **tab)
 		free(new);
 		return (NULL);
 	}
-	while (++j < 3 && (k = -1))
+	if (!ft_help_create(s, tab, NULL, 0))
 	{
-		if (!(tab[j] = (int *)malloc(sizeof(int) * s->totalroom)))
-		{
-			ft_inttabdel(&tab, s->totalroom);
-			new->ttab = NULL;
-			return (0);
-		}
-		while (++k < s->totalroom)
-			tab[j][k] = -5;
+		ft_inttabdel(&tab, s->totalroom);
+		new->ttab = NULL;
+		return (NULL);
 	}
 	tab[0][0] = i;
 	tab[1][0] = 1;
@@ -61,10 +59,7 @@ t_list		*ft_create_elem_tab_way(t_s *s, int i, int **tab)
 t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy, int **tab)
 {
 	t_list	*new;
-	int		j;
-	int		k;
 
-	j = -1;
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
 	new->ttab = NULL;
@@ -73,16 +68,11 @@ t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy, int **tab)
 		free(new);
 		return (NULL);
 	}
-	while (++j < 3 && (k = -1))
+	if (!ft_help_create(s, tab, copy, 1))
 	{
-		if (!(tab[j] = (int *)malloc(sizeof(int) * s->totalroom)))
-		{
-			ft_inttabdel(&tab, s->totalroom);
-			new->ttab = NULL;
-			return (NULL);
-		}
-		while (++k < s->totalroom)
-			tab[j][k] = copy->ttab[j][k];
+		ft_inttabdel(&tab, s->totalroom);
+		new->ttab = NULL;
+		return (NULL);
 	}
 	new->finished = 1;
 	new->next = NULL;

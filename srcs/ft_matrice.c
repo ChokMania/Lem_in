@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:05:18 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 11:28:59 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 09:30:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int			ft_set_matrice_laplacienne(t_s *s)
 
 	s->i = 0;
 	beg = s->room;
-	while (s->start_pos == -1 || s->end_pos == -1)
+	while (s->st_pos == -1 || s->end_pos == -1)
 	{
 		if (beg->startpos == 1)
-			s->start_pos = s->i;
+			s->st_pos = s->i;
 		else if (beg->startpos == 2)
 			s->end_pos = s->i;
 		beg = beg->next;
@@ -35,7 +35,7 @@ int			ft_set_matrice_laplacienne(t_s *s)
 			if (s->matrice[s->i][s->j] == 1)
 				s->k++;
 		s->matrice[s->i][s->i] = s->k;
-		if ((s->i == s->start_pos || s->i == s->end_pos) && s->k < 1)
+		if ((s->i == s->st_pos || s->i == s->end_pos) && s->k < 1)
 			return (-6);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/07 11:44:54 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/09 16:17:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,8 @@ void	ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size)
 		{
 			if (tab[i][j] == -5)
 				ft_putstr("");
-			else if (i == 0)
-				miniprintf("%.2s", s->namematrice[tab[i][j]]);
 			else
-				ft_putnbr(tab[i][j]);
+				miniprintf("%10s", s->namematrice[tab[i][j]]);
 			if (j + 1 != size)
 				ft_putchar(' ');
 			j++;
