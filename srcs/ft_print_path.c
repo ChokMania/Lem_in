@@ -6,13 +6,13 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/09 08:42:48 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/10 14:35:56 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_move_ants(t_s *s, t_list *beg)
+int		ft_move_ants(t_s *s, t_list *beg, int k)
 {
 	int		i;
 
@@ -25,20 +25,30 @@ void		ft_move_ants(t_s *s, t_list *beg)
 				s->ants_in_way[s->j][i] = -5;
 			else
 			{
-				s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
-				miniprintf("L%d-%s", s->ants_in_way[s->j][i],
+				k == 1 ? miniprintf(" ") : 0;
+				if ((k = 1) && s->algo == 2)
+				{
+					s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
+					miniprintf("L%d-%s", s->ants_in_way[s->j][i],
+					s->namematrice[beg->tab[i]]);
+				}
+				else
+				{
+					s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
+					miniprintf("L%d-%s", s->ants_in_way[s->j][i],
 					s->namematrice[beg->ttab[0][i]]);
-				miniprintf(" "); //espace en trop;
-				s->flag_c ? miniprintf("\x1b[0m") : 0;
+				}
 				s->ants_in_way[s->j][i + 1] = s->ants_in_way[s->j][i];
 				s->ants_in_way[s->j][i] = -5;
+				s->flag_c ? miniprintf("\x1b[0m") : 0;
 				s->p++;
 			}
 		}
 	}
+	return (k);
 }
 
-void		ft_print_path_suite(t_s *s, int number_ants, int **tab)
+void		ft_print_path_suite(t_s *s, int number_ants, int **tab, int k)
 {
 	t_list	*beg;
 
@@ -50,17 +60,18 @@ void		ft_print_path_suite(t_s *s, int number_ants, int **tab)
 		s->i == 0 ? s->p = 1 : 0;
 		s->j = -1;
 		beg = s->finalways;
+		k = 0;
 		while (beg)
 		{
 			s->j++;
-			s->k = ft_lenint(beg->ttab[0], s);
+			s->k = s->algo == 1 ? ft_lenint(beg->ttab[0], s) : ft_lenint(beg->tab, s);
 			if (tab[s->j][1]-- > 0)
 			{
 				s->nbant--;
 				number_ants = ++s->i;
 				s->ants_in_way[s->j][0] = number_ants;
 			}
-			ft_move_ants(s, beg);
+			k = ft_move_ants(s, beg, k);
 			beg = beg->next;
 		}
 		s->p ? ft_putchar('\n') : 0;
@@ -107,7 +118,9 @@ int			ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
 			return (-9);
 		while (++s->j < s->totalroom)
 			s->ants_in_way[s->i][s->j] = -5;
-		tab[s->i][0] = ft_lenint(beg->ttab[0], s);
+		
+		tab[s->i][0] = s->algo == 1 ? ft_lenint(beg->ttab[0], s)
+			: ft_lenint(beg->tab, s);
 		tab[s->i][1] = 0;
 		beg = beg->next;
 	}
@@ -142,7 +155,7 @@ int			ft_print_path(t_s *s)
 		ft_inttabdel(&tab, s->maxway);
 		ft_error(s, -9);
 	}
-	ft_print_path_suite(s, number_ants, tab);
+	ft_print_path_suite(s, number_ants, tab, 0);
 	ft_inttabdel(&tab, s->maxway);
 	return (1);
 }

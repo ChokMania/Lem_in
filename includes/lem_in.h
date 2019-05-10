@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/09 18:41:41 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/10 11:32:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct						s_struct
 	int								liaisons;
 	int								*tab;
 	int								*tb;
+	int								max_weight;
 	long long						totalroom;
 
 	int								**matrice;

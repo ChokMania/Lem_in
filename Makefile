@@ -6,11 +6,11 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/09 16:43:57 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/10 14:55:40 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME1				=	lem_in
+NAME1				=	lem-in
 
 SANITIZE			=	yes
 WEVERYTHING			=	no
