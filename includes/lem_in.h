@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/10 11:32:54 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/10 15:10:03 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,19 @@ void								ft_calcul_nb_pipes(t_s *s);
 int									ft_detect_room_or_pipe(t_s *s);
 int									ft_detect_line_type(t_s *s);
 
-int									ft_set_paths_start_two(t_s *s);
 
 int									ft_ways_push_front_two(t_s *s, t_list **begin_list, int *tab);
 t_list								*ft_create_elem_tab_way_two(t_s *s, int *tab);
 
+int									ft_parse_queue(int *tab);
+void								ft_reset_weight(t_s *s);
+int									ft_choose_the_one(int u, t_s *s);
+int									*ft_intdup(int *i1, int len);
+t_list								*ft_sort_list(t_list *lst, t_s *s);
+
+void								ft_reverse_final(t_s *s);
+void								ft_is_worth(t_s *s, int i);
+int									ft_set_paths_start_two(t_s *s);
+
+int									ft_algo_two(t_s *s);
 #endif

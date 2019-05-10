@@ -6,13 +6,13 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/10 14:35:56 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/10 15:02:04 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_move_ants(t_s *s, t_list *beg, int k)
+int			ft_move_ants(t_s *s, t_list *beg, int k)
 {
 	int		i;
 
@@ -26,18 +26,11 @@ int		ft_move_ants(t_s *s, t_list *beg, int k)
 			else
 			{
 				k == 1 ? miniprintf(" ") : 0;
-				if ((k = 1) && s->algo == 2)
-				{
-					s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
-					miniprintf("L%d-%s", s->ants_in_way[s->j][i],
-					s->namematrice[beg->tab[i]]);
-				}
-				else
-				{
-					s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
-					miniprintf("L%d-%s", s->ants_in_way[s->j][i],
+				s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
+				(k = 1) && s->algo == 2 ? miniprintf("L%d-%s",
+					s->ants_in_way[s->j][i], s->namematrice[beg->tab[i]])
+					: miniprintf("L%d-%s", s->ants_in_way[s->j][i],
 					s->namematrice[beg->ttab[0][i]]);
-				}
 				s->ants_in_way[s->j][i + 1] = s->ants_in_way[s->j][i];
 				s->ants_in_way[s->j][i] = -5;
 				s->flag_c ? miniprintf("\x1b[0m") : 0;
@@ -64,13 +57,10 @@ void		ft_print_path_suite(t_s *s, int number_ants, int **tab, int k)
 		while (beg)
 		{
 			s->j++;
-			s->k = s->algo == 1 ? ft_lenint(beg->ttab[0], s) : ft_lenint(beg->tab, s);
-			if (tab[s->j][1]-- > 0)
-			{
-				s->nbant--;
-				number_ants = ++s->i;
+			s->k = s->algo == 1 ? ft_lenint(beg->ttab[0], s)
+				: ft_lenint(beg->tab, s);
+			if (tab[s->j][1]-- > 0 && (number_ants = ++s->i))
 				s->ants_in_way[s->j][0] = number_ants;
-			}
 			k = ft_move_ants(s, beg, k);
 			beg = beg->next;
 		}
@@ -118,7 +108,6 @@ int			ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
 			return (-9);
 		while (++s->j < s->totalroom)
 			s->ants_in_way[s->i][s->j] = -5;
-		
 		tab[s->i][0] = s->algo == 1 ? ft_lenint(beg->ttab[0], s)
 			: ft_lenint(beg->tab, s);
 		tab[s->i][1] = 0;

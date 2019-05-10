@@ -6,7 +6,7 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/10 14:55:40 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/10 15:10:15 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,8 @@ SRCS_NAME			=	lem_in.c					\
 					ft_help_main.c					\
 					ft_set_paths_two.c				\
 					ft_algo_one.c					\
+					ft_set_path_two_help.c			\
+					ft_algo_two.c
 
 INCLUDES_NAME			=	lem_in.h
 
