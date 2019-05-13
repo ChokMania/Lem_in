@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/09 08:37:18 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 09:02:40 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_list		*ft_create_elem_tab_way(t_s *s, int i, int **tab)
 	new = NULL;
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
+	new->tab = NULL;
 	new->ttab = NULL;
 	if (!(tab = (int **)malloc(sizeof(int *) * (3))))
 	{
@@ -62,6 +63,7 @@ t_list		*ft_create_elem_tab_final_way(t_s *s, t_list *copy, int **tab)
 
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
+	new->tab = NULL;
 	new->ttab = NULL;
 	if (!(tab = (int **)malloc(sizeof(int *) * (3))))
 	{

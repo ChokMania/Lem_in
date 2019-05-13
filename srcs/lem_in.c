@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/13 08:54:34 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 09:01:08 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int		main(int ac, char **av)
 	ft_apply_flag(s);
 	ft_calcul_nb_pipes(s);
 	s->algo = s->liaisons / 2 - s->totalroom < 70 ? 1 : 2;
-	s->algo = 2;
 	s->algo == 1 ? ft_main_algo_one(s) : ft_main_algo_two(s);
 	return (0);
 }
