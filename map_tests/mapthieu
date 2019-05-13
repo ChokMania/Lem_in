@@ -2,33 +2,33 @@
 50
 ##start
 start 23 3
-m 16 3
-h 16 5
+m 160 30
+h 160 50
 #test
-i 9 3
-j 1 5
-k 4 8
+i 90 30
+j 10 50
+k 40 80
 ##end
-end 10000 7
-l 1 1
-g 9 5
-a 9 5
-b 9 5
-c 9 5
-d 9 5
-e 9 5
-f 9 5
+end 100 70
+l 100 100
+g 200 200
+a 310 300
+b 420 400
+c 530 500
+d 640 600
+e 750 700
+f 860 800
 start-m
 m-end
 start-h
 h-i
 i-j
-l-k
+l-g
+g-end
 k-end
 h-l
-l-g
+l-k
 k-j
-g-end
 start-a
 a-b
 b-c

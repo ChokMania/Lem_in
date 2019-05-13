@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 15:03:06 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/13 08:52:12 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 11:40:29 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int		ft_choose_the_one(int u, t_s *s)
 {
 	int i;
 
-	i = 0;
+	i = -1;
 	while (u > 0)
 	{
+		i++;
 		if (s->matrice[s->st_pos][i] == 1 && i != s->st_pos)
 			u--;
-		i++;
 	}
 	return (i);
 }

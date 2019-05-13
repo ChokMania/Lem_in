@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/13 09:01:08 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 11:37:54 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_read_input(t_s *s)
 		else if (s->nbantset == 0 && ft_strisnum(s->str))
 		{
 			s->nbant = ft_atolli(s->str);
-			if (s->nbant < 0)
+			if (s->nbant <= 0 || s->nbant > INT32_MAX)
 				return (-2);
 			s->nbantset = 1;
 			ft_strdel(&s->str);
@@ -86,6 +86,7 @@ int		main(int ac, char **av)
 	ft_apply_flag(s);
 	ft_calcul_nb_pipes(s);
 	s->algo = s->liaisons / 2 - s->totalroom < 70 ? 1 : 2;
+	s->algo = 2;
 	s->algo == 1 ? ft_main_algo_one(s) : ft_main_algo_two(s);
 	return (0);
 }

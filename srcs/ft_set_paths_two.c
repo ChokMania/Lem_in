@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/13 08:38:02 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 11:09:14 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ void		ft_is_worth(t_s *s, int i)
 
 	beg = s->ways;
 	total = 0;
-	while (beg && (i = 0))
+	while (beg && !(i = 0))
 	{
 		while (beg->tab[i] != -5 && i < s->totalroom)
 			i++;
 		total += i - 1;
 		beg = beg->next;
 	}
-	if ((beg = s->ways) && (!ft_list_size(s->finalways) || (s->nbant + total)
-		/ ft_list_size(s->finalways) > (s->nbant + s->max_weight)
-		/ ft_list_size(s->ways)))
+	if ((beg = s->ways) && (!ft_list_size(s->finalways)
+		|| (float)(s->nbant + s->max_weight) / (float)ft_list_size(s->finalways)
+		> (float)(s->nbant + total) / (float)ft_list_size(s->ways)))
 	{
 		s->finalways ? ft_list_clear_tab(&s->finalways) : 0;
 		s->max_weight = total;

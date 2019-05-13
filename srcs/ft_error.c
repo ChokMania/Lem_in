@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/13 09:02:48 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 09:15:33 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,6 @@ void	ft_error_two(t_s *s, int error)
 	if (error <= -7)
 		ft_list_clear_tab(&s->ways);
 	if (error <= -8)
-		ft_list_clear_tab(&s->finalways);
-	if (error <= -9)
-		;
-	if (error <= -10)
 		ft_list_clear_tab(&s->finalways);
 	if (error <= -11)
 		ft_inttabdel(&s->ants_in_way, s->maxway);
