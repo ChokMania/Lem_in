@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/10 11:09:22 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 08:29:15 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_list		*ft_create_elem_tab_way_two(t_s *s, int *tab)
 		return (NULL);
 	while (++i < s->totalroom)
 		new->tab[i] = tab[i];
+	new->ttab = NULL;
 	new->next = NULL;
 	return (new);
 }

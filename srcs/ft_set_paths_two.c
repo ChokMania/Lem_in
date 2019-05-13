@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/10 15:10:44 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 08:38:02 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,12 @@ void		ft_is_worth(t_s *s, int i)
 		/ ft_list_size(s->finalways) > (s->nbant + s->max_weight)
 		/ ft_list_size(s->ways)))
 	{
-		s->finalways ? ft_list_clear(&s->finalways) : 0;
+		s->finalways ? ft_list_clear_tab(&s->finalways) : 0;
 		s->max_weight = total;
 		while (beg)
 		{
-			ft_ways_push_front_two(s, &s->finalways, beg->tab);
+			if (!(ft_ways_push_front_two(s, &s->finalways, beg->tab)))
+				ft_error(s, -8);
 			beg = beg->next;
 		}
 	}
@@ -66,18 +67,6 @@ void		ft_is_worth(t_s *s, int i)
 
 int			ft_set_paths_start_two(t_s *s)
 {
-	int i;
-
-	s->i = -1;
-	if (!(s->tab = (int *)malloc(sizeof(int) * s->totalroom)))
-		ft_error(s, -7);
-	while (++s->i < s->totalroom)
-		s->tab[s->i] = -5;
-	i = -1;
-	if (!(s->tb = (int *)malloc(sizeof(int) * s->totalroom)))
-		ft_error(s, -8);
-	while (++i < s->totalroom)
-		s->tb[i] = -5;
 	s->i = 0;
 	s->maxway = ft_set_maxway(s);
 	ft_algo_two(s);

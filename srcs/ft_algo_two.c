@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 15:22:06 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/10 15:30:14 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 08:36:34 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		ft_everything_push(t_s *s, int *tab, int t[5])
 	}
 	if (t[3] >= 0)
 		if (!(ft_ways_push_front_two(s, &s->ways, tab)))
-			return ;
+			ft_error(s, -7);
 	t[2] = -1;
 }
 
@@ -109,7 +109,7 @@ int				ft_algo_two(t_s *s)
 	int u;
 
 	if (!(tab = (int *)malloc(sizeof(int) * s->totalroom * s->totalroom)))
-		return (0);
+		ft_error(s, -6);
 	u = 0;
 	while (++u <= s->matrice[s->st_pos][s->st_pos])
 	{
@@ -117,7 +117,8 @@ int				ft_algo_two(t_s *s)
 		ft_first_while(s, k, -1, tab);
 		ft_reset_weight(s);
 		ft_is_worth(s, -1);
-		ft_list_clear(&s->ways);
+		ft_list_clear_tab(&s->ways);
 	}
+	free(tab);
 	return (1);
 }

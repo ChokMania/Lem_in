@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 08:43:31 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/09 17:10:03 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 08:46:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int			ft_second_while_algo(t_s *s, t_list *beg, int t[4])
 			== 1 && beg->ttab[0][t[0] - 1] != t[3] && beg->ttab[1][t[0]] < 0
 			&& (s->matrice[t[3]][t[3]] > 1 || t[3] == s->end_pos))
 			ft_algo_if(s, t, beg, 1);
-		else if (beg->ttab[0][t[0] - 1] > -5 && beg->finished == 0 &&
-			t[3] != s->st_pos && s->matrice[beg->ttab[0][t[0] - 1]][t[3]] == 1
+		else if (beg->ttab[0][t[0] - 1] > -5 && beg->finished == 0 && t[3]
+			!= s->st_pos && s->matrice[beg->ttab[0][t[0] - 1]][t[3]] == 1
 			&& beg->ttab[0][t[0] - 1] != t[3] && beg->ttab[1][t[0]] > 0
 			&& (s->matrice[t[3]][t[3]] > 1 || t[3] == s->end_pos))
 			if ((t[0] < 2) || (t[0] >= 2 && t[3] != beg->ttab[0][t[0] - 2]))

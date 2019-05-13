@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 15:03:06 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/10 15:06:23 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/13 08:52:12 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		*ft_intdup(int *i1, int len)
 	int		i;
 
 	i = 0;
-	if (!(i2 = (int *)ft_memalloc(sizeof(int) * (len + 1))))
+	if (!(i2 = (int *)malloc(sizeof(int) * (len + 1))))
 		return (NULL);
 	while (i < len)
 	{
@@ -72,20 +72,28 @@ int		*ft_intdup(int *i1, int len)
 t_list	*ft_sort_list(t_list *lst, t_s *s)
 {
 	t_list	*tmp;
-	int		*overflow;
+	int		*t;
 
 	tmp = lst;
-	while (lst != NULL && lst->next != NULL)
-	{
+	while (lst != NULL && lst->next != NULL && !(s->ret = 0))
 		if (ft_lenint(lst->tab, s) > ft_lenint(lst->next->tab, s))
 		{
-			overflow = ft_intdup(lst->tab, s->totalroom);
-			lst->tab = ft_intdup(lst->next->tab, s->totalroom);
-			lst->next->tab = ft_intdup(overflow, s->totalroom);
+			!(t = ft_intdup(lst->tab, s->totalroom)) ? ft_error(s, -8) : 0;
+			free(lst->tab);
+			!(lst->tab = ft_intdup(lst->next->tab, s->totalroom))
+				? s->ret = -9 : 0;
+			free(lst->next->tab);
+			!s->ret && !(lst->next->tab = ft_intdup(t, s->totalroom))
+				? s->ret = -9 : 0;
+			if (s->ret == -9)
+			{
+				free(t);
+				ft_error(s, -8);
+			}
+			free(t);
 			lst = tmp;
 		}
 		else
 			lst = lst->next;
-	}
 	return (tmp);
 }
