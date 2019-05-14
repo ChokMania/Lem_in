@@ -12,121 +12,53 @@
 
 #include "lem_in.h"
 
-/*
-static void		ft_everything_push(t_s *s, int *tab, int t[5])
+static	void	ft_list_clear_tab_not_first(t_list **begin_list)
 {
-	while (t[0] > 0)
-		tab[t[0]--] = -5;
-	if (t[3] >= 0)
-	{
-		while (1)
-		{
-			if (t[2] == -5)
-				break ;
-			tab[t[0]++] = t[2];
-			t[2] != s->end_pos ? s->weight[t[2]][0] = -1 : 0;
-			t[2] = s->weight[t[2]][1];
-		}
-	}
-	if (t[3] >= 0)
-		if (!(ft_ways_push_front_two(s, &s->ways, tab)))
-			ft_error(s, -7);
-	t[2] = -1;
-}
+	t_list *save;
 
-static void		ft_complete_bfs(t_s *s, int *tab, int t[5])
-{
-	while (t[2] != s->end_pos && ++t[4] < s->totalroom)
+	save = *begin_list;
+	while ((*begin_list)->next)
 	{
-		t[2] = -1;
-		if (t[3] == s->end_pos)
-		{
-			t[2] = t[3];
-			tab[++t[0]] = t[2];
-			break ;
-		}
-		t[3] = ft_parse_queue(tab);
-		if (t[3] < 0)
-			continue ;
-		while (++t[2] < s->totalroom)
-			if (s->matrice[t[3]][t[2]] == 1 && t[3] != t[2]
-				&& s->weight[t[2]][0] == -5 && t[2] != s->st_pos)
-			{
-				s->weight[t[2]][0] = s->weight[t[3]][0] + 1;
-				s->weight[t[2]][1] = t[3];
-				if (t[2] == s->end_pos)
-					break ;
-				tab[++t[0]] = t[2];
-			}
-		tab[t[4]] = -1;
+		save = (*begin_list);
+		(*begin_list) = (*begin_list)->next;
+		if (save->ttab)
+			ft_inttabdel(&save->ttab, 3);
+		if (save->tab)
+			free(save->tab);
+		free(save);
 	}
 }
 
-static int		ft_init(t_s *s, int t[5], int *tab, int k)
+static	void	ft_clean_not_first(int **tab, int len1)
 {
-	t[0] = -1;
-	while (++t[0] < s->totalroom)
-		tab[t[0]] = -5;
-	t[4] = -1;
-	t[0] = 0;
-	t[1] = k;
-	t[2] = -1;
-	tab[0] = t[1];
-	t[3] = t[1];
-	if (s->weight[t[1]][0] == -1)
-		return (-1);
-	s->weight[t[1]][0] = 0;
-	s->weight[t[1]][1] = -5;
-	return (1);
-}
+	int	i;
+	int j;
 
-void			ft_first_while(t_s *s, int k, int save, int *tab)
-{
-	int	t[5];
-
-	while (++save < s->totalroom)
+	i = -1;
+	j = -1;
+	while (++i < len1)
 	{
-		k++;
-		if (k == s->totalroom)
-			k = 0;
-		if (s->matrice[s->st_pos][k] == 1 && k != s->st_pos)
-		{
-			if (ft_init(s, t, tab, k) > 0)
-			{
-				ft_complete_bfs(s, tab, t);
-				ft_everything_push(s, tab, t);
-				while (++t[2] < s->totalroom)
-				{
-					if (s->weight[t[2]][0] != -1)
-						s->weight[t[2]][0] = -5;
-					s->weight[t[2]][1] = -5;
-				}
-			}
-		}
+		if (tab[i][0] != -1)
+			tab[i][0] = -5;
+		tab[i][1] = -5;
 	}
 }
 
 
-int				ft_algo_two(t_s *s)
+static	void	ft_clean_tab_tab_token(int **tab, int len1)
 {
-	int *tab;
-	int k;
-	int u;
+	int	i;
+	int j;
 
-	if (!(tab = (int *)malloc(sizeof(int) * s->totalroom * s->totalroom)))
-		ft_error(s, -6);
-	u = 0;
-	while (++u <= s->matrice[s->st_pos][s->st_pos])
+	i = -1;
+	j = -1;
+	while (++i < len1)
 	{
-		k = ft_choose_the_one(u, s);
-		ft_first_while(s, k, -1, tab);
-		ft_reset_weight(s);
-		ft_is_worth(s, -1);
-		ft_list_clear_tab(&s->ways);
+		if (tab[i][0] != -1 && tab[i][0]!= -2)
+			tab[i][0] = -5;
+		tab[i][1] = -5;
 	}
-	free(tab);
-	return (1);
-}*/
+}
 
 static	void	ft_clean_tab(int *tab, int len)
 {
@@ -135,6 +67,20 @@ static	void	ft_clean_tab(int *tab, int len)
 	i = -1;
 	while (++i < len)
 		tab[i] = -5;
+}
+
+static	void	ft_clean_tab_tab(int **tab, int len1)
+{
+	int	i;
+	int j;
+
+	i = -1;
+	j = -1;
+	while (++i < len1)
+	{
+		tab[i][0] = -5;
+		tab[i][1] = -5;
+	}
 }
 
 static	int		ft_choose_sous(t_s *s, int start, int *bloc)
@@ -155,30 +101,116 @@ static	int		ft_choose_sous(t_s *s, int start, int *bloc)
 	return (i);
 }
 
-static	void	ft_first_while(t_s *s, int start, int sous_bloquage, int *queue)
+static	void	ft_push_or_not(t_s *s, int *queue, int i, int start)
 {
-	int		save;
+	int l;
 
-	save = -1;
-	while (++save < s->totalroom)
+	l = -1;
+	if (i >= 0 || i == -12)
 	{
-		k++;
-		if (k == s->totalroom)
-			k = 0;
-		if (s->matrice[s->st_pos][k] == 1 && k != s->st_pos)
+		i == -12 ? queue[++l] = start : 0;
+		i == -12 ? i= -1 : 0;
+		while (i != -1)
 		{
-			if (ft_init(s, t, tab, k) > 0)
+			queue[++l] = i;
+			i != s->end_pos ? s->weight[i][0] = s->bfs_first : 0;
+			i = s->weight[i][1];
+		}
+		if (!(ft_ways_push_front_two(s, &s->ways, queue)))
+			ft_error(s, -7);
+		ft_clean_tab(queue, s->totalroom);
+	}
+}
+
+
+static	int	ft_first_bfs(t_s *s, int start, int *queue)
+{
+	int i;
+	int j;
+	int	k;
+	int	l;
+
+	i = start;
+	k = -1;
+	l = 0;
+	s->weight[start][0] = 0;
+	s->weight[start][1] = -1;
+	queue[0] = start;
+	while (++k < s->totalroom && j != s->end_pos)
+	{
+		i = ft_parse_queue(queue);
+		if (start == s->end_pos)
+		{
+			j = -12;
+			break ;
+		}
+		j = -1;
+		if (i < 0)
+			break ;
+		while (++j < s->totalroom)
+		{
+			if (s->matrice[i][j] == 1 && i != j && s->weight[j][0] == -5
+				&& j != s->st_pos)
 			{
-				ft_complete_bfs(s, tab, t);
-				ft_everything_push(s, tab, t);
-				while (++t[2] < s->totalroom)
-				{
-					if (s->weight[t[2]][0] != -1)
-						s->weight[t[2]][0] = -5;
-					s->weight[t[2]][1] = -5;
-				}
+				s->weight[j][0] = s->weight[i][0] + 1;
+				s->weight[j][1] = i;
+				if (j == s->end_pos)
+					break ;
+				queue[++l] = j;
 			}
 		}
+		queue[k] = -1;
+	}
+	ft_clean_tab(queue, s->totalroom);
+	if (i >= 0)
+	{
+		ft_push_or_not(s, queue, j, start);
+		return (1);
+	}
+	return (0);
+}
+
+static	int		ft_last_element(t_s *s, int *bloc)
+{
+	int i;
+
+	i = s->totalroom - 1;
+	while (i >= 0)
+	{
+		if (bloc[i] != -5)
+			break ;
+		i--;	
+	}
+	return (bloc[i]);
+}
+
+static	void	ft_second_bfs(t_s *s, int start, int *queue, int *bloc)
+{
+	int i;
+	int	j;
+
+	i = -1;
+
+	j = ft_last_element(s, bloc);
+	ft_first_bfs(s, j, queue);
+	while (++i < s->totalroom)
+	{
+		ft_clean_tab_tab_token(s->weight, s->totalroom);
+		if (s->matrice[s->st_pos][i] == 1 && i != s->st_pos && i != start
+			&& i != j)
+			ft_first_bfs(s, i, queue);
+	}
+}
+
+static	void	ft_init(t_s *s, int *bloc, int *queue)
+{
+	int	i;
+
+	i = -1;
+	while (++i < s->totalroom)
+	{
+		bloc[i] = -5;
+		queue[i] = -5;
 	}
 }
 
@@ -194,58 +226,31 @@ int				ft_algo_two(t_s *s)
 		ft_error(s, -6);
 	if (!(bloc = (int *)malloc(sizeof(int) * s->totalroom * s->totalroom)))
 		ft_error(s, -6);
+	ft_init(s, bloc, queue);
 	bloquage = 0;
 	while (++bloquage <= s->matrice[s->st_pos][s->st_pos])
 	{
+		s->bfs_first = -1;
 		ft_clean_tab(bloc, s->totalroom);
+		ft_list_clear_tab(&s->ways);
 		start = ft_choose_the_one(bloquage, s);
+		s->ret = ft_first_bfs(s, start, queue);
+		ft_is_worth(s, -1);
 		while (ft_lenint(bloc, s) + 1 < s->matrice[s->st_pos][s->st_pos])
 		{
+			ft_clean_not_first(s->weight, s->totalroom);
+			s->bfs_first = -2;
 			sous_bloquage = ft_choose_sous(s, start, bloc);
-			//ft_first_while(s, start, sous_bloquage, queue);
 			bloc[ft_lenint(bloc, s)] = sous_bloquage;
+			ft_second_bfs(s, start, queue, bloc);
+			ft_is_worth(s, -1);
+			s->ret ? ft_list_clear_tab_not_first(&s->ways): ft_list_clear_tab(&s->ways);
 		}
+		ft_clean_tab_tab(s->weight, s->totalroom);
+		ft_list_clear_tab(&s->ways);
+		break ;
 	}
 	free(queue);
 	free(bloc);
-	exit(1);
+	return(1);
 }
-
-
-/* le but ici est de faire :
-	le but est de reproduire le meme bfs fait ci	dessus
-	tout en rajoute en possibilites de tests
-	la premiere boucle soccupe de la premiere colonne et le deuxieme while
-	de la dexieme colonne , pour le reste on laisse faire le parsing de la matrice
-	il faut maintenant ajouter le bfs + le push 
-	le principe est le meme que ci dessus
-
-
-exemple sur 4 salles relies a start
-
-avant :
-1 2 3 4
-
-2 3 4 1
-
-3 4 1 2
-
-4 1 2 3
-
-apres :
-1 2 3 4
-1 3 4 2
-1 4 2 3
-
-2 3 4 1
-2 4 1 3
-2 1 3 4
-
-3 4 1 2
-3 1 2 4
-3 2 4 1
-
-4 1 2 3
-4 2 3 1
-4 3 2 1
-*/

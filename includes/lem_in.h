@@ -57,6 +57,7 @@ typedef struct						s_struct
 	int								*tb;
 	int								max_weight;
 	long long						totalroom;
+	int								bfs_first;
 
 	int								**matrice;
 	int								**ants_in_way;
