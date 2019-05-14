@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/09 08:43:31 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/13 08:46:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/14 19:44:45 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int			ft_second_while_algo(t_s *s, t_list *beg, int t[4])
 
 int			ft_while_algo(t_s *s, t_list *beg, t_list *prev, int t[4])
 {
-	while (t[1] < 60 && t[0] < s->totalroom)
+	while (t[1] < 50 && t[0] < s->totalroom)
 	{
 		beg = s->ways;
 		prev = s->ways;

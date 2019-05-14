@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/10 15:10:03 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/14 19:10:28 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,6 @@ void								ft_is_worth(t_s *s, int i);
 int									ft_set_paths_start_two(t_s *s);
 
 int									ft_algo_two(t_s *s);
+
+void	ft_print_tab_int_tmp(t_s *s, int *tab, int len, int size);
 #endif

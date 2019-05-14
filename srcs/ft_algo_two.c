@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 15:22:06 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/13 13:18:54 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/14 19:30:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,14 +187,22 @@ static	int		ft_last_element(t_s *s, int *bloc)
 static	void	ft_second_bfs(t_s *s, int start, int *queue, int *bloc)
 {
 	int i;
+	int k;
 	int	j;
 
 	i = -1;
-
+	k = -1;
 	j = ft_last_element(s, bloc);
+	while (++k < s->totalroom)
+		if (s->matrice[s->st_pos][k] == 1 && k != s->st_pos)
+			s->weight[k][0] = -1;
 	ft_first_bfs(s, j, queue);
 	while (++i < s->totalroom)
 	{
+		k = -1;
+		while (++k < s->totalroom)
+			if (s->matrice[s->st_pos][k] == 1 && k != s->st_pos)
+			s->weight[k][0] = -1;
 		ft_clean_tab_tab_token(s->weight, s->totalroom);
 		if (s->matrice[s->st_pos][i] == 1 && i != s->st_pos && i != start
 			&& i != j)
@@ -233,6 +241,10 @@ int				ft_algo_two(t_s *s)
 		s->bfs_first = -1;
 		ft_clean_tab(bloc, s->totalroom);
 		ft_list_clear_tab(&s->ways);
+		start = -1;
+		while (++start < s->totalroom)
+			if (s->matrice[s->st_pos][start] == 1 && start != s->st_pos)
+				s->weight[start][0] = -1;
 		start = ft_choose_the_one(bloquage, s);
 		s->ret = ft_first_bfs(s, start, queue);
 		ft_is_worth(s, -1);

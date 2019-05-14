@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/13 09:15:33 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/14 19:11:27 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_print_ways(t_s *s, t_list *way)
 	beg = way;
 	while (beg)
 	{
-		ft_print_tab_int(beg->tab, s->totalroom);
+		ft_print_tab_int_tmp(s, beg->tab, s->totalroom, s->totalroom);
 		beg = beg->next;
 	}
 	miniprintf("%%", "END");
