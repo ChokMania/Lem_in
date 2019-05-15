@@ -6,7 +6,7 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/13 08:16:39 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/15 15:39:51 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,11 +17,11 @@ WEVERYTHING			=	no
 
 ifeq ($(SANITIZE),yes)
 	CC				=	gcc -Wall -Wextra -Werror -fsanitize=address \
-						-Wall -Wextra -Werror -O2
+						-Wall -Wextra -Werror
 else ifeq ($(WEVERYTHING),yes)
-	CC				=	gcc -Wall -Wextra -Weverything -O2
+	CC				=	gcc -Wall -Wextra -Weverything
 else
-	CC				=	gcc -Wall -Wextra -Werror -O2
+	CC				=	gcc -Wall -Wextra -Werror
 endif
 
 SRCS_NAME			=	lem_in.c					\

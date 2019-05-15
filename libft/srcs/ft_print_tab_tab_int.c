@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 15:24:02 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 10:10:53 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/15 15:27:49 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_print_tab_tab_int(int **tab, int len, int size)
 				ft_putchar(' ');
 			j++;
 		}
-		ft_putchar('\n');
+		ft_putchar(' ');
 		i++;
 	}
 }

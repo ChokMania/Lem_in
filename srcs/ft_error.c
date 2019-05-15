@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/14 19:11:27 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/14 21:16:16 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ft_error(t_s *s, int error)
 	}
 	if (error <= -3)
 	{
+		get_next_line(0, NULL);
 		if (error <= -4)
 			ft_inttabdel(&s->matrice, s->totalroom);
 		if (error <= -5)

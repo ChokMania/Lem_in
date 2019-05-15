@@ -48,8 +48,10 @@ int		ft_detect_room_or_pipe(t_s *s)
 		if (!(ft_push_pipe(s)))
 			return (-2);
 	}
-	else
+	else if (s->onepipeisset == 0)
 		return (-2);
+	else
+		return (2);
 	return (1);
 }
 
@@ -65,8 +67,8 @@ int		ft_detect_line_type(t_s *s)
 		if (!(ft_list_push_back(&s->comment, ft_strdup(s->str))))
 			return (-2);
 	}
-	else if (ft_detect_room_or_pipe(s) < 0)
-		return (-2);
+	else if ((s->ret = ft_detect_room_or_pipe(s)) < 0)
+		return (s->ret);
 	if (!(ft_list_push_back(&s->input, ft_strdupd(s->str))))
 		return (-2);
 	return (1);

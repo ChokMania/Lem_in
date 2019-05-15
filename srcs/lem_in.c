@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/14 19:43:19 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/15 15:50:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int		ft_read_input(t_s *s)
 		}
 		else if ((ft_detect_line_type(s)) < 1)
 			return (-2);
+		if (s->ret == 2)
+			break ;
 	}
 	if (i == 0)
 		return (-1);
@@ -42,14 +44,20 @@ int		ft_read_input(t_s *s)
 void	ft_main_algo_one(t_s *s)
 {
 	ft_set_paths_start(s);
-	ft_list_size(s->finalways) > 0 ? ft_print_path(s) : 0;
+	if (ft_list_size(s->finalways) > 0) 
+	{
+		ft_print_path(s);
+		ft_inttabdel(&s->ants_in_way, s->maxway);
+		ft_strtabdel(&s->color);
+	}
+	else
+		miniprintf("ERROR\n");
 	ft_inttabdel(&s->matrice, s->totalroom);
 	ft_inttabdel(&s->weight, s->totalroom);
 	ft_strtabdel(&s->namematrice);
 	free(s->tab);
 	free(s->tb);
-	ft_inttabdel(&s->ants_in_way, s->maxway);
-	ft_strtabdel(&s->color);
+	get_next_line(0, NULL);
 	ft_list_clear_tab(&s->ways);
 	ft_list_clear_tab(&s->finalways);
 	ft_clear_struct(s);
@@ -58,12 +66,16 @@ void	ft_main_algo_one(t_s *s)
 void	ft_main_algo_two(t_s *s)
 {
 	ft_set_paths_start_two(s);
-	ft_list_size(s->finalways) > 0 ? ft_print_path(s) : 0;
+	if (ft_list_size(s->finalways) > 0)
+	{
+		ft_print_path(s);
+		ft_inttabdel(&s->ants_in_way, s->maxway);
+		ft_strtabdel(&s->color);
+	}
+	get_next_line(0, NULL);
 	ft_inttabdel(&s->matrice, s->totalroom);
 	ft_inttabdel(&s->weight, s->totalroom);
 	ft_strtabdel(&s->namematrice);
-	ft_inttabdel(&s->ants_in_way, s->maxway);
-	ft_strtabdel(&s->color);
 	ft_list_clear_tab(&s->finalways);
 	ft_clear_struct(s);
 }
@@ -86,6 +98,7 @@ int		main(int ac, char **av)
 	ft_apply_flag(s);
 	ft_calcul_nb_pipes(s);
 	s->algo = s->liaisons / 2 - s->totalroom < 75 ? 1 : 2;
+	s->algo = 2;
 	s->algo == 1 ? ft_main_algo_one(s) : ft_main_algo_two(s);
 	return (0);
 }
