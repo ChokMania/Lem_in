@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/14 19:13:41 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/15 18:23:23 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	ft_list_remove_first_data_finalways(t_list **begin_list)
 	}
 }
 
-void	ft_list_remove_middle_data_finalways(t_s *s,
-	t_list **begin_list, t_list *elem)
+void	ft_list_remove_middle_data_finalways(t_s *s
+	, t_list **begin_list, t_list *elem)
 {
 	t_list	*tmp;
 	t_list	*tmpnext;
@@ -104,47 +104,4 @@ void	ft_del_useless_list_elem(t_s *s)
 		ft_list_remove_last_data_finalways(&s->finalways);
 	if (beg)
 		ft_list_remove_last_data_finalways(&s->finalways);
-}
-
-void	ft_print_tab_tab_int_tmp(t_s *s, int **tab, int len, int size)
-{
-	long long i;
-	long long j;
-
-	i = 0;
-	while (i < len)
-	{
-		j = 0;
-		while (j < size)
-		{
-			if (tab[i][j] == -5)
-				ft_putstr("");
-			else
-				miniprintf("%10s", s->namematrice[tab[i][j]]);
-			if (j + 1 != size)
-				ft_putchar(' ');
-			j++;
-		}
-		ft_putchar('\n');
-		i++;
-	}
-}
-
-
-void	ft_print_tab_int_tmp(t_s *s, int *tab, int len, int size)
-{
-	long long j = 0;
-
-	(void)len;
-	while (j < size)
-	{
-		if (tab[j] == -5)
-			ft_putstr("");
-		else
-			miniprintf("%10s", s->namematrice[tab[j]]);
-		if (j + 1 != size)
-			ft_putchar(' ');
-		j++;
-	}
-	ft_putchar('\n');
 }

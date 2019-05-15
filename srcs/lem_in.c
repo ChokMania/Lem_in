@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/15 15:50:24 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/15 16:23:43 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		ft_read_input(t_s *s)
 void	ft_main_algo_one(t_s *s)
 {
 	ft_set_paths_start(s);
-	if (ft_list_size(s->finalways) > 0) 
+	if (ft_list_size(s->finalways) > 0)
 	{
 		ft_print_path(s);
 		ft_inttabdel(&s->ants_in_way, s->maxway);

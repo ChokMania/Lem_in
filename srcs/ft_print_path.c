@@ -6,79 +6,13 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/13 08:47:00 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/15 18:19:26 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int			ft_move_ants(t_s *s, t_list *beg, int k, int j)
-{
-	int		i;
-
-	(void)j;
-	i = s->k + 1;
-	while (--i >= 0)
-	{
-		if (s->ants_in_way[s->j][i] >= 0)
-		{
-			if (i == s->k)
-				s->ants_in_way[s->j][i] = -5;
-			else
-			{
-				j == 2 ? miniprintf(" ") : 0;
-				k == 1 ? miniprintf(" ") : 0;
-				s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
-				(k = 1) && s->algo == 2 ? miniprintf("L%d-%s",
-					s->ants_in_way[s->j][i], s->namematrice[beg->tab[i]])
-					: miniprintf("L%d-%s", s->ants_in_way[s->j][i],
-					s->namematrice[beg->ttab[0][i]]);
-				s->ants_in_way[s->j][i + 1] = s->ants_in_way[s->j][i];
-				s->ants_in_way[s->j][i] = -5;
-				s->flag_c ? miniprintf("\x1b[0m") : 0;
-				s->p++;
-			}
-		}
-	}
-	return (k);
-}
-
-void		ft_print_path_suite(t_s *s, int number_ants, int **tab, int k)
-{
-	t_list	*beg;
-	int		exception;
-	int		save;
-	
-	exception = tab[0][0] == 1 ? 1 : 0;
-	s->i = 0;
-	s->p = 1;
-	while (s->p)
-	{
-		s->p = 0;
-		s->i == 0 ? s->p = 1 : 0;
-		s->j = -1;
-		beg = s->finalways;
-		k = 0;
-		while (beg)
-		{
-			s->j++;
-			s->k = s->algo == 1 ? ft_lenint(beg->ttab[0], s)
-				: ft_lenint(beg->tab, s);
-			if (tab[s->j][1]-- > 0 && (number_ants = ++s->i))
-				s->ants_in_way[s->j][0] = number_ants;
-			k = ft_move_ants(s, beg, k, exception);
-			exception >= 1 ? exception = 2 : 0;
-			beg = beg->next;
-		}
-		save = s->p;
-		s->p = exception >= 1 ? 0 : s->p;
-		s->p ? ft_putchar('\n') : 0;
-		s->p = save;
-	}
-	exception >= 1 ? ft_putchar('\n') : 0;
-}
-
-void		ft_dispatch_ants(int **tab, t_s *s)
+static void		ft_dispatch_ants(int **tab, t_s *s)
 {
 	int		ants;
 	int		i;
@@ -106,7 +40,7 @@ void		ft_dispatch_ants(int **tab, t_s *s)
 		tab[i][1] > 0 ? tab[i][2] = 1 : 0;
 }
 
-int			ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
+static int		ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
 {
 	while (++s->i < s->maxway)
 	{
@@ -129,7 +63,7 @@ int			ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
 	return (1);
 }
 
-int			ft_print_path(t_s *s)
+int				ft_print_path(t_s *s)
 {
 	int		number_ants;
 	int		**tab;
@@ -153,7 +87,7 @@ int			ft_print_path(t_s *s)
 		ft_inttabdel(&tab, s->maxway);
 		ft_error(s, -9);
 	}
-	ft_print_path_suite(s, number_ants, tab, 0);
+	ft_print_path_suite(s, number_ants, tab);
 	ft_inttabdel(&tab, s->maxway);
 	return (1);
 }

@@ -6,26 +6,11 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/14 21:16:16 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/15 16:11:47 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-
-void	ft_print_ways(t_s *s, t_list *way)
-{
-	t_list *beg;
-
-	miniprintf("%%", "YELLOW");
-	beg = way;
-	while (beg)
-	{
-		ft_print_tab_int_tmp(s, beg->tab, s->totalroom, s->totalroom);
-		beg = beg->next;
-	}
-	miniprintf("%%", "END");
-	(void)s;
-}
 
 int		ft_color(t_s *s)
 {
