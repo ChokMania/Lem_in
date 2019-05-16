@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/10 15:22:06 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/15 18:15:20 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/16 14:42:20 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ int				ft_algo_two(t_s *s)
 	if (!(queue = (int *)malloc(sizeof(int) * s->totalroom * s->totalroom)))
 		ft_error(s, -6);
 	if (!(bloc = (int *)malloc(sizeof(int) * s->totalroom * s->totalroom)))
+	{
+		free(queue);
 		ft_error(s, -6);
+	}
 	ft_init(s, bloc, queue);
 	ft_clean_tab(bloc, s->totalroom);
 	ft_list_clear_tab(&s->ways);

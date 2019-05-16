@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/17 15:05:18 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/09 09:30:48 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/16 14:55:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int			ft_create_name_matrice(t_s *s)
 
 	beg = s->room;
 	if (!(s->namematrice = (char **)malloc(sizeof(char *)
-					* (s->totalroom + 1))))
+				* (s->totalroom + 1))))
 		return (-5);
 	s->i = -1;
 	while (beg)

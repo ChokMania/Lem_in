@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/15 16:11:47 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/16 13:48:03 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ void	ft_list_clear_tab(t_list **begin_list)
 
 void	ft_error(t_s *s, int error)
 {
-	ft_putstr("error num = ");
-	ft_putnbr(error);
-	ft_putchar('\n');
 	ft_putstr_fd("ERROR\n", 2);
 	if (error == -1)
 		free(s);

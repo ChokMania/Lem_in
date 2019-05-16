@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:32 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/13 08:29:15 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/16 14:53:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ t_list		*ft_create_elem_tab_way_two(t_s *s, int *tab)
 	i = -1;
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
+	new->tab = NULL;
 	if (!(new->tab = (int*)malloc(sizeof(int) * s->totalroom)))
+	{
+		free(new);
 		return (NULL);
+	}
 	while (++i < s->totalroom)
 		new->tab[i] = tab[i];
 	new->ttab = NULL;
