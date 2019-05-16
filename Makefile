@@ -6,7 +6,7 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/15 18:13:25 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/16 15:07:19 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,10 +48,10 @@ SRCS_NAME			=	lem_in.c					\
 					ft_help_algo22.c				\
 					ft_help_print_path.c
 
-INCLUDES_NAME			=	lem_in.h
+INCLUDES_NAME		=	lem_in.h
 
 SRCS_PATH			=	./srcs/
-INCLUDES_PATH			=	./includes/
+INCLUDES_PATH		=	./includes/
 
 OBJS_PATH 			=	./objs/
 
@@ -64,7 +64,7 @@ SRCS				=	$(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
 OBJS			=	$(patsubst $(SRCS_PATH)%.c, $(OBJS_PATH)%.o, $(SRCS))
 
-.PHONY				:	all $(NAME1) clean fclean re
+.PHONY				:	all lib clean fclean re
 
 _UNDER=$'\x1b[4m$'
 _GREEN=$'\x1b[32m$'
@@ -75,14 +75,13 @@ _BOLD=$'\x1b[1m$'
 
 all: $(NAME1)
 
-
-$(NAME1): $(OBJS)
+$(NAME1): $(OBJS) $(INCLUDES)
 	@echo "\n\n"
 	@echo "$(_WHITE)====================================================$(_END)"
 	@echo "$(_YELLOW)		COMPILING MINIPRINTF$(_END)"
 	@echo "$(_WHITE)====================================================$(_END)"
 	@echo "\n\n"
-	@make -sC $(MINIPRINTF) -j
+	@make -sC $(MINIPRINTF) -j 100
 	@cp $(MINIPRINTF)/libftminiprintf.a .
 	@echo "$(_WHITE)====================================================$(_END)"
 	@echo "$(_YELLOW)		COMPILING LEM_IN$(_END)"
