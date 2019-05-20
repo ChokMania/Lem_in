@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/15 18:09:53 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/15 18:24:02 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/20 16:50:02 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ static	int	ft_move_ants(t_s *s, t_list *beg, int k, int j)
 			{
 				k == 1 || j == 2 ? miniprintf(" ") : 0;
 				s->flag_c ? miniprintf("%s", s->color[s->j % 7]) : 0;
-				(k = 1) && s->algo == 2 ? miniprintf("L%d-%s"
-					, s->ants_in_way[s->j][i], s->namematrice[beg->tab[i]])
-					: miniprintf("L%d-%s", s->ants_in_way[s->j][i]
-					, s->namematrice[beg->ttab[0][i]]);
+				k = 1;
+				miniprintf("L%d-%s" , s->ants_in_way[s->j][i]
+					, s->namematrice[beg->tab[i]]);
 				s->ants_in_way[s->j][i + 1] = s->ants_in_way[s->j][i];
 				s->ants_in_way[s->j][i] = -5;
 				s->flag_c ? miniprintf("\x1b[0m") : 0;

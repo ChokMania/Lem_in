@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/15 18:17:35 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/20 15:34:04 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,29 +159,6 @@ int					ft_ways_push_front_two(t_s *s, t_list **begin_list
 					, int *tab);
 t_list				*ft_create_elem_tab_way_two(t_s *s, int *tab);
 
-int					ft_parse_queue(int *tab);
-void				ft_reset_weight(t_s *s);
-int					ft_choose_the_one(int u, t_s *s);
-int					*ft_intdup(int *i1, int len);
-t_list				*ft_sort_list(t_list *lst, t_s *s);
-
-void				ft_reverse_final(t_s *s);
-void				ft_is_worth(t_s *s, int i);
-int					ft_set_paths_start_two(t_s *s);
-
-int					ft_algo_two(t_s *s);
-
 void				ft_print_path_suite(t_s *s, int number_ants, int **tab);
 
-void				ft_clean_tab_tab(int **tab, int len1);
-void				ft_clean_tab(int *tab, int len);
-void				ft_clean_tab_tab_token(int **tab, int len1);
-void				ft_clean_not_first(int **tab, int len1);
-void				ft_clear_tab_f(t_list **begin_list);
-
-int					ft_first_bfs(t_s *s, int start, int *queue);
-int					ft_choose_sous(t_s *s, int start, int *bloc);
-void				ft_init_bfs(t_s *s, int tab[5], int *queue, int start);
-void				ft_push_or_not(t_s *s, int *queue, int i, int start);
-void				ft_make_start(t_s *s);
 #endif

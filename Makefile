@@ -6,11 +6,11 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/16 15:07:19 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/20 16:46:33 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME1				=	lem-in
+NAME				=	lem-in
 
 SANITIZE			=	no
 WEVERYTHING			=	no
@@ -35,17 +35,10 @@ SRCS_NAME			=	lem_in.c					\
 					ft_flags.c						\
 					ft_set_paths.c					\
 					ft_list_functions.c				\
-					ft_list_functions_two.c			\
 					ft_recursively_best_way.c		\
 					ft_print_path.c					\
 					ft_utils.c						\
 					ft_help_main.c					\
-					ft_set_paths_two.c				\
-					ft_algo_one.c					\
-					ft_set_path_two_help.c			\
-					ft_algo_two.c					\
-					ft_help_algo2.c					\
-					ft_help_algo22.c				\
 					ft_help_print_path.c
 
 INCLUDES_NAME		=	lem_in.h
@@ -73,20 +66,23 @@ _WHITE=$'\x1b[37m$'
 _END=$'\x1b[0m$'
 _BOLD=$'\x1b[1m$'
 
-all: $(NAME1)
+all: $(NAME)
 
-$(NAME1): $(OBJS) $(INCLUDES)
+lib : 
+	@make -sC $(MINIPRINTF) -j 100
+
+
+$(NAME): lib $(OBJS) $(INCLUDES)
 	@echo "\n\n"
 	@echo "$(_WHITE)====================================================$(_END)"
 	@echo "$(_YELLOW)		COMPILING MINIPRINTF$(_END)"
 	@echo "$(_WHITE)====================================================$(_END)"
 	@echo "\n\n"
-	@make -sC $(MINIPRINTF) -j 100
 	@cp $(MINIPRINTF)/libftminiprintf.a .
 	@echo "$(_WHITE)====================================================$(_END)"
 	@echo "$(_YELLOW)		COMPILING LEM_IN$(_END)"
 	@echo "$(_WHITE)====================================================$(_END)"
-	@$(CC) -o $(NAME1) $(OBJS) libftminiprintf.a
+	@$(CC) -o $(NAME) $(OBJS) libftminiprintf.a
 	@echo "\n$(_WHITE)$(_BOLD)$@\t$(_END)$(_GREEN)[OK]\n$(_END)"
 ifeq ($(SANITIZE),yes)
 	@echo "Génération en mode sanitize"
@@ -104,7 +100,7 @@ clean:
 
 fclean:	clean
 	@echo "$(_YELLOW)"
-	rm -f $(NAME1)
+	rm -f $(NAME)
 	rm -f libftminiprintf.a
 	make fclean -C $(MINIPRINTF)
 
