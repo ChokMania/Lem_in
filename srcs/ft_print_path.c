@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/20 16:48:37 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/21 14:44:09 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,26 @@ static void		ft_dispatch_ants(int **tab, t_s *s)
 	int		max;
 
 	max = 0;
-	ants = s->nbant;
-	while (ants && ++max < s->maxway && (i = -1))
-		while (ants && ++i < max)
-			while (ants && tab[i][0] + tab[i][1] != tab[max][0] + tab[max][1])
-			{
-				tab[i][1]++;
-				ants--;
-			}
-	while (ants && (i = -1))
-		while (++i < max)
-		{
-			if (ants == 0)
-				break ;
-			ants--;
-			tab[i][1]++;
-		}
 	i = -1;
-	while (++i < s->maxway)
-		tab[i][1] > 0 ? tab[i][2] = 1 : 0;
+	ants = s->nbant;
+	while (ants > 0 && ++max < s->maxway)
+	{
+		while (ants > 0 && tab[max - 1][1] + tab[max - 1][0]
+			< tab[max][1] + tab[max][0])
+		{
+			i = -1;
+			while (ants > 0 && ++i < max && ants--)
+				tab[i][1]++;
+		}
+	}
+	i = -1;
+	while (ants > 0)
+	{
+		if (++i == s->maxway)
+			i = 0;
+		ants--;
+		tab[i][1] += 1;
+	}
 }
 
 static int		ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)

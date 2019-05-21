@@ -5,103 +5,123 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/05/02 13:59:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/15 18:23:23 by judumay          ###   ########.fr       */
+/*   Created: 2019/05/21 14:19:40 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/21 14:44:56 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void	ft_list_remove_first_data_finalways(t_list **begin_list)
+int			*ft_intdup(int *i1, int len)
 {
-	t_list	*tmp;
+	int		*i2;
+	int		i;
 
-	tmp = *begin_list;
-	if (*begin_list && begin_list)
+	i = 0;
+	if (!(i2 = (int *)malloc(sizeof(int) * (len + 1))))
+		return (NULL);
+	while (i < len)
 	{
-		if ((*begin_list)->next)
-		{
-			*begin_list = tmp->next;
-			ft_inttabdel(&tmp->ttab, 3);
-			free(tmp);
-			tmp = NULL;
-		}
+		i2[i] = i1[i];
+		i++;
 	}
+	return (i2);
 }
 
-void	ft_list_remove_middle_data_finalways(t_s *s
-	, t_list **begin_list, t_list *elem)
+t_list		*ft_sort_list(t_list *lst, t_s *s)
 {
 	t_list	*tmp;
-	t_list	*tmpnext;
+	int		*t;
 
-	tmp = *begin_list;
-	if (*begin_list && begin_list)
-	{
-		if (tmp == elem)
-			ft_list_remove_first_data_finalways(&s->ways);
-		else if (tmp->next)
+	tmp = lst;
+	while (lst != NULL && lst->next != NULL && !(s->ret = 0))
+		if (ft_lenint(lst->tab, s) > ft_lenint(lst->next->tab, s))
 		{
-			while (tmp && tmp->next && tmp->next != elem)
-				tmp = tmp->next;
-			tmpnext = tmp->next;
-			tmp->next = tmp->next->next;
-			ft_inttabdel(&tmpnext->ttab, 3);
-			free(tmpnext);
-			tmpnext = NULL;
+			!(t = ft_intdup(lst->tab, s->totalroom)) ? ft_error(s, -8) : 0;
+			free(lst->tab);
+			!(lst->tab = ft_intdup(lst->next->tab, s->totalroom))
+				? s->ret = -9 : 0;
+			free(lst->next->tab);
+			!s->ret && !(lst->next->tab = ft_intdup(t, s->totalroom))
+				? s->ret = -9 : 0;
+			if (s->ret == -9)
+			{
+				free(t);
+				ft_error(s, -8);
+			}
+			free(t);
+			lst = tmp;
 		}
 		else
+			lst = lst->next;
+	return (tmp);
+}
+
+void		ft_is_worth(t_s *s, int i)
+{
+	int		total;
+	t_list	*beg;
+
+	beg = s->ways;
+	total = 0;
+	while (beg && !(i = 0))
+	{
+		while (beg->tab[i] != -5 && i < s->totalroom)
+			i++;
+		total += i - 1;
+		beg = beg->next;
+	}
+	if ((beg = s->ways) && (!ft_list_size(s->finalways)
+		|| (float)(s->nbant + s->max_weight) / (float)ft_list_size(s->finalways)
+		> (float)(s->nbant + total) / (float)ft_list_size(s->ways)))
+	{
+		s->finalways ? ft_list_clear_tab(&s->finalways) : 0;
+		s->max_weight = total;
+		while (beg)
 		{
-			ft_list_remove_last_data_finalways(&s->ways);
+			if (!(ft_ways_push_front_two(s, &s->finalways, beg->tab)))
+				ft_error(s, -8);
+			beg = beg->next;
 		}
 	}
 }
 
-void	ft_list_remove_last_data_finalways(t_list **begin_list)
+t_list		*ft_create_elem_tab_way_two(t_s *s, int *tab)
+{
+	t_list	*new;
+	int		i;
+
+	i = -1;
+	if (!(new = (t_list*)malloc(sizeof(t_list))))
+		return (NULL);
+	new->tab = NULL;
+	if (!(new->tab = (int*)malloc(sizeof(int) * s->totalroom)))
+	{
+		free(new);
+		return (NULL);
+	}
+	while (++i < s->totalroom)
+		new->tab[i] = tab[i];
+	new->ttab = NULL;
+	new->next = NULL;
+	return (new);
+}
+
+int			ft_ways_push_front_two(t_s *s, t_list **begin_list, int *tab)
 {
 	t_list	*tmp;
-	t_list	*beg;
 
-	beg = *begin_list;
-	tmp = beg;
 	if (*begin_list && begin_list)
 	{
-		while (tmp->next)
-		{
-			beg = tmp;
-			tmp = tmp->next;
-		}
-		ft_inttabdel(&beg->next->ttab, 3);
-		free(beg->next);
-		beg->next = NULL;
+		if ((tmp = ft_create_elem_tab_way_two(s, tab)) == NULL)
+			return (0);
+		tmp->next = (*begin_list);
+		(*begin_list) = tmp;
 	}
-}
-
-void	ft_del_useless_list_elem(t_s *s)
-{
-	t_list	*beg;
-	t_list	*next;
-	int		i;
-	int		j;
-
-	beg = s->finalways;
-	i = -1;
-	j = 0;
-	while (++i < s->totalroom && s->tab[i] != -5)
+	else
 	{
-		while (beg && j < s->tab[i])
-		{
-			next = beg->next;
-			beg == s->finalways
-				? ft_list_remove_first_data_finalways(&s->finalways)
-				: ft_list_remove_middle_data_finalways(s, &s->finalways, beg);
-			beg = next;
-			j++;
-		}
-		j == s->tab[i] && (++j) ? beg = beg->next : 0;
+		if (!((*begin_list) = ft_create_elem_tab_way_two(s, tab)))
+			return (0);
 	}
-	while (beg && beg->next)
-		ft_list_remove_last_data_finalways(&s->finalways);
-	if (beg)
-		ft_list_remove_last_data_finalways(&s->finalways);
+	return (1);
 }

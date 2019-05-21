@@ -6,33 +6,13 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 16:15:58 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/07 11:29:27 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/21 14:34:59 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-void		ft_room_print(t_room *room)
-{
-	if (!(room))
-		return ;
-	while (room)
-	{
-		ft_putstr(room->name);
-		ft_putstr(" x=");
-		ft_putnbrll(room->x);
-		ft_putstr(" y=");
-		ft_putnbrll(room->y);
-		if (room->startpos == 1)
-			ft_putstr(" - start");
-		else if (room->startpos == 2)
-			ft_putstr(" - end");
-		ft_putchar('\n');
-		room = room->next;
-	}
-}
-
-int			ft_check_name(t_s *s, char *str)
+static int	ft_check_name(t_s *s, char *str)
 {
 	t_room	*beg;
 
@@ -42,7 +22,7 @@ int			ft_check_name(t_s *s, char *str)
 	return (beg->startpos);
 }
 
-void		ft_print_matrice_suite(t_s *s, int i, int j)
+static void	ft_print_matrice_suite(t_s *s, int i, int j)
 {
 	while (++i < s->totalroom)
 	{

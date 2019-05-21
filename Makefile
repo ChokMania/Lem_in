@@ -6,7 +6,7 @@
 #    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/20 16:46:33 by judumay          ###   ########.fr        #
+#    Updated: 2019/05/21 14:48:14 by judumay          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,20 +24,19 @@ else
 	CC				=	gcc -Wall -Wextra -Werror
 endif
 
-SRCS_NAME			=	lem_in.c					\
+SRCS_NAME		=	lem_in.c						\
 					ft_struct.c						\
 					ft_error.c						\
 					ft_is.c							\
 					ft_room.c						\
-					ft_pipe.c						\
 					ft_matrice.c					\
 					ft_print_matrice.c				\
-					ft_flags.c						\
+					ft_flags_and_pipes.c						\
 					ft_set_paths.c					\
-					ft_list_functions.c				\
-					ft_recursively_best_way.c		\
 					ft_print_path.c					\
 					ft_utils.c						\
+					ft_utils2.c						\
+					ft_utils3.c						\
 					ft_help_main.c					\
 					ft_help_print_path.c
 
