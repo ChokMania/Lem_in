@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   miniprintf.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/22 15:59:27 by mabouce           #+#    #+#             */
-/*   Updated: 2019/04/22 15:59:29 by mabouce          ###   ########.fr       */
+/*   Created: 2019/05/22 16:01:31 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/22 16:01:31 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIPRINTF_H
 # define MINIPRINTF_H
+
 # include "libft.h"
 # include <stdarg.h>
 

@@ -43,6 +43,7 @@ INCLUDES_PATH		=	./includes/
 OBJS_PATH 			=	./objs/
 
 LIBFT				=	./libft/
+LIBFTA				=	libft.a
 LIBFTINCLUDES		=	./libft/includes/
 
 INCLUDES_NAME		=	lem_in.h
@@ -52,7 +53,7 @@ SRCS				=	$(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
 OBJS				=	$(patsubst $(SRCS_PATH)%.c, $(OBJS_PATH)%.o, $(SRCS))
 
-.PHONY				:	all lib clean fclean re libft
+.PHONY				:	all clean fclean re
 
 # Text format
 _DEF = $'\033[0m
@@ -82,17 +83,16 @@ _IPURPLE = $'\033[45m
 _ICYAN = $'\033[46m
 _IGREY = $'\033[47m
 
-all: libft $(NAME)
+all: $(NAME)
 
-libft: 
+$(LIBFT)/$(LIBFTA): 
 	@make -C $(LIBFT) -j 100
 
-$(NAME): $(INCLUDES) $(OBJS) 
+$(NAME): $(LIBFT)/$(LIBFTA) $(INCLUDES) $(OBJS) 
 	@echo "$(_WHITE)====================================================$(_END)"
 	@echo "$(_YELLOW)		COMPILING $(NAME)$(_END)"
 	@echo "$(_WHITE)====================================================$(_END)"
-	@cp $(LIBFT)/libft.a .
-	@$(CC) -o $(NAME) $(OBJS) libft.a
+	@$(CC) -o $(NAME) $(OBJS) $(LIBFT)/$(LIBFTA)
 	@echo "\n$(_WHITE)$(_BOLD)$@\t$(_END)$(_GREEN)[OK]\n$(_END)"
 ifeq ($(SANITIZE),yes)
 	@echo "Génération en mode sanitize"

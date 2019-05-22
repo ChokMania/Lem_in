@@ -6,50 +6,118 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/20 10:56:39 by judumay           #+#    #+#             */
-/*   Updated: 2019/02/25 13:54:21 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/22 16:40:24 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <get_next_line.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include "get_next_line.h"
+#include "libft.h"
 
-static char	*ft_give(int fd, char **s, char *line, char *t)
+static t_fd	*find_fd_info(const int fd, t_fd **files)
 {
-	if (ft_strchr(s[fd], '\n'))
+	t_fd	*elem;
+
+	elem = *files;
+	while (elem != NULL && elem->fd != fd)
+		elem = elem->next;
+	if (elem == NULL)
 	{
-		if (!(line = ft_strsub(s[fd], 0, ft_strchr(s[fd], '\n') - s[fd])))
-			return (0);
-		t = s[fd];
-		if (!(s[fd] = ft_strsub(t, ft_strchr(t, '\n') - t + 1, ft_strlen(t))))
-			return (0);
-		free(t);
+		if (!(elem = (t_fd *)malloc(sizeof(*elem))))
+			return (NULL);
+		elem->fd = fd;
+		elem->data = NULL;
+		elem->offset = NULL;
+		elem->next = *files;
+		*files = elem;
 	}
-	else
+	return (elem);
+}
+
+static int	clean_fd_info(const int fd, t_fd **files)
+{
+	t_fd	*prev;
+	t_fd	*curr;
+
+	prev = NULL;
+	curr = *files;
+	while (curr != NULL && curr->fd != fd)
 	{
-		if (!(line = ft_strdup(s[fd])))
-			return (0);
-		ft_strdel(&s[fd]);
+		prev = curr;
+		curr = curr->next;
 	}
-	return (line);
+	if (curr != NULL)
+	{
+		if (prev == NULL)
+			*files = curr->next;
+		else
+			prev->next = curr->next;
+		ft_strdel(&(curr->data));
+		free(curr);
+	}
+	return (-1);
+}
+
+static int	clean_data(t_fd *elem)
+{
+	char *tmp;
+
+	tmp = elem->data;
+	elem->data = ft_strdup(!(elem->offset) ? "" : elem->offset);
+	elem->offset = elem->data;
+	ft_strdel(&tmp);
+	return (elem->data != NULL);
+}
+
+static int	read_line_fd(const int fd, t_fd *elem, char **eol)
+{
+	char	buff[BUFF_SIZE + 1];
+	ssize_t	size_read;
+
+	if (!clean_data(elem))
+		return (-1);
+	size_read = 0;
+	while (!(*eol) && (size_read = read(fd, buff, BUFF_SIZE)) > 0)
+	{
+		buff[size_read] = '\0';
+		if (!(elem->data = ft_strdjoin(elem->data, buff)))
+			return (-1);
+		elem->offset = elem->data;
+		if (ft_memchr(buff, '\n', size_read))
+			*eol = ft_strchr(elem->data, '\n');
+	}
+	if (size_read < 0)
+		return (-1);
+	if (size_read == 0 && (elem->data)[0] == '\0')
+		return (0);
+	return (1);
 }
 
 int			get_next_line(const int fd, char **line)
 {
-	int			ret;
-	char		buf[BUFF_SIZE + 1];
-	char		*t;
-	static char	*s[2147483648];
+	static t_fd	*files = NULL;
+	t_fd		*elem;
+	char		*eol;
+	int			result;
 
-	if (BUFF_SIZE < 1 || fd < 0 || !line || (!s[fd] && !(s[fd] = ft_strnew(1))))
+	if (fd < 0)
 		return (-1);
-	while (!ft_strchr(s[fd], '\n') && (ret = read(fd, buf, BUFF_SIZE)) > 0)
+	if (line == NULL)
+		return (clean_fd_info(fd, &files));
+	if (!(elem = find_fd_info(fd, &files)))
+		return (-1);
+	eol = NULL;
+	if ((!(elem->offset) || !(eol = ft_strchr(elem->offset, '\n')))
+			&& (result = read_line_fd(fd, elem, &eol)) <= 0)
 	{
-		buf[ret] = '\0';
-		t = s[fd];
-		if (!(s[fd] = ft_strjoin(t, buf)))
-			return (-1);
-		free(t);
+		clean_fd_info(fd, &files);
+		return (result);
 	}
-	if (ret == -1 || !(*line = ft_give(fd, s, *line, t)))
-		return (-1);
-	return ((!s[fd] && ft_strlen(*line) == 0) ? 0 : 1);
+	if (eol != NULL)
+		*(eol) = '\0';
+	if (!(*line = ft_strdup(elem->offset)))
+		return (clean_fd_info(fd, &files));
+	elem->offset = !(eol) ? NULL : (eol + 1);
+	return (1);
 }

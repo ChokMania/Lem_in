@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/11 18:00:29 by judumay           #+#    #+#             */
-/*   Updated: 2019/03/11 18:00:30 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/22 16:27:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ static t_printf		*ft_printf_s_precision(t_printf *p)
 {
 	if (p->precision != -1 && (size_t)p->precision < ft_strlen(p->conv_ret))
 	{
-		if (!(p->conv_ret = ft_strsub_leakless(p->conv_ret, 0,
-			(size_t)p->precision)))
+		if (!(p->conv_ret = ft_strsub_leakless(p->conv_ret, 0
+			, (size_t)p->precision)))
 		{
 			p->error = -1;
 			return (p);

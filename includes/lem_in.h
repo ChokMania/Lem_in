@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/22 15:40:10 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/22 16:13:23 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,67 +80,68 @@ typedef struct		s_struct
 	t_room			*room;
 }					t_s;
 
-int			ft_color(t_s *s);
-void		ft_list_clear_tab(t_list **begin_list);
-void		ft_error(t_s *s, int error);
+int					ft_color(t_s *s);
+void				ft_list_clear_tab(t_list **begin_list);
+void				ft_error(t_s *s, int error);
 
-int			ft_push_pipe(t_s *s);
-void		ft_set_flags(t_s *s);
-void		ft_apply_flag(t_s *s);
+int					ft_push_pipe(t_s *s);
+void				ft_set_flags(t_s *s);
+void				ft_apply_flag(t_s *s);
 
-int			ft_lenint(int *tab, t_s *s);
-void		ft_calcul_nb_pipes(t_s *s);
-int			ft_detect_room_or_pipe(t_s *s);
-int			ft_detect_line_type(t_s *s);
+int					ft_lenint(int *tab, t_s *s);
+void				ft_calcul_nb_pipes(t_s *s);
+int					ft_detect_room_or_pipe(t_s *s);
+int					ft_detect_line_type(t_s *s);
 
-void		ft_print_path_suite(t_s *s, int number_ants, int **tab);
+void				ft_print_path_suite(t_s *s, int number_ants, int **tab);
 
-int			ft_is_comment(t_s *s);
-int			ft_is_command(t_s *s);
-int			ft_check_name_room(t_s *s, char *name);
-int			ft_is_room(t_s *s);
-int			ft_is_pipe(t_s *s);
+int					ft_is_comment(t_s *s);
+int					ft_is_command(t_s *s);
+int					ft_check_name_room(t_s *s, char *name);
+int					ft_is_room(t_s *s);
+int					ft_is_pipe(t_s *s);
 
-int			ft_set_matrice_laplacienne(t_s *s);
-int			ft_make_matrice(t_s *s, char *name1, char *name2);
-int			ft_create_name_matrice(t_s *s);
-long long	ft_total_room(t_room *room);
-int			ft_matrice(t_s *s, char *name1, char *name2);
+int					ft_set_matrice_laplacienne(t_s *s);
+int					ft_make_matrice(t_s *s, char *name1, char *name2);
+int					ft_create_name_matrice(t_s *s);
+long long			ft_total_room(t_room *room);
+int					ft_matrice(t_s *s, char *name1, char *name2);
 
+void				ft_print_matrice(t_s *s);
 
-void		ft_print_matrice(t_s *s);
+int					ft_print_path(t_s *s);
 
-int			ft_print_path(t_s *s);
+void				ft_room_clear(t_room **room);
+t_room				*ft_create_room(char *name, long long x, long long y
+						, int startpos);
+int					ft_push_front_room(t_room **room, char *name
+						, long long tab[2], int startpos);
+int					ft_push_room_suite(t_s *s, char **room, char *name
+						, int startpos);
+int					ft_push_room(t_s *s);
 
-void		ft_room_clear(t_room **room);
-t_room		*ft_create_room(char *name, long long x, long long y, int startpos);
-int			ft_push_front_room(t_room **room, char *name, long long tab[2]
-				, int startpos);
-int			ft_push_room_suite(t_s *s, char **room, char *name, int startpos);
-int			ft_push_room(t_s *s);
+int					ft_set_paths_start(t_s *s);
+int					ft_bfs(t_s *s, int start, int *queue);
 
-int			ft_set_paths_start(t_s *s);
-int			ft_bfs(t_s *s, int start, int *queue);
+void				ft_list_clear_tab_int(t_list **begin_list);
+void				ft_clear_struct(t_s *s);
+int					ft_set_struct(t_s *s);
 
-void		ft_list_clear_tab_int(t_list **begin_list);
-void		ft_clear_struct(t_s *s);
-int			ft_set_struct(t_s *s);
+int					*ft_intdup(int *i1, int len);
+t_list				*ft_sort_list(t_list *lst, t_s *s, int *queue, int len);
+void				ft_is_worth(t_s *s, int i);
+t_list				*ft_create_elem_tab_way_two(t_s *s, int *tab);
+int					ft_ways_push_front_two(t_s *s, t_list **begin_list
+						, int *tab);
 
-int			*ft_intdup(int *i1, int len);
-t_list		*ft_sort_list(t_list *lst, t_s *s, int *queue, int len);
-void		ft_is_worth(t_s *s, int i);
-t_list		*ft_create_elem_tab_way_two(t_s *s, int *tab);
-int			ft_ways_push_front_two(t_s *s, t_list **begin_list, int *tab);
+int					ft_parse_queue(int *tab);
+void				ft_clean_tab_tab(int **tab, int len, int check);
+void				ft_clean_tab(int *tab, int len);
+void				ft_push_or_not(t_s *s, int *queue, int i, int start);
+int					ft_conflict(t_s *s, int i);
 
-int			ft_parse_queue(int *tab);
-void		ft_clean_tab_tab(int **tab, int len, int check);
-void		ft_clean_tab(int *tab, int len);
-void		ft_push_or_not(t_s *s, int *queue, int i, int start);
-int			ft_conflict(t_s *s, int i);
-
-void		ft_print_ways(t_s *s, t_list *way);
-int			ft_algo(t_s *s);
-int			ft_set_maxway(t_s *s);
-
+void				ft_print_ways(t_s *s, t_list *way);
+int					ft_algo(t_s *s);
+int					ft_set_maxway(t_s *s);
 
 #endif
