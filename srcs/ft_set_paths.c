@@ -6,27 +6,13 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 15:11:17 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/21 14:54:48 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/22 14:38:34 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-/*
-static int	ft_change_last(t_s *s)
-{
-	t_list *beg;
-
-	beg = s->ways;
-	while (beg->next)
-		beg = beg->next;
-	ft_print_ways(s, beg);
-	ft_print_ways(s, s->ways);
-
-	return (1);
-}*/
-
-int ft_bfs(t_s *s, int start, int *queue)
+int			ft_bfs(t_s *s, int start, int *queue)
 {
 	int i;
 	int j;
@@ -69,12 +55,10 @@ int ft_bfs(t_s *s, int start, int *queue)
 	}
 	ft_clean_tab(queue, s->totalroom);
 	if (i < 0 && j != -4)
-	{
-		;//if (ft_list_size(s->ways) > 0 && ft_change_last(s) > 0) REMONTER CONFLITS
-	}
+		;// REMONTER CONFLIT;
 	else
 		ft_push_or_not(s, queue, j, start);
-	ft_sort_list(s->ways, s);
+	ft_sort_list(s->ways, s, queue, s->totalroom);
 	return (1);
 }
 
@@ -82,7 +66,7 @@ int			ft_set_paths_start(t_s *s)
 {
 	s->maxway = ft_set_maxway(s);
 	ft_algo(s);
-	ft_sort_list(s->finalways, s);
+	ft_sort_list(s->finalways, s, NULL, s->totalroom);
 	s->k = 0;
 	return (1);
 }

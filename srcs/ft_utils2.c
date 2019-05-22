@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:21:29 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/21 14:32:32 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/22 14:31:09 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ void	ft_push_or_not(t_s *s, int *queue, int i, int start)
 		i = s->weight[i][1];
 	}
 	if (!(ft_ways_push_front_two(s, &s->ways, queue)))
-		ft_error(s, -7);
+	{
+		free(queue);
+		ft_error(s, -10);
+	}
 	ft_clean_tab(queue, s->totalroom);
 }
 

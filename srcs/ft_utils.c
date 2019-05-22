@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:19:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/21 14:44:56 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/22 15:18:22 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int			*ft_intdup(int *i1, int len)
 	return (i2);
 }
 
-t_list		*ft_sort_list(t_list *lst, t_s *s)
+t_list		*ft_sort_list(t_list *lst, t_s *s, int *queue, int len)
 {
 	t_list	*tmp;
 	int		*t;
@@ -37,19 +37,20 @@ t_list		*ft_sort_list(t_list *lst, t_s *s)
 	while (lst != NULL && lst->next != NULL && !(s->ret = 0))
 		if (ft_lenint(lst->tab, s) > ft_lenint(lst->next->tab, s))
 		{
-			!(t = ft_intdup(lst->tab, s->totalroom)) ? ft_error(s, -8) : 0;
+			if (!(t = ft_intdup(lst->tab, len)))
+				s->ret = -10;
 			free(lst->tab);
-			!(lst->tab = ft_intdup(lst->next->tab, s->totalroom))
-				? s->ret = -9 : 0;
+			s->ret != -10 && !(lst->tab = ft_intdup(lst->next->tab, len))
+				? s->ret = -10 : 0;
 			free(lst->next->tab);
-			!s->ret && !(lst->next->tab = ft_intdup(t, s->totalroom))
-				? s->ret = -9 : 0;
-			if (s->ret == -9)
-			{
-				free(t);
-				ft_error(s, -8);
-			}
+			s->ret != -10 && !(lst->next->tab = ft_intdup(t, len))
+				? s->ret = -10 : 0;
 			free(t);
+			if (s->ret == -10)
+			{
+				free(queue);
+				ft_error(s, -10);
+			}
 			lst = tmp;
 		}
 		else
@@ -102,7 +103,6 @@ t_list		*ft_create_elem_tab_way_two(t_s *s, int *tab)
 	}
 	while (++i < s->totalroom)
 		new->tab[i] = tab[i];
-	new->ttab = NULL;
 	new->next = NULL;
 	return (new);
 }

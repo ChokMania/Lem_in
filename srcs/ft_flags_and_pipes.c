@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/20 16:37:02 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/21 14:47:21 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/22 14:34:25 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ void	ft_set_flags(t_s *s)
 			return ;
 		while (s->av[i][j])
 		{
-			if (s->av[i][j] == 'c')
-				s->flag_c = 1;
-			else if (s->av[i][j] == 'm')
-				s->flag_m = 1;
-			else if (s->av[i][j] == 'n')
+			s->av[i][j] == 'c' ? s->flag_c = 1 : 0;
+			s->av[i][j] == 'h' ? s->flag_h = 1 : 0;
+			s->av[i][j] == 'm' ? s->flag_m = 1 : 0;
+			if (s->av[i][j] == 'n')
 			{
 				s->flag_n = 1;
 				if (s->av[i][j + 1] == 'n')
@@ -72,8 +71,8 @@ void	ft_set_flags(t_s *s)
 
 void	ft_apply_flag(t_s *s)
 {
-	ft_print_matrice(s);
 	!s->flag_n ? ft_putnbrll(s->nbant) : 0;
 	!s->flag_n ? ft_putchar('\n') : 0;
 	!s->flag_n ? ft_list_print_str(s->input) : 0;
+	ft_print_matrice(s);
 }

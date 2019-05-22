@@ -6,13 +6,13 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/21 14:53:08 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/22 15:40:10 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IN_H
 # define LEM_IN_H
-# include "miniprintf.h"
+# include "libft.h"
 
 typedef struct		s_room
 {
@@ -48,6 +48,7 @@ typedef struct		s_struct
 	int				flag_c;
 	int				flag_m;
 	int				flag_n;
+	int				flag_h;
 	int				flag_nn;
 	int				st_pos;
 	int				end_pos;
@@ -126,7 +127,7 @@ void		ft_clear_struct(t_s *s);
 int			ft_set_struct(t_s *s);
 
 int			*ft_intdup(int *i1, int len);
-t_list		*ft_sort_list(t_list *lst, t_s *s);
+t_list		*ft_sort_list(t_list *lst, t_s *s, int *queue, int len);
 void		ft_is_worth(t_s *s, int i);
 t_list		*ft_create_elem_tab_way_two(t_s *s, int *tab);
 int			ft_ways_push_front_two(t_s *s, t_list **begin_list, int *tab);

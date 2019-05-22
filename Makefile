@@ -1,19 +1,16 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: judumay <judumay@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/01/29 17:41:33 by mabouce           #+#    #+#              #
-#    Updated: 2019/05/21 14:48:14 by judumay          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+SHELL = sh
 
-NAME				=	lem-in
+# Executable name, can be change
+NAME = lem-in
 
+#Visual
+VISUAL				=	yes
+VISUALNUM			=	2
+
+#Compilation Modes. Default= -Wall -Wextra -Werror
 SANITIZE			=	no
-WEVERYTHING			=	no
+NOERROR				=	no
+NOFLAG				=	yes
 
 ifeq ($(SANITIZE),yes)
 	CC				=	gcc -Wall -Wextra -Werror -fsanitize=address \
@@ -24,90 +21,111 @@ else
 	CC				=	gcc -Wall -Wextra -Werror
 endif
 
-SRCS_NAME		=	lem_in.c						\
-					ft_struct.c						\
-					ft_error.c						\
-					ft_is.c							\
-					ft_room.c						\
-					ft_matrice.c					\
-					ft_print_matrice.c				\
-					ft_flags_and_pipes.c						\
-					ft_set_paths.c					\
-					ft_print_path.c					\
-					ft_utils.c						\
-					ft_utils2.c						\
-					ft_utils3.c						\
-					ft_help_main.c					\
-					ft_help_print_path.c
-
-INCLUDES_NAME		=	lem_in.h
+SRCS_NAME			=	lem_in.c					\
+						ft_struct.c						\
+						ft_error.c						\
+						ft_is.c							\
+						ft_room.c						\
+						ft_matrice.c					\
+						ft_print_matrice.c				\
+						ft_flags_and_pipes.c			\
+						ft_set_paths.c					\
+						ft_print_path.c					\
+						ft_utils.c						\
+						ft_utils2.c						\
+						ft_utils3.c						\
+						ft_help_main.c					\
+						ft_help_print_path.c
 
 SRCS_PATH			=	./srcs/
 INCLUDES_PATH		=	./includes/
 
 OBJS_PATH 			=	./objs/
 
-MINIPRINTF			=	./miniprintf/
-LIBFTINCLUDES			=	./libft/includes/
-MINIPRINTFINCLUDES		=	./miniprintf/includes/
+LIBFT				=	./libft/
+LIBFTINCLUDES		=	./libft/includes/
+
+INCLUDES_NAME		=	lem_in.h
 INCLUDES  			=	$(addprefix $(INCLUDES_PATH), $(INCLUDES_NAME))
 
 SRCS				=	$(addprefix $(SRCS_PATH), $(SRCS_NAME))
 
-OBJS			=	$(patsubst $(SRCS_PATH)%.c, $(OBJS_PATH)%.o, $(SRCS))
+OBJS				=	$(patsubst $(SRCS_PATH)%.c, $(OBJS_PATH)%.o, $(SRCS))
 
-.PHONY				:	all lib clean fclean re
+.PHONY				:	all lib clean fclean re libft
 
-_UNDER=$'\x1b[4m$'
-_GREEN=$'\x1b[32m$'
-_YELLOW=$'\x1b[33m$'
-_WHITE=$'\x1b[37m$'
-_END=$'\x1b[0m$'
-_BOLD=$'\x1b[1m$'
+# Text format
+_DEF = $'\033[0m
+_END = $'\033[0m
+_GRAS = $'\033[1m
+_SOUL = $'\033[4m
+_CLIG = $'\033[5m
+_SURL = $'\033[7m
 
-all: $(NAME)
+# Colors
+_BLACK = $'\033[30m
+_RED = $'\033[31m
+_GREEN = $'\033[32m
+_YELLOW = $'\033[33m
+_BLUE = $'\033[34m
+_PURPLE = $'\033[35m
+_CYAN = $'\033[36m
+_GREY = $'\033[37m
 
-lib : 
-	@make -sC $(MINIPRINTF) -j 100
+# Background
+_IBLACK = $'\033[40m
+_IRED = $'\033[41m
+_IGREEN = $'\033[42m
+_IYELLOW = $'\033[43m
+_IBLUE = $'\033[44m
+_IPURPLE = $'\033[45m
+_ICYAN = $'\033[46m
+_IGREY = $'\033[47m
 
+all: libft $(NAME)
 
-$(NAME): lib $(OBJS) $(INCLUDES)
-	@echo "\n\n"
+libft: 
+	@make -C $(LIBFT) -j 100
+
+$(NAME): $(INCLUDES) $(OBJS) 
 	@echo "$(_WHITE)====================================================$(_END)"
-	@echo "$(_YELLOW)		COMPILING MINIPRINTF$(_END)"
+	@echo "$(_YELLOW)		COMPILING $(NAME)$(_END)"
 	@echo "$(_WHITE)====================================================$(_END)"
-	@echo "\n\n"
-	@cp $(MINIPRINTF)/libftminiprintf.a .
-	@echo "$(_WHITE)====================================================$(_END)"
-	@echo "$(_YELLOW)		COMPILING LEM_IN$(_END)"
-	@echo "$(_WHITE)====================================================$(_END)"
-	@$(CC) -o $(NAME) $(OBJS) libftminiprintf.a
+	@cp $(LIBFT)/libft.a .
+	@$(CC) -o $(NAME) $(OBJS) libft.a
 	@echo "\n$(_WHITE)$(_BOLD)$@\t$(_END)$(_GREEN)[OK]\n$(_END)"
 ifeq ($(SANITIZE),yes)
 	@echo "Génération en mode sanitize"
-else ifeq ($(WEVERYTHING),yes)
-	@echo "Génération en mode weverything"
+else ifeq ($(NOERROR),yes)
+	@echo "Génération en mode noerror"
+else ifeq ($(NOFLAG),yes)
+	@echo "Génération en mode noflag"
 else
 	@echo "Génération en mode release"
 endif
 
-clean:
-	@echo "$(_RED)"
-	rm -rf $(OBJS)
-	make clean -C $(MINIPRINTF)
-	rm -rf ./objs
+clean: 
+	@rm -rf $(OBJS_PATH) 2> /dev/null || true
+ifeq ($(shell [[ $(VISUAL) == yes && $(VISUALNUM) == 2 ]] && echo true ), true)
+	@echo "$(_YELLOW)Remove :\t$(_RED)" $(LDFLAGS)./objs/"$(_END)"
+endif
+	@make -C $(LIBFT) clean
 
-fclean:	clean
-	@echo "$(_YELLOW)"
-	rm -f $(NAME)
-	rm -f libftminiprintf.a
-	make fclean -C $(MINIPRINTF)
+fclean: clean
+	@rm -f $(NAME) 
+	@rm -f libft.a
+	@rm -f ./libft/libft.a
+ifeq ($(shell [[ $(VISUAL) == yes && $(VISUALNUM) == 2 ]] && echo true ), true)
+	@echo "$(_YELLOW)Remove :\t$(_RED)" $(LDFLAGS)$(NAME)
+	@echo "$(_YELLOW)Remove :\t$(_RED)" libft.a"$(_END)"
+	@echo "$(_YELLOW)Remove :\t$(_RED)" ./libft/libft.a"$(_END)"
+endif
 
 re:	fclean all
 
 $(OBJS_PATH)%.o: $(SRCS_PATH)%.c $(INCLUDES)
 	@mkdir -p ./objs/
-	@$(CC) -I $(MINIPRINTFINCLUDES) -I $(LIBFTINCLUDES) \
+	@$(CC) -I $(INCLUDES) -I $(LIBFTINCLUDES) \
 		-I $(INCLUDES_PATH) -c $< -o $@
 	@echo "$(_END)$(_GREEN)[OK]\t$(_UNDER)$(_YELLOW)	\
 		COMPILE :$(_END)$(_BOLD)$(_WHITE)\t$<"
