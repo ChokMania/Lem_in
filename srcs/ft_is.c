@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/15 15:56:28 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/24 14:35:04 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/24 15:47:57 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,14 @@ int		ft_is_command(t_s *s)
 	{
 		if (s->commandstart != 0)
 			return (-1);
+		s->stset = 1;
 		s->commandstart = 1;
 	}
 	if (ft_strequ(str, "end"))
 	{
 		if (s->commandend != 0)
 			return (-1);
+		s->eset = 1;
 		s->commandend = 1;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 09:41:37 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/24 14:38:56 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/24 15:35:01 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct		s_struct
 	int				commandstart;
 	int				commandend;
 	int				startset;
+	int				stset;
+	int				eset;
 	int				endset;
 	int				settingpipe;
 	int				oneroomisset;

@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/10 14:41:24 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/24 14:35:04 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/24 15:54:48 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,16 @@ int			main(int ac, char **av)
 	s->ac = ac;
 	s->flag_nn = 0;
 	s->flag_h = 0;
+	s->stset = 0;
+	s->eset = 0;
 	ft_set_struct(s);
 	ft_set_flags(s);
 	s->flag_h == 1 ? ft_usage(s) : 0;
 	if ((ret = ft_read_input(s)) < 1 || !s->onepipeisset || !s->oneroomisset)
+	{
+		ret = ret != -2 && (!s->onepipeisset || !s->oneroomisset) ? -3 : ret;
 		ft_error(s, ret);
+	}
 	if ((ret = ft_set_matrice_laplacienne(s)) < 1)
 		ft_error(s, ret);
 	ft_calcul_nb_pipes(s);
