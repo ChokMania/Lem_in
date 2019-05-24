@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:19:40 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/22 15:18:22 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/24 12:16:00 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,21 @@ int			*ft_intdup(int *i1, int len)
 	return (i2);
 }
 
-t_list		*ft_sort_list(t_list *lst, t_s *s, int *queue, int len)
+t_list		*ft_sort_list(t_list *lst, t_s *s, int *queue, t_list *tmp)
 {
-	t_list	*tmp;
 	int		*t;
 
 	tmp = lst;
 	while (lst != NULL && lst->next != NULL && !(s->ret = 0))
-		if (ft_lenint(lst->tab, s) > ft_lenint(lst->next->tab, s))
+		if (ft_li(lst->tab, s) > ft_li(lst->next->tab, s))
 		{
-			if (!(t = ft_intdup(lst->tab, len)))
+			if (!(t = ft_intdup(lst->tab, s->ttroom)))
 				s->ret = -10;
 			free(lst->tab);
-			s->ret != -10 && !(lst->tab = ft_intdup(lst->next->tab, len))
+			s->ret != -10 && !(lst->tab = ft_intdup(lst->next->tab, s->ttroom))
 				? s->ret = -10 : 0;
 			free(lst->next->tab);
-			s->ret != -10 && !(lst->next->tab = ft_intdup(t, len))
+			s->ret != -10 && !(lst->next->tab = ft_intdup(t, s->ttroom))
 				? s->ret = -10 : 0;
 			free(t);
 			if (s->ret == -10)
@@ -67,7 +66,7 @@ void		ft_is_worth(t_s *s, int i)
 	total = 0;
 	while (beg && !(i = 0))
 	{
-		while (beg->tab[i] != -5 && i < s->totalroom)
+		while (beg->tab[i] != -5 && i < s->ttroom)
 			i++;
 		total += i - 1;
 		beg = beg->next;
@@ -96,12 +95,12 @@ t_list		*ft_create_elem_tab_way_two(t_s *s, int *tab)
 	if (!(new = (t_list*)malloc(sizeof(t_list))))
 		return (NULL);
 	new->tab = NULL;
-	if (!(new->tab = (int*)malloc(sizeof(int) * s->totalroom)))
+	if (!(new->tab = (int*)malloc(sizeof(int) * s->ttroom)))
 	{
 		free(new);
 		return (NULL);
 	}
-	while (++i < s->totalroom)
+	while (++i < s->ttroom)
 		new->tab[i] = tab[i];
 	new->next = NULL;
 	return (new);

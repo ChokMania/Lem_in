@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/18 09:41:37 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/22 16:13:23 by judumay          ###   ########.fr       */
+/*   Created: 2019/04/18 09:41:37 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/24 14:38:56 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct		s_struct
 	int				*tab;
 	int				*tb;
 	int				max_weight;
-	long long		totalroom;
+	long long		ttroom;
 	int				bfs_first;
 
 	int				**matrice;
@@ -77,6 +77,7 @@ typedef struct		s_struct
 	t_list			*ways;
 	t_list			*finalways;
 	t_list			*first;
+	t_list			*tmp;
 	t_room			*room;
 }					t_s;
 
@@ -88,7 +89,7 @@ int					ft_push_pipe(t_s *s);
 void				ft_set_flags(t_s *s);
 void				ft_apply_flag(t_s *s);
 
-int					ft_lenint(int *tab, t_s *s);
+int					ft_li(int *tab, t_s *s);
 void				ft_calcul_nb_pipes(t_s *s);
 int					ft_detect_room_or_pipe(t_s *s);
 int					ft_detect_line_type(t_s *s);
@@ -128,7 +129,7 @@ void				ft_clear_struct(t_s *s);
 int					ft_set_struct(t_s *s);
 
 int					*ft_intdup(int *i1, int len);
-t_list				*ft_sort_list(t_list *lst, t_s *s, int *queue, int len);
+t_list				*ft_sort_list(t_list *lst, t_s *s, int *queue, t_list *tmp);
 void				ft_is_worth(t_s *s, int i);
 t_list				*ft_create_elem_tab_way_two(t_s *s, int *tab);
 int					ft_ways_push_front_two(t_s *s, t_list **begin_list
@@ -140,7 +141,6 @@ void				ft_clean_tab(int *tab, int len);
 void				ft_push_or_not(t_s *s, int *queue, int i, int start);
 int					ft_conflict(t_s *s, int i);
 
-void				ft_print_ways(t_s *s, t_list *way);
 int					ft_algo(t_s *s);
 int					ft_set_maxway(t_s *s);
 

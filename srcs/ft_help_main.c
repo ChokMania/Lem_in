@@ -6,18 +6,18 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 15:52:25 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/09 08:36:47 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/24 12:14:43 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		ft_lenint(int *tab, t_s *s)
+int		ft_li(int *tab, t_s *s)
 {
 	int		i;
 
 	i = 0;
-	while (tab[i] != -5 && i != s->totalroom)
+	while (tab[i] != -5 && i != s->ttroom)
 		i++;
 	return (i);
 }
@@ -28,7 +28,7 @@ void	ft_calcul_nb_pipes(t_s *s)
 
 	i = -1;
 	s->liaisons = 0;
-	while (++i < s->totalroom)
+	while (++i < s->ttroom)
 		s->liaisons += s->matrice[i][i];
 }
 

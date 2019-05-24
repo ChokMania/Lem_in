@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 14:41:24 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/22 15:19:30 by judumay          ###   ########.fr       */
+/*   Created: 2019/04/10 14:41:24 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/24 14:35:04 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ static void	ft_main_algo_one(t_s *s)
 	}
 	else
 		miniprintf("ERROR\n");
-	ft_inttabdel(&s->matrice, s->totalroom);
-	ft_inttabdel(&s->weight, s->totalroom);
+	ft_inttabdel(&s->matrice, s->ttroom);
+	ft_inttabdel(&s->weight, s->ttroom);
 	ft_strtabdel(&s->namematrice);
 	get_next_line(0, NULL);
 	ft_list_clear_tab(&s->ways);

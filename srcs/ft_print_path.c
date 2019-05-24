@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/26 11:51:01 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/22 14:34:46 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/24 12:14:44 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ static int		ft_print_path_while_malloc(t_s *s, t_list *beg, int **tab)
 	while (++s->i < s->maxway)
 	{
 		s->j = -1;
-		if (!(s->ants_in_way[s->i] = (int*)malloc(sizeof(int) * s->totalroom)))
+		if (!(s->ants_in_way[s->i] = (int*)malloc(sizeof(int) * s->ttroom)))
 			return (-11);
 		if (!(tab[s->i] = (int*)malloc(sizeof(int) * 3)))
 			return (-11);
-		while (++s->j < s->totalroom)
+		while (++s->j < s->ttroom)
 			s->ants_in_way[s->i][s->j] = -5;
-		tab[s->i][0] = ft_lenint(beg->tab, s);
+		tab[s->i][0] = ft_li(beg->tab, s);
 		tab[s->i][1] = 0;
 		beg = beg->next;
 	}

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_list_find.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mabouce <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/19 13:46:26 by mabouce           #+#    #+#             */
-/*   Updated: 2018/07/20 11:39:12 by mabouce          ###   ########.fr       */
+/*   Created: 2018/07/19 13:46:26 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/24 14:40:32 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_list.h"
+#include "libft.h"
 
 t_list	*ft_list_find(t_list *begin_list, void *data_ref, int (*cmp)())
 {

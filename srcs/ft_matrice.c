@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/17 15:05:18 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/16 14:55:24 by judumay          ###   ########.fr       */
+/*   Created: 2019/04/17 15:05:18 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/24 14:35:04 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int			ft_set_matrice_laplacienne(t_s *s)
 		s->i++;
 	}
 	s->i = -1;
-	while (++s->i < s->totalroom && (s->j = -1))
+	while (++s->i < s->ttroom && (s->j = -1))
 	{
 		s->k = 0;
-		while (++s->j < s->totalroom)
+		while (++s->j < s->ttroom)
 			if (s->matrice[s->i][s->j] == 1)
 				s->k++;
 		s->matrice[s->i][s->i] = s->k;
@@ -70,7 +70,7 @@ int			ft_create_name_matrice(t_s *s)
 
 	beg = s->room;
 	if (!(s->namematrice = (char **)malloc(sizeof(char *)
-				* (s->totalroom + 1))))
+				* (s->ttroom + 1))))
 		return (-5);
 	s->i = -1;
 	while (beg)
@@ -102,19 +102,19 @@ int			ft_matrice(t_s *s, char *name1, char *name2)
 {
 	if (s->settingpipe == 0 && (s->settingpipe = 1))
 	{
-		s->totalroom = ft_total_room(s->room);
+		s->ttroom = ft_total_room(s->room);
 		s->i = -1;
-		if (!(s->matrice = (int **)malloc(sizeof(int *) * (s->totalroom + 1))))
+		if (!(s->matrice = (int **)malloc(sizeof(int *) * (s->ttroom + 1))))
 			return (-3);
-		if (!(s->weight = (int **)malloc(sizeof(int *) * (s->totalroom + 1))))
+		if (!(s->weight = (int **)malloc(sizeof(int *) * (s->ttroom + 1))))
 			return (-4);
-		while (++s->i < s->totalroom && (s->j = -1))
+		while (++s->i < s->ttroom && (s->j = -1))
 		{
-			if (!(s->matrice[s->i] = (int *)malloc(sizeof(int) * s->totalroom)))
+			if (!(s->matrice[s->i] = (int *)malloc(sizeof(int) * s->ttroom)))
 				return (-5);
-			if (!(s->weight[s->i] = (int *)malloc(sizeof(int) * s->totalroom)))
+			if (!(s->weight[s->i] = (int *)malloc(sizeof(int) * s->ttroom)))
 				return (-5);
-			while (++(s->j) < s->totalroom && (s->matrice[s->i][s->j] = -5))
+			while (++(s->j) < s->ttroom && (s->matrice[s->i][s->j] = -5))
 				s->weight[s->i][s->j] = -5;
 		}
 		if ((s->ret = ft_create_name_matrice(s)) < 0)

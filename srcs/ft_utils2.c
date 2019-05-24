@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:21:29 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/22 14:31:09 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/24 14:01:42 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_push_or_not(t_s *s, int *queue, int i, int start)
 	int l;
 
 	l = s->weight[s->end_pos][0];
-	i == -4 ? queue[++l] = start : 0;
+	i == -4 ? queue[0] = start : 0;
 	i == -4 ? i = -1 : 0;
 	while (i != -1)
 	{
@@ -76,7 +76,7 @@ void	ft_push_or_not(t_s *s, int *queue, int i, int start)
 		free(queue);
 		ft_error(s, -10);
 	}
-	ft_clean_tab(queue, s->totalroom);
+	ft_clean_tab(queue, s->ttroom);
 }
 
 int		ft_conflict(t_s *s, int i)

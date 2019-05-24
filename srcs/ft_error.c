@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 15:28:05 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/22 15:22:22 by judumay          ###   ########.fr       */
+/*   Created: 2019/04/10 15:28:05 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/24 14:35:04 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ void		ft_error(t_s *s, int error)
 	{
 		get_next_line(0, NULL);
 		if (error <= -4)
-			ft_inttabdel(&s->matrice, s->totalroom);
+			ft_inttabdel(&s->matrice, s->ttroom);
 		if (error <= -5)
-			ft_inttabdel(&s->weight, s->totalroom);
+			ft_inttabdel(&s->weight, s->ttroom);
 		if (error <= -6)
 			ft_strtabdel(&s->namematrice);
 		ft_error_one(s, error);

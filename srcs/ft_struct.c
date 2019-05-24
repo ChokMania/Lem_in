@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/10 15:25:03 by mabouce           #+#    #+#             */
-/*   Updated: 2019/05/22 15:49:40 by judumay          ###   ########.fr       */
+/*   Created: 2019/04/10 15:25:03 by judumay           #+#    #+#             */
+/*   Updated: 2019/05/24 14:35:04 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_clear_struct(t_s *s)
 
 int		ft_set_struct(t_s *s)
 {
+	s->tmp = NULL;
 	s->room = NULL;
 	s->ways = NULL;
 	s->finalways = NULL;
