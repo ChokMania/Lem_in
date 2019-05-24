@@ -6,7 +6,7 @@
 /*   By: judumay <judumay@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/07 15:52:25 by judumay           #+#    #+#             */
-/*   Updated: 2019/05/24 15:51:05 by judumay          ###   ########.fr       */
+/*   Updated: 2019/05/24 15:58:11 by judumay          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int		ft_detect_room_or_pipe(t_s *s)
 
 int		ft_detect_line_type(t_s *s)
 {
-	if (s->stset == 1 && s->str[0] == '#')
+	if (s->stset == 1 && s->str[0] == '#' && s->str[1] == '#')
 		return (-2);
 	else
 		s->stset = 0;
-	if (s->eset == 1 && s->str[0] == '#')
+	if (s->eset == 1 && s->str[0] == '#' && s->str[1] == '#')
 		return (-2);
 	else
 		s->eset = 0;
